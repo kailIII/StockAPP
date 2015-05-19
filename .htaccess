@@ -1,0 +1,10 @@
+# Copyright (C) 2015 Qualtiva <http://www.qualtivacr.com>
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# PHP redirect if any.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L,QSA]
