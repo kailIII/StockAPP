@@ -1,6 +1,6 @@
-<?php
+<?php if (!isset($_SESSION)) session_start();
 /**
-* Copyright (C) 2015 Qualtiva WebApp <http://www.qualtivacr.com>
+* Copyright (C) 2015 StockAPP <http://www.qualtivacr.com>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -17,17 +17,16 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-
 /**
  |-------------------------------------------
  |	CONFIGURACION BASE DE DATOS
  |-------------------------------------------
  */
 define('HOST',		'127.0.0.1');
-define('USER',		'root');
-define('PASSWORD',	'marlene92');
+define('USER',		'Tu Usuario');
+define('PASSWORD',	'Tu Clave');
 define('PORT',		'3306');
-define('DB',		'prueba');
+define('DB',		'Tu Base de Datos');
 
 /**
  |-------------------------------------------
@@ -38,22 +37,21 @@ define('LANGUAGE',	'es');
 
 /**
  |-------------------------------------------
- |	CONFIGURACION DIRECCIONES
+ |	Datos de la Aplicación
  |-------------------------------------------
  */
 define('TITULO',	'StockAPP');
+
+/**
+ |-------------------------------------------
+ |	CONFIGURACION DIRECCIONES
+ |-------------------------------------------
+ */
 define('URLBASE', 'http://localhost/');
-define('URLAUTOR','http://localhost/');
-define('DEVELOPMENT_ENVIRONMENT', false);
-define('DS', DIRECTORY_SEPARATOR);
-define('ESTATICO', URLBASE.'estatico/');
-define('__ROOT__', dirname(dirname(__FILE__)));
-define('SISTEMA', __ROOT__.DS.'sistema'.DS.'');
-define('MODULO', SISTEMA.DS.'modulo'.DS.'');
 
 /**
  |--------------------------------------------
  | CARGA NUCLEO DE LA APLICACION
  |--------------------------------------------
  */
-require_once (SISTEMA.'Qualtiva.php');
+require_once ('Qualtiva.php');

@@ -16,55 +16,7 @@
 		<![endif]-->
 	</head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a href="<?php echo URLBASE ?>" class="navbar-brand"><img src="<?php echo ESTATICO ?>img/stocklogo.png" width="30px"/></a><a href="<?php echo URLBASE ?>" class="navbar-brand">StockAPP &copy;</a>
-				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="navbar-collapse collapse" id="navbar-main">
-				<ul class="nav navbar-nav">
-					<li>
-						<a href="#">Facturar</a>
-					</li>
-					<li>
-						<a href="#">Inventario</a>
-					</li>
-					<li>
-						<a href="#">Productos</a>
-					</li>
-				</ul>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Buscar...">
-					</div>
-					<button type="submit" class="btn btn-default">Buscar</button>
-				</form>
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href="<?php echo URLBASE ?>admin">Administraci&oacute;n</a>
-					</li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Cuenta <span class="caret"></span></a>
-						<ul class="dropdown-menu" aria-labelledby="themes">
-							<li>
-								<a href="#">Ajustes de usuario</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="#">Cerrar Sesi&oacute;n</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-    </div>
-
+	<?php include (MODULO.'menu.php'); ?>
     <div class="container">
 
 		<div class="page-header" id="banner">
@@ -86,9 +38,12 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li class="active">
-					<a href="#empleadoTodo" data-toggle="tab">Todos los empleados</a></li>
+						<a href="#empleadoTodo" data-toggle="tab">Todos los empleados</a>
+					</li>
                     <li class="divider"></li>
-                    <li><a href="#empleadoNuevo" data-toggle="tab">Nuevo Empleado</a></li>
+                    <li>
+						<a href="#empleadoNuevo" data-toggle="tab">Nuevo Empleado</a>
+					</li>
                   </ul>
                 </li>
                 <li class="dropdown">
@@ -114,23 +69,23 @@
               </ul>
               <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade active in" id="empleadoTodo">
-                  <p>Rssaw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-                </div>
-                <div class="tab-pane fade active in" id="empleadoNuevo">
-                  <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-                </div>
+                  <p>Texto 1</p>
+				 </div>
+                <div class="tab-pane fade in" id="empleadoNuevo">
+                  <p>Texto 2</p>
+				 </div>
                 <div class="tab-pane fade" id="clienteTodo">
-                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
-                </div>
+                  <p>Texto 1</p>
+				 </div>
                 <div class="tab-pane fade" id="clienteNuevo">
-                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
-                </div>
+                  <p>Texto 2</p>
+				 </div>
                 <div class="tab-pane fade" id="dropdown1">
-                  <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
-                </div>
+                 <p>Texto 1</p>
+				 </div>
                 <div class="tab-pane fade" id="dropdown2">
-                  <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
-                </div>
+                  <p>Texto 2</p>
+				 </div>
               </div>
             </div>
           </div>

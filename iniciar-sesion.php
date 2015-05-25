@@ -1,4 +1,7 @@
-<?php include ('sistema/configuracion.php'); ?>
+<?php
+include ('sistema/configuracion.php');
+$usuario->LoginUsuario();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,23 +34,25 @@
 				</ul>
 				<p></p>
 				<div id="myTabContent" class="tab-content">
+					<!-- Iniciar Sesion -->
 					<div class="tab-pane fade active in" id="iniciar-sesion">
 						<form id="iniciar-sesion" action="" method="post" role="form" style="display: block;">
 							<div class="form-group">
-								<input type="text" name="usuario" id="usuario" tabindex="1" class="form-control" placeholder="Usuario" value="">
+								<input type="text" name="usuarioPost" id="usuarioPost" tabindex="1" class="form-control" placeholder="Usuario" autocomplete="off" required />
 							</div>
 							<div class="form-group">
-								<input type="password" name="contrasena" id="contrasena" tabindex="2" class="form-control" placeholder="Contrase&ntilde;a">
+								<input type="password" name="contrasenaPost" id="contrasenaPost" tabindex="2" class="form-control" placeholder="Contrase&ntilde;a" autocomplete="off" required />
 							</div>
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-6 col-sm-offset-3">
-										<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-primary" value="Iniciar Sesi&oacute;n">
+										<input type="submit" name="sesionPost" id="sesion" tabindex="4" class="btn btn-primary" value="Iniciar Sesi&oacute;n">
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
+					<!-- Iniciar Sesion Fin -->
 					<div class="tab-pane fade" id="recuperar-contrasena">
 						<form id="recuperar-contrasena" action="" method="post" role="form">
 							<div class="form-group">

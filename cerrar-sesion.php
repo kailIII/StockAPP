@@ -28,9 +28,17 @@ $usuario->VerificacionCuenta();
 			<div class="row">
 				<div class="col-lg-8 col-md-7 col-sm-6">
 					<h1>StockAPP</h1>
-					<p class="lead">Desarrollo para aplicaciones web usuario: <?php echo $usuarioApp['nombre'].' '.$usuarioApp['apellido1'].'<br/>'.session_id(); ?></p>
+					<p class="lead">Desarrollo para aplicaciones web</p>
+					<?php $usuario->CierreSesion(); ?>
 				</div>
 			</div>
+				<div class="row">
+				  <div class="col-lg-12">
+					<div class="bs-component">
+						<p class="lead">Cerrando Sesi&oacute;n</p>
+					</div>
+				  </div>
+				</div>
 		</div>
 
 	<?php include (MODULO.'footer.php'); ?>
