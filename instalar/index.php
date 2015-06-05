@@ -58,7 +58,7 @@ include('config.php');
 
                 <p class="uk-text-large sombra">Bienvenido a <?php echo $title ?>,<br class="uk-hidden-small"> el gestor de contenido para tu empresa.</p>
 
-                <a href="step-2" class="uk-button tm-button-download"><i class="fa fa-check-circle-o"></i> Instala Ahora</a>
+                <a href="step-2" class="uk-button tm-button-download"><i class="fa fa-check-circle-o"></i> Instalar Ahora</a>
                 <a href="https://google.com/" class="uk-button tm-button-download"> No, Gracias</a>
 
                 <ul class="tm-subnav uk-subnav">

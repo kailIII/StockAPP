@@ -659,7 +659,7 @@ CREATE TABLE `empleado` (
   `email` VARCHAR(50) DEFAULT NULL COMMENT 'Dirección de correo electrónico de la persona',
   `id_usuario` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Usuario(1:1). Relaciona un usuario específico con un empleado en una relación uno a uno.',
   `avatar` BINARY(255) DEFAULT NULL COMMENT 'Imagen o fotografía del empleado',
-  `habilitado` TINYINT(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `habilitado` TINYINT(1) DEFAULT '1' NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 

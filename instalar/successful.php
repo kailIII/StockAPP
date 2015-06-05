@@ -85,7 +85,7 @@ include('config.php');
 								. mysqli_connect_error());
 					}
 					
-					@$sql = file_get_contents('../Sql/StockAPP.sql');
+					@$sql = file_get_contents('Sql/StockAPP.sql');
 					if (!$sql){
 						exit ('<div class="uk-alert uk-alert-danger">Vaya, algo sali&oacute; mal, no fue posible abrir el archivo SQL!</div>');
 					}

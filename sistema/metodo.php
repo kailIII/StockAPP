@@ -17,17 +17,36 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-/**
- *  Mysqli Num Row function
- */
+/*
+|--------------------------------------------------------------------------------------|
+| Instalación StockApp
+|--------------------------------------------------------------------------------------|
+*/
+function Instalar(){
+	// Requiere la Instacion del sistema
+	if(file_exists("instalar"))
+	{
+		header("Location: instalar");
+		die();
+	}
+}
+Instalar();
+
+/*
+|--------------------------------------------------------------------------------------|
+| Mysqli Num Row function
+|--------------------------------------------------------------------------------------|
+*/
 function MysqliNumRowsStock($resultado){
 	$numRows = $resultado->num_rows;
 	return $numRows==1; 
 }
 
-/**
- *  Mysqli result function
- */
+/*
+|--------------------------------------------------------------------------------------|
+| Mysqli result function
+|--------------------------------------------------------------------------------------|
+*/
 function MysqliResultStock($res,$row=0,$col=0){
     $numrows = MysqliNumRowsStock($res);
     if ($numrows && $row <= ($numrows-1) && $row >=0){
@@ -38,4 +57,13 @@ function MysqliResultStock($res,$row=0,$col=0){
         }
     }
     return false;
+}
+
+/*
+|--------------------------------------------------------------------------------------|
+| Menu de la aplicación StockApp
+|--------------------------------------------------------------------------------------|
+*/
+function Menu(){
+	include (MODULO.'menu.php');
 }

@@ -43,13 +43,6 @@ ini_set('session.cookie_httponly', 1);
 // Utilizar únicamente cookies para la propagación del identificador de sesión.
 ini_set('session.use_only_cookies', 1);
 
-// Requiere la Instacion del sistema
-if(file_exists("instalar"))
-{
-	header("Location: instalar");
-	die();
-}
-
 //Directorios Importantes NO EDITAR DE AQUI EN ADELANTE
 require_once (SISTEMA.'metodo.php');
 require_once (SISTEMA.'clase.php');

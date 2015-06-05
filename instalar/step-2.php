@@ -89,30 +89,32 @@ $mysqlVersion = $match[0];
 					
 				
 					<a href="step-3" class="uk-button uk-button-large uk-button-primary"><i class="fa fa-check-circle-o"></i> Instalar Ahora</a>
-					<br>
-					<br>
-					<br>
-					<br>
-					<div class="uk-container uk-container-center uk-text-center">
-
-						<ul class="uk-subnav uk-subnav-line">
-							<li><a href="https://github.com/FlameNET/">GitHub</a></li>
-							<li><a href="https://github.com/FlameNET/FlameCMS/issues">Issues</a></li>
-							<li><a href="https://github.com/FlameNET/FlameCMS/blob/master/CHANGELOG.md">Changelog</a></li>
-							<li><a href="https://twitter.com/FlameCMS">Twitter</a></li>
-						</ul>
-
-						<div class="uk-panel">
-							<p>Made by <a href="http://flamenet.github.io/FlameCMS/">FlameNET</a> with love and caffeine.<br class="uk-hidden-small">Licensed under <a href="https://github.com/FlameNET/FlameCMS/blob/master/COPYING">GNU license</a>.</p>
-							<a href="http://flamenet.github.io/FlameCMS/">
-							</a>
-						</div>
-
-					</div>
 
 				</div>
             </div>
         </div>
+        <div class="tm-section uk-overflow-container">
+            <div class="uk-container uk-container-center uk-text-center">
+
+				<div class="uk-overflow-container">
+
+					<ul class="uk-subnav uk-subnav-line">
+						<li><a href="#">GitHub</a></li>
+						<li><a href="#">Issues</a></li>
+						<li><a href="#">Cambios</a></li>
+						<li><a href="#">Twitter</a></li>
+					</ul>
+
+					<div class="uk-panel">
+						<p>Hecho por  <a href="<?php echo $linkAuthor; ?>"><?php echo $author;?></a> con amor y cafeína.<br class="uk-hidden-small">Bajo Licencia <a href="#">GNU license</a>.</p>
+						<a href="<?php echo $linkAuthor; ?>">
+						</a>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
 
         <div id="tm-offcanvas" class="uk-offcanvas">
 
@@ -120,7 +122,7 @@ $mysqlVersion = $match[0];
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{ multiple: true }">
                     <li><a href="<?php echo $baseUrl ?>"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="https://github.com/FlameNET/FlameCMS"><i class="fa fa-github"></i> Github</a></li>
+                    <li><a href="#"><i class="fa fa-github"></i> Github</a></li>
                     <li><a href="docs"><i class="fa fa-file-code-o"></i> Documentation</a></li>
                     <li><a href="contact"><i class="fa fa-envelope"></i> Contact</a></li>
                 </ul>
