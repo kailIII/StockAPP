@@ -57,14 +57,6 @@ class Usuario extends Conexion {
 			exit();
 		}
 
-		// Rol de usuario mayor a 1 para iniciar sesion
-		if($usuarioApp['rol'] < 1){
-			die('<center>
-					<h2>&iquest;Que haces aqu&iacute;?</h2>
-				</center>');
-			header("Location: ".URLBASE."iniciar-sesion");
-		}
-
 		// Regenerar los identificadores de sesión para sesiones nuevas
 		if (isset($_SESSION['mark']) === false)
 		{
