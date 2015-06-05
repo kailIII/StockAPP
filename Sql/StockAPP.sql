@@ -18,13 +18,13 @@ MySQL - 5.6.24 : Database - stockapp
 DROP TABLE IF EXISTS `canton`;
 
 CREATE TABLE `canton` (
-  `id` smallint(5) unsigned NOT NULL,
-  `id_provincia` smallint(5) unsigned NOT NULL,
-  `canton` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `id` SMALLINT(5) UNSIGNED NOT NULL,
+  `id_provincia` SMALLINT(5) UNSIGNED NOT NULL,
+  `canton` VARCHAR(45) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_CANTON_PROVINCIA` (`id_provincia`),
   CONSTRAINT `FK_CANTON_PROVINCIA` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 /*Data for the table `canton` */
 
@@ -120,10 +120,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `categoria`;
 
 CREATE TABLE `categoria` (
-  `id` int(9) NOT NULL AUTO_INCREMENT,
-  `categoria` varchar(80) DEFAULT NULL,
+  `id` INT(9) NOT NULL AUTO_INCREMENT,
+  `categoria` VARCHAR(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `categoria` */
 
@@ -136,16 +136,16 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `cuentas`;
 
 CREATE TABLE `cuentas` (
-  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `id_usuario` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Usuario)(1:1)',
-  `id_empleado` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Empleado)(1:1)',
-  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `id_usuario` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Usuario)(1:1)',
+  `id_empleado` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Empleado)(1:1)',
+  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`),
   KEY `FK_id_empleado` (`id_empleado`),
   KEY `FK_id_usuario` (`id_usuario`),
   CONSTRAINT `FK_id_empleado` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `cuentas` */
 
@@ -158,13 +158,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `distrito`;
 
 CREATE TABLE `distrito` (
-  `id` int(10) unsigned NOT NULL,
-  `id_canton` smallint(5) unsigned NOT NULL,
-  `distrito` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `id` INT(10) UNSIGNED NOT NULL,
+  `id_canton` SMALLINT(5) UNSIGNED NOT NULL,
+  `distrito` VARCHAR(45) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_DISTRITO_CANTON` (`id_canton`),
   CONSTRAINT `FK_DISTRITO_CANTON` FOREIGN KEY (`id_canton`) REFERENCES `canton` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 /*Data for the table `distrito` */
 
@@ -649,19 +649,19 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `empleado`;
 
 CREATE TABLE `empleado` (
-  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `cedula` varchar(12) DEFAULT NULL COMMENT 'Número de identificación de la persona en el registro civil',
-  `nombre` varchar(50) DEFAULT NULL COMMENT 'Nombre real de la persona que va a utilizar el sistema',
-  `apellido1` varchar(50) DEFAULT NULL COMMENT 'Primer apellido de la persona que va a utilizar el sistema',
-  `apellido2` varchar(50) DEFAULT NULL COMMENT 'Segundo apellido de la persona que va a utilizar el sistema',
-  `telefono` varchar(15) DEFAULT NULL COMMENT 'Número de teléfono de la persona',
-  `direccion` text COMMENT 'Dirección de la residencia de la persona',
-  `email` varchar(50) DEFAULT NULL COMMENT 'Dirección de correo electrónico de la persona',
-  `id_usuario` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Usuario(1:1). Relaciona un usuario específico con un empleado en una relación uno a uno.',
-  `avatar` binary(255) DEFAULT NULL COMMENT 'Imagen o fotografía del empleado',
-  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `cedula` VARCHAR(12) DEFAULT NULL COMMENT 'Número de identificación de la persona en el registro civil',
+  `nombre` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre real de la persona que va a utilizar el sistema',
+  `apellido1` VARCHAR(50) DEFAULT NULL COMMENT 'Primer apellido de la persona que va a utilizar el sistema',
+  `apellido2` VARCHAR(50) DEFAULT NULL COMMENT 'Segundo apellido de la persona que va a utilizar el sistema',
+  `telefono` VARCHAR(15) DEFAULT NULL COMMENT 'Número de teléfono de la persona',
+  `direccion` TEXT COMMENT 'Dirección de la residencia de la persona',
+  `email` VARCHAR(50) DEFAULT NULL COMMENT 'Dirección de correo electrónico de la persona',
+  `id_usuario` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Usuario(1:1). Relaciona un usuario específico con un empleado en una relación uno a uno.',
+  `avatar` BINARY(255) DEFAULT NULL COMMENT 'Imagen o fotografía del empleado',
+  `habilitado` TINYINT(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `empleado` */
 
@@ -674,16 +674,19 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `modulo`;
 
 CREATE TABLE `modulo` (
-  `id` int(9) NOT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `modulo` varchar(50) DEFAULT NULL COMMENT 'Nombre del Modulo/Departamento en el que se organiza el sistema en sus diferentes partes',
-  `comentario` text COMMENT 'Descripcion del Modulo/Departamento que especifica su área de accion.',
-  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `id` INT(9) NOT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `modulo` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre del Modulo/Departamento en el que se organiza el sistema en sus diferentes partes',
+  `comentario` TEXT COMMENT 'Descripcion del Modulo/Departamento que especifica su área de accion.',
+  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `modulo` */
 
 LOCK TABLES `modulo` WRITE;
+
+INSERT  INTO `modulo`(`id`,`modulo`,`comentario`,`habilitado`) VALUES
+(1,'USUARIO','Modulo Administración de Usuario',1);
 
 UNLOCK TABLES;
 
@@ -692,17 +695,22 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `perfil`;
 
 CREATE TABLE `perfil` (
-  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `perfil` varchar(50) DEFAULT NULL COMMENT 'Nombre del perfil de usuario',
-  `comentario` text COMMENT 'aclaración o comentario explicativo del tipo de perfil',
-  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK_perfil_usuario` FOREIGN KEY (`id`) REFERENCES `usuario` (`id_perfil`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `perfil` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre del perfil de usuario',
+  `comentario` TEXT COMMENT 'aclaración o comentario explicativo del tipo de perfil',
+  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `perfil` */
 
 LOCK TABLES `perfil` WRITE;
+
+INSERT  INTO `perfil`(`id`,`perfil`,`comentario`,`habilitado`) VALUES
+(1,'Administrador','',1),
+(2,'Gerente','',1),
+(3,'Cajero','',1),
+(4,'Dependiente','',1);
 
 UNLOCK TABLES;
 
@@ -711,16 +719,16 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `permisos`;
 
 CREATE TABLE `permisos` (
-  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `id_rol` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Rol)(1:N)',
-  `id_perfil` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla perfill)(1:N)',
-  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `id_rol` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Rol)(1:N)',
+  `id_perfil` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla perfill)(1:N)',
+  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`),
   KEY `FK_permisos` (`id_rol`),
   KEY `FK_permisos_usuario` (`id_perfil`),
   CONSTRAINT `FK_permisos` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_permisos_usuario` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `permisos` */
 
@@ -733,15 +741,15 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `producto`;
 
 CREATE TABLE `producto` (
-  `id` int(9) NOT NULL AUTO_INCREMENT,
-  `producto` varchar(80) DEFAULT NULL,
-  `categoria` int(6) DEFAULT NULL,
-  `stock` int(9) DEFAULT NULL,
-  `stockMin` int(9) DEFAULT NULL,
+  `id` INT(9) NOT NULL AUTO_INCREMENT,
+  `producto` VARCHAR(80) DEFAULT NULL,
+  `categoria` INT(6) DEFAULT NULL,
+  `stock` INT(9) DEFAULT NULL,
+  `stockMin` INT(9) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_producto` (`categoria`),
   CONSTRAINT `FK_producto` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `producto` */
 
@@ -754,10 +762,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `provincia`;
 
 CREATE TABLE `provincia` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `provincia` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `id` SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `provincia` VARCHAR(45) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=INNODB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `provincia` */
 
@@ -779,18 +787,24 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `rol`;
 
 CREATE TABLE `rol` (
-  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `rol` text COMMENT 'Identifica cada una de las acciones o tareas que puede hacer realizar un usuario del sistema',
-  `id_modulo` int(9) DEFAULT NULL COMMENT 'Identificador numérico de relación para cada uno de los registros de la tabla Rol con la tabla Modulo.(Llave Foránea-Tabla Departamento(1:N)',
-  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `rol` TEXT COMMENT 'Identifica cada una de las acciones o tareas que puede hacer realizar un usuario del sistema',
+  `id_modulo` INT(9) DEFAULT NULL COMMENT 'Identificador numérico de relación para cada uno de los registros de la tabla Rol con la tabla Modulo.(Llave Foránea-Tabla Departamento(1:N)',
+  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`),
   KEY `FK_rol` (`id_modulo`),
   CONSTRAINT `FK_rol` FOREIGN KEY (`id_modulo`) REFERENCES `modulo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*Data for the table `rol` */
 
 LOCK TABLES `rol` WRITE;
+
+INSERT  INTO `rol`(`id`,`rol`,`id_modulo`,`habilitado`) VALUES
+(1,'Ingresar Usuarios',1,1),
+(2,'Editar Usuarios',1,1),
+(3,'Consultar Usuarios',1,1),
+(4,'Deshabilitar Usuario',1,1);
 
 UNLOCK TABLES;
 
@@ -801,12 +815,13 @@ DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
   `usuario` varchar(50) DEFAULT NULL COMMENT 'Nombre del pseudonimo del usuario del sistema',
-  `contrasena` varchar(50) DEFAULT NULL COMMENT 'Contraseña de acceso al sistema',
+  `contrasena` varchar(40) DEFAULT NULL COMMENT 'Contraseña de acceso al sistema',
   `PIN` varchar(5) DEFAULT NULL COMMENT '\r\nPin de acceso al sistema e identificación interno del sistema para identificar operaciones de los usuarios a nivel interno de la aplicación, a la vez funciona como otro filtro de seguridad para el uso no autorizado de terceros',
   `id_perfil` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Perfil)(1:1)',
-  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `habilitado` tinyint(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`),
-  KEY `FK_usuario` (`id_perfil`)
+  KEY `FK_usuario` (`id_perfil`),
+  CONSTRAINT `FK_perfil_usuario` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `usuario` */
@@ -815,11 +830,8 @@ LOCK TABLES `usuario` WRITE;
 
 UNLOCK TABLES;
 
-/*!40000 ALTER TABLE `provincia_cr` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
