@@ -21,19 +21,19 @@ $usuario->VerificacionCuenta();
 		<![endif]-->
 	</head>
 <body>
-	<?php include (MODULO.'menu.php'); ?>
+	<?php Menu(); ?>
     <div class="container">
 
 		<div class="page-header" id="banner">
 			<div class="row">
 				<div class="col-lg-8 col-md-7 col-sm-6">
 					<h1>StockAPP</h1>
-					<p class="lead">Desarrollo para aplicaciones web usuario: <?php echo $usuarioApp['nombre'].' '.$usuarioApp['apellido1'].'<br/>'.session_id(); ?></p>
+					<p class="lead">Desarrollo para aplicaciones web usuario: <?php echo $usuarioApp['usuario'].'<br/>'.session_id(); ?></p>
 				</div>
 			</div>
 		</div>
 
-	<?php include (MODULO.'footer.php'); ?>
+	<?php PiePagina(); ?>
     </div>
     <script src="<?php echo ESTATICO ?>js/jquery-1.10.2.min.js"></script>
     <script src="<?php echo ESTATICO ?>js/bootstrap.min.js"></script>

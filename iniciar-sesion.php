@@ -75,7 +75,7 @@ $usuario->LoginUsuario();
 		</div>
 		<center>
 			<font color="#fff">
-				<?php include (MODULO.'footer.php'); ?>
+				<?php PiePagina(); ?>
 			</font>
 		</center>
 	</div>

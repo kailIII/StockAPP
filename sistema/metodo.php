@@ -67,3 +67,13 @@ function MysqliResultStock($res,$row=0,$col=0){
 function Menu(){
 	include (MODULO.'menu.php');
 }
+
+/*
+|--------------------------------------------------------------------------------------|
+| Pie de pagina de la aplicación StockApp
+|--------------------------------------------------------------------------------------|
+*/
+function PiePagina(){
+	include (MODULO.'footer.php');
+}
+

@@ -12,7 +12,7 @@
 		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="<?php echo URLBASE ?>facturar">Facturar</a>
+					<a href="<?php echo URLBASE ?>">Ventas</a>
 				</li>
 				<li>
 					<a href="#">Inventario</a>

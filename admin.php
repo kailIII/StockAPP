@@ -16,7 +16,7 @@
 		<![endif]-->
 	</head>
 <body>
-	<?php include (MODULO.'menu.php'); ?>
+	<?php Menu(); ?>
     <div class="container">
 
 		<div class="page-header" id="banner">
@@ -70,28 +70,28 @@
               <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade active in" id="empleadoTodo">
                   <p>Texto 1</p>
-				 </div>
+				</div>
                 <div class="tab-pane fade in" id="empleadoNuevo">
                   <p>Texto 2</p>
-				 </div>
+				</div>
                 <div class="tab-pane fade" id="clienteTodo">
                   <p>Texto 1</p>
-				 </div>
+				</div>
                 <div class="tab-pane fade" id="clienteNuevo">
                   <p>Texto 2</p>
-				 </div>
+				</div>
                 <div class="tab-pane fade" id="dropdown1">
                  <p>Texto 1</p>
-				 </div>
+				</div>
                 <div class="tab-pane fade" id="dropdown2">
                   <p>Texto 2</p>
-				 </div>
+				</div>
               </div>
             </div>
           </div>
         </div>
-		
-	<?php include (MODULO.'footer.php'); ?>
+
+	<?php PiePagina(); ?>
     </div>
     <script src="<?php echo ESTATICO ?>js/jquery-1.10.2.min.js"></script>
     <script src="<?php echo ESTATICO ?>js/bootstrap.min.js"></script>

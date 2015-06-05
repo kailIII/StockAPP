@@ -21,7 +21,7 @@ $usuario->VerificacionCuenta();
 		<![endif]-->
 	</head>
 <body>
-	<?php include (MODULO.'menu.php'); ?>
+	<?php Menu(); ?>
     <div class="container">
 
 		<div class="page-header" id="banner">
@@ -41,7 +41,7 @@ $usuario->VerificacionCuenta();
 				</div>
 		</div>
 
-	<?php include (MODULO.'footer.php'); ?>
+	<?php PiePagina(); ?>
     </div>
     <script src="<?php echo ESTATICO ?>js/jquery-1.10.2.min.js"></script>
     <script src="<?php echo ESTATICO ?>js/bootstrap.min.js"></script>
