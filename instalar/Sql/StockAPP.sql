@@ -669,6 +669,29 @@ LOCK TABLES `empleado` WRITE;
 
 UNLOCK TABLES;
 
+/*Table structure for table `empresa` */
+
+DROP TABLE IF EXISTS `empresa`;
+
+CREATE TABLE `empresa` (
+  `nit` VARCHAR(50) DEFAULT NULL COMMENT 'Cedula Juridica',
+  `empresa` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre de la Empresa',
+  `direccion` TEXT COMMENT 'Direción de la Empresa',
+  `ciudad` VARCHAR(50) DEFAULT NULL COMMENT 'Ciudad de la Empresa',
+  `correo` VARCHAR(50) DEFAULT NULL COMMENT 'Correo Eletronico de la Empresa',
+  `web` VARCHAR(40) DEFAULT NULL COMMENT 'Sitio Web Oficial de la Empresa',
+  `empleados` INT(9) DEFAULT NULL COMMENT 'Cantidad de Empleados de la Empresa',
+  `telefono` VARCHAR(50) DEFAULT NULL COMMENT 'Numero de Telefono de la Empresa',
+  `fax` VARCHAR(40) DEFAULT NULL COMMENT 'Numero de Fax de la Empresa',
+  `logo` BINARY(255) DEFAULT NULL COMMENT 'Logotipo Oficial de la Empresa'
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `empresa` */
+
+LOCK TABLES `empresa` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `modulo` */
 
 DROP TABLE IF EXISTS `modulo`;
