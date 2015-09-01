@@ -1,4 +1,4 @@
-# ![logo](http://www.qualtivacr.com/wp-content/uploads/2015/04/web-logo.png)
+# ![logo](https://raw.githubusercontent.com/Qualtiva/StockAPP/master/estatico/img/logo.png)
 ## Requerimientos
 
 + Platforma: Windows
