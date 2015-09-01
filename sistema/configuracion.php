@@ -24,9 +24,9 @@
  */
 define('HOST',		'127.0.0.1');
 define('USER',		'root');
-define('PASSWORD',	'marlene92');
+define('PASSWORD',	'');
 define('PORT',		'3306');
-define('DB',		'stockdev');
+define('DB',		'');
 
 /**
  |-------------------------------------------
@@ -47,7 +47,7 @@ define('TITULO',	'StockApp');
  |	CONFIGURACION DIRECCIONES
  |-------------------------------------------
  */
-define('URLBASE', 'http://localhost/stockDev/');
+define('URLBASE', '');
 define('URLNOTIFICARVENTA', '#');
 
 /**
