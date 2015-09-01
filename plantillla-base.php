@@ -5,38 +5,42 @@ $usuario->VerificacionCuenta();
 ?>
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8">
-		<title><?php echo TITULO ?></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico">
-		<link rel="stylesheet" href="<?php echo ESTATICO ?>css/bootstrap.css" media="screen">
-		<link rel="stylesheet" href="<?php echo ESTATICO ?>css/bootstrap.min.css">
-		<link rel="stylesheet" href="<?php echo ESTATICO ?>css/qualtiva.css">
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		  <script src="<?php echo ESTATICO ?>html5shiv.js"></script>
-		  <script src="<?php echo ESTATICO ?>respond.min.js"></script>
-		<![endif]-->
-	</head>
+<head>
+	<meta charset="utf-8">
+	<title><?php echo TITULO ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="shortcut icon" href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+	<?php include(MODULO.'Tema.CSS.php');?>
+</head>
 <body>
-	<?php Menu(); ?>
+	<?php
+	// Menu inicio
+	if($usuarioApp['id_perfil']==2){
+		include (MODULO.'menu_vendedor.php');
+	}elseif($usuarioApp['id_perfil']==1){
+		include (MODULO.'menu_admin.php');
+	}else{
+		echo'<meta http-equiv="refresh" content="0;url='.URLBASE.'cerrar-sesion"/>';
+	}
+	//Menu Fin
+	?>
     <div class="container">
 
 		<div class="page-header" id="banner">
 			<div class="row">
 				<div class="col-lg-8 col-md-7 col-sm-6">
-					<h1>StockAPP</h1>
+					<h1><?php echo TITULO ?></h1>
 					<p class="lead">Desarrollo para aplicaciones web</p>
 				</div>
 			</div>
 		</div>
-
-	<?php PiePagina(); ?>
+		<?php include (MODULO.'contador.php'); ?>
+	<?php include (MODULO.'footer.php'); ?>
     </div>
-    <script src="<?php echo ESTATICO ?>js/jquery-1.10.2.min.js"></script>
-    <script src="<?php echo ESTATICO ?>js/bootstrap.min.js"></script>
-    <script src="<?php echo ESTATICO ?>js/bootswatch.js"></script>
+	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
+	<?php include(MODULO.'Tema.JS.php');?>
+	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido Fin -->
 </body>
 </html>

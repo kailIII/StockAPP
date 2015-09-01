@@ -1,6 +1,6 @@
 <?php if (!isset($_SESSION)) session_start();
 /**
-* Copyright (C) 2015 StockAPP <http://www.qualtivacr.com>
+* Copyright (C) '2015' QualtivaWebAPP <http://www.qualtivacr.com>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -23,10 +23,10 @@
  |-------------------------------------------
  */
 define('HOST',		'127.0.0.1');
-define('USER',		'Tu Usuario');
-define('PASSWORD',	'Tu Clave');
+define('USER',		'root');
+define('PASSWORD',	'marlene92');
 define('PORT',		'3306');
-define('DB',		'Tu Base de Datos');
+define('DB',		'stockdev');
 
 /**
  |-------------------------------------------
@@ -40,14 +40,32 @@ define('LANGUAGE',	'es');
  |	Datos de la Aplicación
  |-------------------------------------------
  */
-define('TITULO',	'StockAPP');
-
+define('TITULO',	'StockApp');
+ 
 /**
  |-------------------------------------------
  |	CONFIGURACION DIRECCIONES
  |-------------------------------------------
  */
-define('URLBASE', 'http://localhost/');
+define('URLBASE', 'http://localhost/stockDev/');
+define('URLNOTIFICARVENTA', '#');
+
+/**
+ |-------------------------------------------
+ |	Estado Mantenimiento
+ |-------------------------------------------
+ */
+ define('MANTENIMIENTO', false);
+
+/**
+ |-------------------------------------------
+ | ESTABLECER LA ZONA HORARIA PREDETERMINADA
+ |-------------------------------------------
+ */
+define('HORARIO', 'America/Costa_Rica');
+define('LIMITEBLOQUEARDIA',		1220);
+define('LIMITEBLOQUEARNOCHE',	1840);
+define('GOOGLEANALYTICS',		'');
 
 /**
  |--------------------------------------------

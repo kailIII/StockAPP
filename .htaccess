@@ -1,4 +1,4 @@
-# Copyright (C) 2015 Qualtiva <http://www.qualtivacr.com>
+# Copyright (C) 2015 StockApp <http://qualtivacr.com>
 
 Options +FollowSymLinks
 RewriteEngine On
@@ -8,3 +8,12 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php [L,QSA]
+
+## URL AMIGABLES
+RewriteRule ^reimprimir/(.+)$ re-imprimir.php?id=$1 [QSA]
+RewriteRule ^estado-de-cuenta/(.+)/(.+)$ estadodecuenta.php?id=$1&title=$2 [QSA]
+
+<Files *.md>
+    ForceType application/octet-stream
+    Header set Content-Disposition attachment
+</Files>

@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015 StockAPP <http://www.qualtivacr.com>
+* Copyright (C) '2015' QualtivaWebAPP <http://www.qualtivacr.com>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -37,9 +37,36 @@ class Sistema extends Conexion {
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', '12345', 'auto');
+		ga('create', '".GOOGLEANALYTICS."', 'auto');
 		ga('send', 'pageview');
 		</script>";
+	}
+
+	public function EditarMoneda(){
+
+		if(isset($_POST['EditarMoneda'])){
+			$IdMoneda	= filter_var($_POST['IdMoneda'], FILTER_VALIDATE_INT);
+			$Moneda	= filter_var($_POST['moneda'], FILTER_SANITIZE_STRING);
+			$Signo	= filter_var($_POST['signo'], FILTER_SANITIZE_STRING);
+			$Valor	= filter_var($_POST['valor'], FILTER_SANITIZE_STRING);
+			$Estado	= filter_var($_POST['estado'], FILTER_VALIDATE_INT);
+			$EditarMonedaSql = $this->Conectar()->query("UPDATE `moneda` SET `moneda` = '{$Moneda}' , `signo` = '{$Signo}' , `valor` = '{$Valor}' , `habilitada` = '{$Estado}' WHERE `id` = '{$IdMoneda}'");
+			if($EditarMonedaSql == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Excelente</strong> La moneda ha sido editada con exito.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Oh no!</strong> A ocurrido un error al editar la moneda, por favor intentalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			}
+		}
 	}
 }
 ?>

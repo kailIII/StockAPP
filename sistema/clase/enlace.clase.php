@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015 StockAPP <http://www.qualtivacr.com>
+* Copyright (C) '2015' QualtivaWebAPP <http://www.qualtivacr.com>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by

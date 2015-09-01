@@ -1,0 +1,209 @@
+.logo {
+	margin: 10%
+}
+.fondo-color{
+	background-color:black;
+}
+a.logo{
+	text-decoration: none;
+}
+a:focus.logo{
+	text-decoration: none;
+}a:hover{
+	text-decoration: none;
+}
+/* Menu Estilo Personalizado */
+.navbar-brand {
+  margin-top: -14px;
+}
+.menu {
+  border-left: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 1px 0 rgba(255,255,255,0.1) inset;
+}
+#reviewsMenu {
+  border-left: none;
+  box-shadow: none;
+}
+/* Menu Estilo Personalizado Fin */
+
+/* Estilo Inputs Imagenes */
+.image-preview-input {
+    position: relative;
+	overflow: hidden;
+	margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+/* Estilo Inputs Imagenes Fin */
+
+/* Popovers Ajuses de Usuarios */
+.popover.primary {
+	border-color:#337ab7;
+}
+.popover.primary>.arrow {
+	border-top-color:#337ab7;
+}
+.popover.primary>.popover-title {
+	color:#fff;
+	background-color:#337ab7;
+	border-color:#337ab7;
+}
+.popover.success {
+	border-color:#d6e9c6;
+}
+.popover.success>.arrow {
+	border-top-color:#d6e9c6;
+}
+.popover.success>.popover-title {
+	color:#3c763d;
+	background-color:#dff0d8;
+	border-color:#d6e9c6;
+}
+.popover.info {
+	border-color:#bce8f1;
+}
+.popover.info>.arrow {
+	border-top-color:#bce8f1;
+}
+.popover.info>.popover-title {
+	color:#31708f;
+	background-color:#d9edf7;
+	border-color:#bce8f1;
+}
+.popover.warning {
+	border-color:#faebcc;
+}
+.popover.warning>.arrow {
+	border-top-color:#faebcc;
+}
+.popover.warning>.popover-title {
+	color:#8a6d3b;
+	background-color:#fcf8e3;
+	border-color:#faebcc;
+}
+.popover.danger {
+	border-color:#ebccd1;
+}
+.popover.danger>.arrow {
+	border-top-color:#ebccd1;
+}
+.popover.danger>.popover-title {
+	color:#a94442;
+	background-color:#f2dede;
+	border-color:#ebccd1;
+}
+/* Popovers Ajuses de Usuarios FIN */
+
+time {
+    font-size: 11px;
+    color: #ccc;
+}
+
+.circulo{
+	width: 10px;
+    height: 10px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+	background: #DD4814;
+	float: right;
+}
+
+
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width: 500px;
+    }
+}
+
+/*
+Botones Numeros Bloqueos
+*/
+
+
+/* Pie de pagina */
+.footer {
+	background: #fff;
+	height: auto;
+	padding-bottom: 30px;
+	position: relative;
+	width: 100%;
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #fff;
+}
+.footer-bottom {
+	background: #fff;
+	border-top: 1px solid #fff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.footer-bottom p.pull-left {
+	padding-top: 6px;
+}
+.payments {
+	font-size: 1.5em;	
+}
+
+/* Botones Radio Forma de Pago */
+.btn-radio {
+	width: 100%;
+}
+.img-radio {
+	opacity: 0.5;
+	margin-bottom: 5px;
+}
+
+.space-20 {
+	margin-top: 20px;
+}
+/* Pie de pagina fin */
