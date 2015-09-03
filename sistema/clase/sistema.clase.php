@@ -68,5 +68,34 @@ class Sistema extends Conexion {
 			}
 		}
 	}
+
+	public function CambiarTema(){
+
+		if(isset($_POST['ActivarTema'])){
+			$IdTema = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+			$Nombre = filter_var($_POST['nombre'], FILTER_SANITIZE_STRING);
+			$TemaPHP = "<?php define('TEMA', '{$Nombre}'); ?>";
+			$fp = fopen('sistema/Tema.Apps.php', 'w');
+			fwrite($fp, $TemaPHP);
+			fclose($fp);
+			$DesactivarTemasSql = $this->Conectar()->query("UPDATE `tema` SET `habilitado` = '0'");
+			$ActivarTemasSql	= $this->Conectar()->query("UPDATE `tema` SET `habilitado` = '1' WHERE `id` = '{$IdTema}'");
+			if($DesactivarTemasSql && $ActivarTemasSql == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Bien hecho!</strong> El tema ha sido cambiado con exito.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al cambiar el tema, intentalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			}
+		}
+	}
 }
 ?>

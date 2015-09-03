@@ -41,7 +41,10 @@ $usuario->ZonaAdministrador();
 				</div>
 			</div>
 		</div>
-		<?php $sistema->EditarMoneda(); ?>
+		<?php
+		$sistema->EditarMoneda();
+		$sistema->CambiarTema();
+		?>
 		<div class="row">
 			<div class="col-md-8">
 				<div class="">
@@ -199,35 +202,6 @@ $usuario->ZonaAdministrador();
 		<hr/>
 		<div class="row">
 			<h2>Escoja el tema para la aplicaci&oacute;n</h2>
-			<?php
-			if(isset($_POST['ActivarTema'])){
-				$IdTema = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-				$Nombre = filter_var($_POST['nombre'], FILTER_SANITIZE_STRING);
-				$TemaPHP = "<?php
-				define('TEMA', '{$Nombre}');
-				?>";
-				$fp = fopen('sistema/Tema.Apps.php', 'w');
-				fwrite($fp, $TemaPHP);
-				fclose($fp);
-				$DesactivarTemasSql = $db->Conectar()->query("UPDATE `tema` SET `habilitado` = '0'");
-				$ActivarTemasSql = $db->Conectar()->query("UPDATE `tema` SET `habilitado` = '1' WHERE `id` = '{$IdTema}'");
-				if($DesactivarTemasSql && $ActivarTemasSql == true){
-					echo'
-					<div class="alert alert-dismissible alert-success">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>&iexcl;Bien hecho!</strong> El tema ha sido cambiado con exito.
-					</div>
-					<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
-				}else{
-					echo'
-					<div class="alert alert-dismissible alert-danger">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al cambiar el tema, intentalo de nuevo.
-					</div>
-					<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
-				}
-			}
-			?>
 			<ul class="thumbnails">
 				<?php foreach ($TodosTemasArray as $TodosTemasAjustes): ?>
 				<li class="col-md-2">
