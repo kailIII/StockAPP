@@ -17,28 +17,22 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
-class Conexion {
+class Conexion extends mysqli {
 
 	private $mysqli;
-
-	function __construct(){
-    }
 
     /**
      * Establecimiento de la conexión de base de datos
      * @return manejador de conexión de base de datos
      */
 	public function Conectar(){
-
+		// Se Necesita Cambiar la forma de conexion en una version furtura
 		$this->mysqli = new mysqli(HOST, USER, PASSWORD, DB, PORT);
-
 		// Soporte para caracteres especiales en la base de datoss
 		$this->mysqli->query("SET NAMES 'utf8'");
-
-		if (mysqli_connect_error()) {
-			die("Error al conectar con la base de datos (" . mysqli_connect_errno() . ") " . mysqli_connect_error());
-		}
-		
+		//Error en la conexion
+		$this->connect_errno ? die("Error al conectar con la base de datos") : $ExitoDB='Conectado';
+		unset($ExitoDB);
 		// Devolver recurso de conexión
 		return $this->mysqli;
 	}
