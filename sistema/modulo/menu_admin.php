@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<div class="navbar-brand">
-				<a href="<?php echo URLBASE ?>" class="navbar-brand"><img src="<?php echo ESTATICO ?>img/applogo.png" width="230px"/></a>
+				<a href="<?php echo URLBASE ?>" class="navbar-brand"><img src="<?php echo ESTATICO ?>img/<?php $sistema->Logo(); ?>" alt="Logo <?php echo TITULO ?>" width="230px"/></a>
 			</div>
 			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
 				<span class="icon-bar"></span>

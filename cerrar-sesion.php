@@ -14,7 +14,17 @@ $usuario->VerificacionCuenta();
 		<?php include(MODULO.'Tema.CSS.php');?>
 	</head>
 <body>
-	<?php Menu(); ?>
+	<?php
+	// Menu inicio
+	if($usuarioApp['id_perfil']==2){
+		include (MODULO.'menu_vendedor.php');
+	}elseif($usuarioApp['id_perfil']==1){
+		include (MODULO.'menu_admin.php');
+	}else{
+		echo'<meta http-equiv="refresh" content="0;url='.URLBASE.'cerrar-sesion"/>';
+	}
+	//Menu Fin
+	?>
     <div class="container">
 		<div class="page-header" id="banner">
 			<div class="row">
@@ -31,7 +41,7 @@ $usuario->VerificacionCuenta();
 			  </div>
 			</div>
 		</div>
-	<?php PiePagina(); ?>
+	<?php include (MODULO.'footer.php'); ?>
     </div>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>

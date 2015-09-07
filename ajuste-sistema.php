@@ -44,6 +44,7 @@ $usuario->ZonaAdministrador();
 		<?php
 		$sistema->EditarMoneda();
 		$sistema->CambiarTema();
+		$sistema->CambiarLogo();
 		?>
 		<div class="row">
 			<div class="col-md-8">
@@ -183,18 +184,17 @@ $usuario->ZonaAdministrador();
 			</div>
 		</div>
 		<hr/>
-
 		<div class="row">
 			<div class="col-md-12">
 				<div class="col-md-8">
-					<form enctype="multipart/form-data" method="post" class="form-horizontal">
-						<input class="form-control" type="file" name="MAX_FILE_SIZE" accept="image/*"/>
-						<button type="submit" name="submit" class="btn btn-primary btn-block"><i class="fa fa-picture-o"></i> Cambiar Logo</button>
+					<form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+						<input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept="image/*" required /> 
+						<button type="submit" name="CambiarLogo" id="CambiarLogo" class="btn btn-primary btn-block"><i class="fa fa-picture-o"></i> Cambiar Logo</button>
 					</form>
 				</div>
 				<div class="col-md-4">
-					<div class="well well-sm"">
-						<img src="<?php echo ESTATICO ?>img/applogo.png" width="330px"></img>
+					<div class="well well-sm">
+						<img src="<?php echo ESTATICO ?>img/<?php $sistema->Logo(); ?>" width="330px"></img>
 					</div>
 				</div>
 			</div>

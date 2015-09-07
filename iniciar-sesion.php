@@ -87,7 +87,7 @@
         <div class="row">
 			<center class="logo">
 				<a href="<?php echo URLBASE ?>" title="Qualtiva" alt="Qualtiva">
-					<img src="<?php echo ESTATICO ?>img/applogologin.png" width="75%"></img>
+					<img src="<?php echo ESTATICO ?>img/<?php $sistema->Logo(); ?>" width="75%"></img>
 				</a>
 			</center>
         </div>

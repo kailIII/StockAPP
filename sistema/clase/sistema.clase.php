@@ -97,5 +97,100 @@ class Sistema extends Conexion {
 			}
 		}
 	}
+
+	public function CambiarLogo(){
+
+		if(isset($_POST['CambiarLogo'])) {
+
+			$target_dir = "estatico/img/";
+			$LogoSql= $this->Conectar()->query("SELECT logo FROM `sistema`");
+			$Logo	= $LogoSql->fetch_assoc();
+			$LogoApp= $target_dir.$Logo['logo'];
+			unlink($LogoApp);
+			
+			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+			$CargaOk = 1;
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			// Compruebe si el archivo de imagen es una imagen real o falsa imagen
+			if(isset($_POST["submit"])) {
+				$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+				if($check !== false) {
+					echo "El archivo es una imagen - " . $check["mime"] . ".";
+					$CargaOk = 1;
+				} else {
+					echo '
+					<div class="alert alert-dismissible alert-danger">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>&iexcl;Lo Sentimos!</strong> El archivo no es una imagen.
+					</div>
+					<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+					$CargaOk = 0;
+				}
+			}
+			// Compruebe si ya existe el archivo
+			if (file_exists($target_file)) {
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, ya existe el archivo.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+				$CargaOk = 0;
+			}
+			// Compruebe el tamaño del archivo
+			if ($_FILES["fileToUpload"]["size"] > 500000) {
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, el archivo es demasiado grande.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+				$CargaOk = 0;
+			}
+			// Permitir determinados formatos de archivo
+			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, sólo se permiten archivos JPG, JPEG, PNG y GIF.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+				$CargaOk = 0;
+			}
+			// Compruebe si $CargaOk se pone a 0 por un error
+			if ($CargaOk == 0) {
+					echo'
+					<div class="alert alert-dismissible alert-danger">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, el archivo no se ha subido.
+					</div>
+					<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			// si todo está bien, trate de cargar el archivo
+			}else{
+				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
+					echo'
+					<div class="alert alert-dismissible alert-success">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>&iexcl;Bien hecho!</strong> El archivo '. basename( $_FILES["fileToUpload"]["name"]).' se ha subido.
+					</div>
+					<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+					$ActuliarLogoSql= $this->Conectar()->query("UPDATE `sistema` SET `logo` = '".basename( $_FILES["fileToUpload"]["name"])."' WHERE `id` = '1';");
+				} else {
+					echo'
+					<div class="alert alert-dismissible alert-danger">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, hubo un error al subir el archivo.
+					</div>
+					<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+				}
+			}
+		}
+	}
+
+	public function Logo(){
+		$LogoSql= $this->Conectar()->query("SELECT logo FROM `sistema`");
+		$Logo	= $LogoSql->fetch_assoc();
+		echo $Logo['logo'];
+	}
 }
 ?>
