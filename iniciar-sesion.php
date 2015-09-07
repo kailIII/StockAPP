@@ -7,74 +7,74 @@
     <title>Iniciar Sesi&oacute;n | <?php echo TITULO ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="canonical" href="<?php echo URLBASE ?>">
-    <link rel="shortcut icon" href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/img/favicon.ico">
+    <link rel="shortcut icon" href="<?php echo ESTATICO ?>tema/img/favicon.ico">
     <link href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <style type="text/css">
     body {
     background-color: #000;
-}
+	}
 
-#loginbox {
-    margin-top: 30px;
-}
+	#loginbox {
+		margin-top: 30px;
+	}
 
-#loginbox > div:first-child {        
-    padding-bottom: 10px;    
-}
+	#loginbox > div:first-child {        
+		padding-bottom: 10px;    
+	}
 
-.iconmelon {
-    display: block;
-    margin: auto;
-}
+	.iconmelon {
+		display: block;
+		margin: auto;
+	}
 
-#form > div {
-    margin-bottom: 25px;
-}
+	#form > div {
+		margin-bottom: 25px;
+	}
 
-#form > div:last-child {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+	#form > div:last-child {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
 
-.panel {    
-    background-color: transparent;
-}
+	.panel {    
+		background-color: transparent;
+	}
 
-.panel-body {
-    padding-top: 30px;
-    background-color: rgba(2555,255,255,.3);
-}
+	.panel-body {
+		padding-top: 30px;
+		background-color: rgba(2555,255,255,.3);
+	}
 
-#particles {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    top: 0;                        
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-}
+	#particles {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		top: 0;                        
+		bottom: 0;
+		left: 0;
+		right: 0;
+		position: absolute;
+		z-index: -2;
+	}
 
-.iconmelon,
-.im {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  display: block;
-  fill: #525151;
-}
+	.iconmelon,
+	.im {
+	  position: relative;
+	  width: 150px;
+	  height: 150px;
+	  display: block;
+	  fill: #525151;
+	}
 
-.iconmelon:after,
-.im:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+	.iconmelon:after,
+	.im:after {
+	  content: '';
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	}
     </style>
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -97,7 +97,7 @@
                 <div class="panel-title text-center">Iniciar Sesi&oacute;n</div>
             </div>     
 
-            <div class="panel-body" >
+            <div class="panel-body">
 
                 <form name="form" id="form" class="form-horizontal" method="POST">
                    
@@ -109,7 +109,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input id="password" type="password" class="form-control" name="contrasenaPost" placeholder="Escriba su Contrase&ntilde;a">
-                    </div>                                                                  
+                    </div>
 
                     <div class="form-group">
                         <!-- Button -->

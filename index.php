@@ -11,8 +11,8 @@ $usuario->VerificacionCuenta();
 	<title><?php echo TITULO ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<link rel="shortcut icon" href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/img/favicon.ico">
-	<link rel="stylesheet" href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/css/sweet-alert.css">
+	<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico">
+	<link rel="stylesheet" href="<?php echo ESTATICO ?>css/sweet-alert.css">
 	<link rel="stylesheet" href="<?php echo ESTATICO ?>css/bootstrap-combobox.css">
 	<?php include(MODULO.'Tema.CSS.php');?>
 </head>
@@ -72,7 +72,7 @@ $usuario->VerificacionCuenta();
 							<div class="col-md-6">
 								<div class="form-group">
 									<select class="form-control productos" name="codigo" id="select" autofocus>
-										<option></option>
+										<option value=""></option>
 										<?php foreach($ProductosStockArray as $ProductosStockRow): ?>
 										<option value="<?php echo $ProductosStockRow['id']; ?>"><?php echo $ProductosStockRow['codigo'].' - '.$ProductosStockRow['nombre']; ?></option>
 										<?php endforeach; ?>
@@ -156,20 +156,20 @@ $usuario->VerificacionCuenta();
 			return false;
 		}
 	}
-$(function () {
-    $('.btn-radio').click(function(e) {
-        $('.btn-radio').not(this).removeClass('active')
-    		.siblings('input').prop('checked',false)
-            .siblings('.img-radio').css('opacity','0.5');
-    	$(this).addClass('active')
-            .siblings('input').prop('checked',true)
-    		.siblings('.img-radio').css('opacity','1');
-    });
-});
+	$(function () {
+		$('.btn-radio').click(function(e) {
+			$('.btn-radio').not(this).removeClass('active')
+				.siblings('input').prop('checked',false)
+				.siblings('.img-radio').css('opacity','0.5');
+			$(this).addClass('active')
+				.siblings('input').prop('checked',true)
+				.siblings('.img-radio').css('opacity','1');
+		});
+	});
 	</script>
-	<script src="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/js/sweet-alert.min.js"></script>
+	<script src="<?php echo ESTATICO ?>js/sweet-alert.min.js"></script>
 	<script src="<?php echo ESTATICO ?>js/bootstrap-combobox.js"></script>
-	<script src="<?php echo URLBASE ?>ajax.js"></script>
+	<script src="<?php echo ESTATICO ?>js/ajax.js"></script>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido Fin -->
 </body>
 </html>

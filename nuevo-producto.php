@@ -10,8 +10,8 @@ $usuario->VerificacionCuenta();
 	<title><?php echo TITULO ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<link rel="shortcut icon" href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/img/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+	<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="<?php echo ESTATICO ?>css/dataTables.bootstrap.css">
 	<?php include(MODULO.'Tema.CSS.php');?>
 </head>
 <body>

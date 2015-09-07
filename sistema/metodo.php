@@ -17,6 +17,21 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
+
+/*
+|--------------------------------------------------------------------------|
+| Require Instalacion CMS
+|--------------------------------------------------------------------------|
+*/
+function InstalacionAPP(){
+	if(file_exists("instalar"))
+	{
+		header("Location: instalar");
+		die();
+	}
+}
+InstalacionAPP();
+
 /*
 |--------------------------------------------------------------------------------------|
 | Mysqli Num Row function

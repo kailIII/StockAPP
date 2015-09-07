@@ -12,7 +12,7 @@ $fechaActual = FechaActualRegistroVendedor();
 	<title><?php echo TITULO ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<link rel="shortcut icon" href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/img/favicon.ico">
+	<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico">
 	<?php include(MODULO.'Tema.CSS.php');?>
 	<style type="text/css">
 	.btn-default{

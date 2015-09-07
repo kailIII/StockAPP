@@ -12,8 +12,8 @@ $fecha	= FechaActual();
 	<title><?php echo TITULO ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<link rel="shortcut icon" href="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/img/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+	<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="<?php echo ESTATICO ?>css/dataTables.bootstrap.css">
 	<?php include(MODULO.'Tema.CSS.php');?>
 </head>
 <body>
@@ -273,8 +273,8 @@ $fecha	= FechaActual();
     </div>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>
-	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>tema/<?php echo TEMA ?>/js/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>js/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function() {
 			$('#example').dataTable();
