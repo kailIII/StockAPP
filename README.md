@@ -26,10 +26,18 @@ location /blog {
 rewrite ^/blog/(.+)/(.+)$ /article.php?id=$1&title=$2;
 }
 ```
-
-
-
-
+## Lista Desarrollo :sparkles:
+- [x] Módulo Multi-usuario
+- [x] Módulo Multi-establecimiento
+- [x] Módulo de Productos
+- [x] Módulo de Ventas
+- [x] Módulo de Clientes
+- [x] Módulo de Proveedores
+- [x] Módulo de Categorías (Departamentos)
+- [ ] Módulo de Cortes de Caja
+- [ ] Módulo de Inventario
+- [ ] Generación de reportes por rango de fecha
+- [ ] Impresión de reportes en Word, Excel & PDF
 
 
 
