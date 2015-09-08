@@ -26,3 +26,18 @@ location /blog {
 rewrite ^/blog/(.+)/(.+)$ /article.php?id=$1&title=$2;
 }
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
