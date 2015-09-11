@@ -7,22 +7,22 @@ $usuario->VerificacionCuenta();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8"/>
 	<title><?php echo TITULO ?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico">
-	<link rel="stylesheet" href="<?php echo ESTATICO ?>css/sweet-alert.css">
-	<link rel="stylesheet" href="<?php echo ESTATICO ?>css/bootstrap-combobox.css">
+	<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico"/>
+	<link rel="stylesheet" href="<?php echo ESTATICO ?>css/sweet-alert.css"/>
+	<link rel="stylesheet" href="<?php echo ESTATICO ?>css/bootstrap-combobox.css"/>
 	<?php include(MODULO.'Tema.CSS.php');?>
 </head>
 <body>
 	<?php
 	// Menu inicio
 	if($usuarioApp['id_perfil']==2){
-		include (MODULO.'menu_vendedor.php');
+		include(MODULO.'menu_vendedor.php');
 	}elseif($usuarioApp['id_perfil']==1){
-		include (MODULO.'menu_admin.php');
+		include(MODULO.'menu_admin.php');
 	}else{
 		echo'<meta http-equiv="refresh" content="0;url='.URLBASE.'cerrar-sesion"/>';
 	}
@@ -37,6 +37,7 @@ $usuario->VerificacionCuenta();
 		<div class="row">
 			<?php
 			$CajaDeVenta->EliminarProducto();
+			$CajaDeVenta->LimpiarCarritoCompras();
 			?>
 			<div class="row">
 				<div class="col-md-12">
@@ -44,7 +45,7 @@ $usuario->VerificacionCuenta();
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<select class="form-control clientes" value="Cliente Contado"  name="cliente" id="select" required>
+									<select class="form-control clientes" value="Cliente Contado"  name="cliente" id="select" required >
 										<?php foreach($SelectorClientesArray as $SelectorClientesRow): ?>
 										<option value="<?php echo $SelectorClientesRow['id']; ?>" <?php if($SelectorClientesRow['id']==1){echo'selected="selected"';}else{} ?> ><?php echo $SelectorClientesRow['nombre']; ?></option>
 										<?php endforeach; ?>
@@ -120,7 +121,7 @@ $usuario->VerificacionCuenta();
 		var keynum = window.event ? window.event.keyCode : e.which;
 		if ((keynum == 8) || (keynum == 46))
 		return true;
-		 
+
 		return /\d/.test(String.fromCharCode(keynum));
 	}
 	
@@ -166,6 +167,27 @@ $usuario->VerificacionCuenta();
 				.siblings('.img-radio').css('opacity','1');
 		});
 	});
+
+function todosuno(valor){
+	//obtenemos cuantos campos son en total
+	cuantos   = eval(ejemplo.contadorx.value);
+	//Recibimos el valor si es igual a 1 entonces no se ha checkeado todos y lo chekeamos
+	if(valor==1){
+		for (var x = 1; x <= cuantos; x++) {
+			campo = "ID"+x;
+			document.getElementById(campo).checked=true;
+			document.getElementById("todos").value=0;
+		}
+	}
+	//Si recibimos el valor 0 entonces se ha checkeado a todos y lo desactivamos
+	if(valor==0){
+		for (var x = 1; x <= cuantos; x++) {
+			campo = "ID"+x;
+			document.getElementById(campo).checked=false;
+			document.getElementById("todos").value=1;
+		}
+	}
+}
 	</script>
 	<script src="<?php echo ESTATICO ?>js/sweet-alert.min.js"></script>
 	<script src="<?php echo ESTATICO ?>js/bootstrap-combobox.js"></script>

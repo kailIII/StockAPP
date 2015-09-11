@@ -1,7 +1,10 @@
 <div class="col-md-9">
 	<div style="width:100%; height:300px; overflow: auto;">
+	<form name="ejemplo" id="ejemplo" method="post" action="">
 		<table class="table table-bordered">
 			<tr class="well">
+				<td style="display: none;"></td>
+				<td><input  type="checkbox" value="1" id="todos" onclick="todosuno(this.value)" /></td>
 				<td><strong>Codigo</strong></td>
 				<td><strong>Producto</strong></td>
 				<td><strong>Cantidad</strong></td>
@@ -33,7 +36,7 @@
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-										<button type="submit" name="EliminarVentaActual" class="btn btn-primary">Si, Eliminar</button>
+										<button type="submit" name="EliminarTodo" class="btn btn-primary">Si, Eliminar</button>
 									</div>
 								</div>
 							</form>
@@ -45,10 +48,14 @@
 				</td>
 			</tr>
 			<?php
+			$i				= 0;
 			$cajatmpSql		= $db->Conectar()->query("SELECT * FROM cajatmp WHERE vendedor='{$usuarioApp['id']}' ORDER BY id DESC");
 			while($cajatmp	= $cajatmpSql->fetch_array()){
+			$i	= $i + 1;
 			?>
 			<tr>
+				<td style="display: none;"><input name="IdProducto<?php echo $i; ?>" type="hidden" value="<?php echo $cajatmp['producto']; ?>" /></td>
+				<td><input id="ID<?php echo $i; ?>" name="IDS<?php echo $i; ?>" type="checkbox" value="<?php echo $cajatmp['id']; ?>" /></td>
 				<td>
 				<?php
 				$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$cajatmp['producto']}'");
@@ -63,7 +70,7 @@
 				echo $NombreProducto['nombre'];
 				?>
 				</td>
-				<td><?php echo $cajatmp['cantidad']; ?></td>
+				<td><input type="hidden" name="cantidad<?php echo $i; ?>" value="<?php echo $cajatmp['cantidad']; ?>"><?php echo $cajatmp['cantidad']; ?></td>
 				<td><?php echo $cajatmp['stockTmp']; ?></td>
 				<td>$ <?php echo $cajatmp['precio']; ?></td>
 				<td>$ <?php echo $cajatmp['totalprecio']; ?></td>
@@ -149,7 +156,9 @@
 			<?php
 			}
 			?>
+			<input type="hidden" value="<?php echo $i; ?>" name="contadorx"/>
 		</table>
+	</form>
 	</div>
 </div>
 <div class="col-md-3">
@@ -157,18 +166,19 @@
 	$netoSql= $db->Conectar()->query("SELECT SUM(totalprecio) AS deudatotal FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
 	$neto	= $netoSql->fetch_array();
 	?>
-<div class="panel panel-default">
-  <div class="panel-heading"><center><strong>Neto a Pagar</strong></center></div>
-  <div class="panel-body">
-				<h2 class="text-success" align="center">$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?><br/><small class="text-info" >&cent; <?php echo $Vendedor->FormatoSaldo($neto['deudatotal']*528); ?></small></h2>
+	<div class="panel panel-default">
+	  <div class="panel-heading"><center><strong>Neto a Pagar</strong></center></div>
+	  <div class="panel-body">
+		<h2 class="text-success" align="center">$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?><br/><small class="text-info" >&cent; <?php echo $Vendedor->FormatoSaldo($neto['deudatotal']*528); ?></small></h2>
 	</div>
-	<div class="panel-heading">			<?php
-				$numerosTotalSql= $db->Conectar()->query("SELECT COUNT(id) FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
-				$numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
-				?>
-				<center><strong>Cantidad de Productos: <br><span class="badge badge-success"><?php echo $numerosTotal; ?></span></strong></center>
-</div>
-</div>
+	<div class="panel-heading">
+		<?php
+		$numerosTotalSql= $db->Conectar()->query("SELECT COUNT(id) FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
+		$numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
+		?>
+		<center><strong>Cantidad de Productos: <br><span class="badge badge-success"><?php echo $numerosTotal; ?></span></strong></center>
+	</div>
+	</div>
 	<div class="form-group">
 		<?php
 		if($numerosTotal <= 0){

@@ -43,14 +43,14 @@ class Productos extends Conexion {
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					<strong>&iexcl;Excelente</strong> El producto "'.$Nombre.'" ha sido creada con exito.
 				</div>
-				<meta http-equiv="refresh" content="0;url='.URLBASE.'productos"/>';
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'nuevo-producto"/>';
 			}else{
 				echo'
 				<div class="alert alert-dismissible alert-danger">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					<strong>&iexcl;Oh no!</strong> A ocurrido un error al crear el producto "'.$Nombre.'", por favor intentalo de nuevo.
 				</div>
-				<meta http-equiv="refresh" content="0;url='.URLBASE.'productos"/>';
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'nuevo-producto"/>';
 			}
 		}
 	}

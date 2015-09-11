@@ -125,7 +125,7 @@ class Venta extends Conexion {
 			// Variables
 			$IdUsuario	= filter_var($_POST['IdUsuario'], FILTER_VALIDATE_INT);
 			// Query Para Actulizar La Cantidad Apuesta
-			$EliminarNumeroSql = $db->Conectar()->query("DELETE FROM `cajatmp` WHERE vendedor='{$IdUsuario}'");
+			$EliminarNumeroSql = $this->Conectar()->query("DELETE FROM `cajatmp` WHERE vendedor='{$IdUsuario}'");
 			// Mensaje De Comprobacion
 			if($EliminarNumeroSql==true){
 				echo'
@@ -141,6 +141,37 @@ class Venta extends Conexion {
 					<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
 				</div>
 				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+			}
+		}
+	}
+
+	public function LimpiarCarritoCompras(){
+		//Eliminar Todo del carrito de compras o parte del mismo
+		if(isset($_POST['EliminarTodo'])){
+			$TotalEliminar	= filter_var($_POST['contadorx'], FILTER_VALIDATE_INT);
+			for($xrecibe = 1 ; $xrecibe<=$TotalEliminar; $xrecibe++){
+				$IdEliminar	= isset($_POST['IDS'.$xrecibe]) ? $_POST['IDS'.$xrecibe] : null;
+				$IdProducto	= filter_var($_POST['IdProducto'.$xrecibe], FILTER_VALIDATE_INT);
+				$Cantidad	= filter_var($_POST['cantidad'.$xrecibe], FILTER_VALIDATE_INT);
+				if($IdEliminar!=""){
+					$EliminarQuery	= $this->Conectar()->query("DELETE FROM `cajatmp` WHERE `id` ='{$IdEliminar}'");
+					$ActualizarQuery=$this->Conectar()->query("UPDATE `producto` SET `stock` = `stock`+{$Cantidad} WHERE `id`='{$IdProducto}'");
+					if($EliminarQuery && $ActualizarQuery == true){
+						echo'
+						<div class="alert alert-dismissible alert-success">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>&iexcl;Bien hecho!</strong> Se ha eliminado la venta actual con exito.
+						</div>
+						<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+					}else{
+						echo'
+						<div class="alert alert-dismissible alert-danger">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
+						</div>
+						<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+					}
+				}
 			}
 		}
 	}
