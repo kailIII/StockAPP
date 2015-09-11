@@ -38,6 +38,7 @@ $usuario->VerificacionCuenta();
 			<?php
 			$CajaDeVenta->EliminarProducto();
 			$CajaDeVenta->LimpiarCarritoCompras();
+			$CajaDeVenta->ActualizarCantidadCajaTmp();
 			?>
 			<div class="row">
 				<div class="col-md-12">
@@ -84,7 +85,7 @@ $usuario->VerificacionCuenta();
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-addon"><strong>#</strong></span>
-										<input type="number" min="1" step="1" maxlength="2" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" value="1" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off"  required />
+										<input type="number" min="1" step="1" maxlength="6" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" value="1" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off"  required />
 									</div>
 								</div>
 							</div>
@@ -168,26 +169,26 @@ $usuario->VerificacionCuenta();
 		});
 	});
 
-function todosuno(valor){
-	//obtenemos cuantos campos son en total
-	cuantos   = eval(ejemplo.contadorx.value);
-	//Recibimos el valor si es igual a 1 entonces no se ha checkeado todos y lo chekeamos
-	if(valor==1){
-		for (var x = 1; x <= cuantos; x++) {
-			campo = "ID"+x;
-			document.getElementById(campo).checked=true;
-			document.getElementById("todos").value=0;
+	function todosuno(valor){
+		//obtenemos cuantos campos son en total
+		cuantos   = eval(EliminarCampos.contadorx.value);
+		//Recibimos el valor si es igual a 1 entonces no se ha checkeado todos y lo chekeamos
+		if(valor==1){
+			for (var x = 1; x <= cuantos; x++) {
+				campo = "ID"+x;
+				document.getElementById(campo).checked=true;
+				document.getElementById("todos").value=0;
+			}
+		}
+		//Si recibimos el valor 0 entonces se ha checkeado a todos y lo desactivamos
+		if(valor==0){
+			for (var x = 1; x <= cuantos; x++) {
+				campo = "ID"+x;
+				document.getElementById(campo).checked=false;
+				document.getElementById("todos").value=1;
+			}
 		}
 	}
-	//Si recibimos el valor 0 entonces se ha checkeado a todos y lo desactivamos
-	if(valor==0){
-		for (var x = 1; x <= cuantos; x++) {
-			campo = "ID"+x;
-			document.getElementById(campo).checked=false;
-			document.getElementById("todos").value=1;
-		}
-	}
-}
 	</script>
 	<script src="<?php echo ESTATICO ?>js/sweet-alert.min.js"></script>
 	<script src="<?php echo ESTATICO ?>js/bootstrap-combobox.js"></script>
