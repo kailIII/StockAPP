@@ -145,6 +145,42 @@ class Venta extends Conexion {
 		}
 	}
 
+	public function ActualizarCantidadCajaTmp(){
+		//Eliminar Todo del carrito de compras o parte del mismo
+		if(isset($_POST['ActualizarCantidadCajaTmp'])){
+			$IdCajaTmp					= filter_var($_POST['IdCajaTmp'], FILTER_VALIDATE_INT);
+			$IdProducto					= filter_var($_POST['IdProducto'], FILTER_VALIDATE_INT);
+			$Cantidad					= filter_var($_POST['Cantidad'], FILTER_VALIDATE_INT);
+			$Precio						= filter_var($_POST['Precio'], FILTER_SANITIZE_STRING);
+			$AntiguaCantidad			= filter_var($_POST['CantidadAnterior'], FILTER_VALIDATE_INT);
+			$PrecioTotal				= $Precio*$Cantidad;
+			
+			$ActualizarProductoQuery	= $this->Conectar()->query("UPDATE `producto` SET `stock` = `stock`+{$AntiguaCantidad} WHERE `id`='{$IdProducto}'");
+			$StockProductoSql			= $this->Conectar()->query("SELECT stock FROM `producto` WHERE id='{$IdProducto}'");
+			$StockProducto				= $StockProductoSql->fetch_array();
+			
+			$StockTmp					=$StockProducto['stock']-$Cantidad;
+			$ActulizarStockSql			= $this->Conectar()->query("UPDATE `producto` SET `stock` = '{$StockTmp}' WHERE `id`='{$IdCajaTmp}'");
+			$ActualizarProductoTmpQuery	= $this->Conectar()->query("UPDATE `cajatmp` SET `cantidad` = '{$Cantidad}' , `totalprecio` = '{$PrecioTotal}' , `stockTmp` = '{$StockTmp}' WHERE `id` = '{$IdCajaTmp}'");
+
+			if($ActualizarProductoQuery && $ActulizarStockSql && $ActualizarProductoTmpQuery == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Bien hecho!</strong> Se ha eliminado la venta actual con exito.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+			}
+		}
+	}
+
 	public function LimpiarCarritoCompras(){
 		//Eliminar Todo del carrito de compras o parte del mismo
 		if(isset($_POST['EliminarTodo'])){

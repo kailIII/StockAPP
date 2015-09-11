@@ -1,6 +1,6 @@
 <div class="col-md-9">
 	<div style="width:100%; height:300px; overflow: auto;">
-	<form name="ejemplo" id="ejemplo" method="post" action="">
+	<form name="EliminarCampos" id="EliminarCampos" method="post" action="">
 		<table class="table table-bordered">
 			<tr class="well">
 				<td style="display: none;"></td>
@@ -12,9 +12,7 @@
 				<td><strong>Precio</strong></td>
 				<td><strong>Importe</strong></td>
 				<td>
-					<strong>
-						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EliminarVenta"><i class="fa fa-trash-o"></i> Limpiar Venta</button>
-					</strong>
+					<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EliminarVenta"><i class="fa fa-trash-o"></i> Limpiar Venta</button>
 					<!-- Modal -->
 					<div class="modal fade" id="EliminarVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-dialog">
@@ -27,14 +25,14 @@
 							<form class="form-horizontal" method="post" action="">
 								<input type="hidden" name="IdUsuario" value="<?php echo $usuarioApp['id']; ?>">
 								<div class="form-group">
-									<div class="col-sm-12">
+									<div class="col-md-12">
 										<div class="input-group">
 											¿Est&aacute; seguro que desea eliminar toda la venta actual?
 										</div>
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-10">
+									<div class="col-md-12">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 										<button type="submit" name="EliminarTodo" class="btn btn-primary">Si, Eliminar</button>
 									</div>
@@ -116,33 +114,27 @@
 						<div class="modal-content">
 						  <div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="myModalLabel">Actualizar Apuesta al <?php echo $cajatmp['producto']; ?></h4>
+							<h4 class="modal-title" id="myModalLabel">Actualizar  Cantidad de Producto</h4>
 						  </div>
 						  <div class="modal-body">
 							<form class="form-horizontal" method="post" action="">
-								<input type="hidden" name="IdApuesta" value="<?php echo $cajatmp['id']; ?>">
-								<div class="col-md-5">
+								<input type="hidden" name="IdCajaTmp" value="<?php echo $cajatmp['id']; ?>">
+								<input type="hidden" name="IdProducto" value="<?php echo $cajatmp['producto']; ?>">
+								<input type="hidden" name="Precio" value="<?php echo $cajatmp['precio']; ?>">
+								<input type="hidden" name="CantidadAnterior" value="<?php echo $cajatmp['cantidad']; ?>">
+								<div class="col-md-12">
 									<div class="form-group">
-										<label  class="control-label">&nbsp;&nbsp;&nbsp; N&uacute;mero</label>
+										<label  class="control-label">&nbsp;&nbsp;&nbsp; Cantidad</label>
 										<div class="input-group">
 											<span class="input-group-addon"><strong>#</strong></span>
-											<input type="text" maxlength="2" class="form-control" name="NuevoNumero" value="<?php echo $cajatmp['producto']; ?>" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off" autofocus required />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-5">
-									<div class="form-group">
-										<label  class="control-label">&nbsp;&nbsp;&nbsp; Apuesta</label>
-										<div class="input-group">
-											<span class="input-group-addon"><strong>&cent;</strong></span>
-											<input type="text" maxlength="5" class="form-control" name="NuevaApuesta" value="<?php echo $cajatmp['cantidad']; ?>" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off" autofocus required />
+											<input type="number" min="1" step="1" maxlength="6" class="form-control" name="Cantidad" value="<?php echo $cajatmp['cantidad']; ?>" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off" autofocus required />
 										</div>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
 									   <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-										<button type="submit" name="ActualizarApuesta" class="btn btn-primary">Actualizar Apuesta</button>
+										<button type="submit" name="ActualizarCantidadCajaTmp" class="btn btn-primary">Actualizar Cantidad de Productos</button>
 									</div>
 								</div>
 							</form>
