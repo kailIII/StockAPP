@@ -31,7 +31,7 @@ $usuario->VerificacionCuenta();
 		<div class="page-header" id="banner">
 			<div class="row">
 				<div class="col-lg-8 col-md-7 col-sm-6">
-					<h1>Impuestos</h1>
+					<h1>Impuestos del Sistema</h1>
 				</div>
 			</div>
 		</div>
@@ -49,44 +49,44 @@ $usuario->VerificacionCuenta();
 								<table class="table table-bordered table table-hover">
 									<tbody>
 										<tr class="well">
-											<td><strong><center>ID</center></strong></td>
-											<td><strong>Descripcion</strong></td>
+											<td><strong>Nombre</strong></td>
+											<td><strong><center>Valor</center></strong></td>
 											<td><strong><center>Estado</center></strong></td>
 											<td><strong><center>Editar</center></strong></td>
 										</tr>
-										<?php foreach($DepartamentoStockArray as $DepartamentoStockRow): ?>
+										<?php foreach($IVAVentaStockArray as $IVAVentaStockRow): ?>
 										<tr>
-											<td><center><?php echo $DepartamentoStockRow['id']; ?></center></td>
-											<td><?php echo $DepartamentoStockRow['nombre']; ?></td>
+											<td><?php echo $IVAVentaStockRow['nombre']; ?></td>
+											<td><center><?php echo $IVAVentaStockRow['valor']; ?></center></td>
 											<td>
 												<center>
 												<?php
-												if($DepartamentoStockRow['habilitada'] == 1){
-													echo'<span class="label label-success">Activa</span>';
+												if($IVAVentaStockRow['habilitado'] == 1){
+													echo'<span class="label label-success">Activo</span>';
 												}else{
-													echo'<span class="label label-danger">No Activa</span>';
+													echo'<span class="label label-danger">No Activo</span>';
 												}
 												?>
 												</center>
 											</td>
 											<td>
 												<!-- Modal Eliminar-->
-												<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EliminarDepartamento<?php echo $DepartamentoStockRow['id']; ?>"><i class="fa fa-trash-o"></i></button>
-												<div class="modal fade" id="EliminarDepartamento<?php echo $DepartamentoStockRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+												<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EliminarIVA<?php echo $IVAVentaStockRow['id']; ?>"><i class="fa fa-trash-o"></i></button>
+												<div class="modal fade" id="EliminarIVA<?php echo $IVAVentaStockRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 												  <div class="modal-dialog">
 													<div class="modal-content">
 													  <div class="modal-header">
 														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-														<h4 class="modal-title" id="myModalLabel">Eliminar <?php echo $DepartamentoStockRow['nombre']; ?> del sistema</h4>
+														<h4 class="modal-title" id="myModalLabel">Eliminar impuesto del sistema</h4>
 													  </div>
 													  <div class="modal-body">
 														<form class="form-horizontal" method="post" action="">
-															<input type="hidden" name="IdDepartamento" value="<?php echo $DepartamentoStockRow['id']; ?>">
-															<input type="hidden" name="nombre" value="<?php echo $DepartamentoStockRow['nombre']; ?>">
+															<input type="hidden" name="IdIVA" value="<?php echo $IVAVentaStockRow['id']; ?>">
+															<input type="hidden" name="nombre" value="<?php echo $IVAVentaStockRow['nombre']; ?>">
 															<div class="form-group">
 																<div class="col-sm-12">
 																	<div class="input-group">
-																		¿Est&aacute; seguro que desea eliminar el departamento?
+																		¿Est&aacute; seguro que desea eliminar el Impuesto?
 																	</div>
 																</div>
 															</div>
@@ -103,26 +103,26 @@ $usuario->VerificacionCuenta();
 												</div>
 												<!-- Modal Eliminar Final -->
 												<!-- Modal Editar -->
-												<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EditarDepartamento<?php echo $DepartamentoStockRow['id']; ?>"><i class="fa fa-pencil-square-o"></i></button>
-												<div class="modal fade" id="EditarDepartamento<?php echo $DepartamentoStockRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+												<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EditarDepartamento<?php echo $IVAVentaStockRow['id']; ?>"><i class="fa fa-pencil-square-o"></i></button>
+												<div class="modal fade" id="EditarDepartamento<?php echo $IVAVentaStockRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 													<div class="modal-dialog">
 														<div class="modal-content">
 															<div class="modal-header">
 																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																<h4 class="modal-title" id="myModalLabel">Editar el departamento de <?php echo $DepartamentoStockRow['nombre']; ?></h4>
+																<h4 class="modal-title" id="myModalLabel">Editar el departamento de <?php echo $IVAVentaStockRow['nombre']; ?></h4>
 															</div>
 															<div class="modal-body">
 																<form method="post" action="" class="form-horizontal">
-																	<input type="hidden" name="IdDepartamento" value="<?php echo $DepartamentoStockRow['id']; ?>">
+																	<input type="hidden" name="IdDepartamento" value="<?php echo $IVAVentaStockRow['id']; ?>">
 																	<div class="form-group">
 																		<label>Descripci&oacute;n</label>
-																		<input type="text" class="form-control" value="<?php echo $DepartamentoStockRow['nombre']; ?>" name="nombre" required="" autocomplete="off"/>
+																		<input type="text" class="form-control" value="<?php echo $IVAVentaStockRow['nombre']; ?>" name="nombre" required="" autocomplete="off"/>
 																	</div>
 																	<div class="form-group">
 																		<label>Estado</label>
 																		<select name="estado" class="form-control">
-																			<option value="1" <?php if($DepartamentoStockRow['habilitada']=='1'){ echo 'selected'; }else{} ?>>ACTIVO</option>
-																			<option value="0" <?php if($DepartamentoStockRow['habilitada']=='0'){ echo 'selected'; }else{} ?>>NO ACTIVO</option>
+																			<option value="1" <?php if($IVAVentaStockRow['habilitado']=='1'){ echo 'selected'; }else{} ?>>ACTIVO</option>
+																			<option value="0" <?php if($IVAVentaStockRow['habilitado']=='0'){ echo 'selected'; }else{} ?>>NO ACTIVO</option>
 																		</select>
 																	</div>
 																	<div class="form-group">
@@ -144,7 +144,7 @@ $usuario->VerificacionCuenta();
 							<div class=" col-md-6">
 								<table class="table table-bordered">
 								  <tbody><tr class="well">
-									<td><center><strong>Actualizar Departamento</strong></center></td>
+									<td><center><strong>Crear Nuevo Impuesto</strong></center></td>
 								  </tr>
 								  <tr>
 									<td>
@@ -152,14 +152,18 @@ $usuario->VerificacionCuenta();
 											<div class="form-group">
 												<label>C&oacute;digo</label>
 												<?php
-												$CodigoSql	= $db->Conectar()->query("SELECT MAX(id)+1 AS MaxId FROM `Departamento`");
+												$CodigoSql	= $db->Conectar()->query("SELECT MAX(id)+1 AS MaxId FROM `iva`");
 												$Codigo		= $CodigoSql->fetch_array();
 												?>
 												<input type="text" class="form-control" name="id" value="<?php echo $Codigo['MaxId']; ?>" autocomplete="off" disabled />
 											</div>
 											<div class="form-group">
-												<label>Descripci&oacute;n</label>
-												<input type="text" class="form-control" name="nombre" required="" autocomplete="off"/>
+												<label>Nombre</label>
+												<input type="text" class="form-control" name="nombre" required="" placeholder="Nombre del impuesto" autocomplete="off" autofocus/>
+											</div>
+											<div class="form-group">
+												<label>Valor</label>
+												<input type="text" class="form-control" name="valor" required="" placeholder="0.10 %" autocomplete="off"/>
 											</div>
 											<div class="form-group">
 												<label>Estado</label>
@@ -169,7 +173,7 @@ $usuario->VerificacionCuenta();
 												</select>
 											</div>
 											<div class="form-group">
-												<button type="submit" name="CrearDepartamento" class="btn btn-primary">Crear Departamentos</button>
+												<button type="submit" name="CrearDepartamento" class="btn btn-primary">Crear Impuesto</button>
 												<a href="#" class="btn btn-default">Cancelar</a>
 											</div>
 										</form>

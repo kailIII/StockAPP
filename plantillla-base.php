@@ -36,7 +36,6 @@ $usuario->VerificacionCuenta();
 				</div>
 			</div>
 		</div>
-		<?php include (MODULO.'contador.php'); ?>
 	<?php include (MODULO.'footer.php'); ?>
     </div>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->

@@ -92,7 +92,7 @@ function PiePagina(){
 |--------------------------------------------------------------------------------------|
 */
 function FechaActualContadorVentas(){
-    return date('m/d/Y');
+    return date('m-d-Y');
 }
 
 /*
@@ -101,7 +101,7 @@ function FechaActualContadorVentas(){
 |--------------------------------------------------------------------------------------|
 */
 function FechaActualRegistroVendedor(){
-    return date('d/m/Y');
+    return date('d-m-Y');
 }
 
 /*
@@ -110,7 +110,7 @@ function FechaActualRegistroVendedor(){
 |--------------------------------------------------------------------------------------|
 */
 function FechaActual(){
-    return date('d/m/Y');
+    return date('d-m-Y');
 }
 
 /*
@@ -268,7 +268,7 @@ function PrimerDiaMes(){
 	$mes	= date('m');
 	$year	= date('Y');
 
-	return date('d/m/Y', mktime(0,0,0, $mes, 1, $year));
+	return date('d-m-Y', mktime(0,0,0, $mes, 1, $year));
 }
 
 /**
@@ -279,12 +279,12 @@ function UltimoDiaMes(){
 	$year	= date('Y');
 	$dia	= date("d", mktime(0,0,0, $mes+1, 0, $year));
 
-	return date('d/m/Y', mktime(0,0,0, $mes, $dia, $year));
+	return date('d-m-Y', mktime(0,0,0, $mes, $dia, $year));
 };
 
 function DiaSemana($fecha){
 	$dias=array("Domingo","Lunes","Martes","Mi&eacute;rcoles","Jueves","Viernes","S&aacute;bado");
-	$dd=explode('/',$fecha);
+	$dd=explode('-',$fecha);
 	$ts=mktime(0,0,0,$dd[1],$dd[0],$dd[2]);
 	$dia=$dias[date('w',$ts)];
 	echo $dia;

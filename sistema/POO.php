@@ -22,10 +22,10 @@
  |	Establecimientos
  |-------------------------------------------
  */
- $EstablecimientosSql	= $db->Conectar()->query("SELECT nombre FROM `establecimiento`");
- $EstablecimientosArray	= array();
+ $EstablecimientosSql		= $db->Conectar()->query("SELECT nombre FROM `establecimiento`");
+ $EstablecimientosArray		= array();
  while($Establecimientos	= $EstablecimientosSql->fetch_array()):
-	$EstablecimientosArray[]	= $Establecimientos;
+ $EstablecimientosArray[]	= $Establecimientos;
  endwhile;
 
 /**
@@ -36,7 +36,7 @@
  $TodosTemasSql			= $db->Conectar()->query("SELECT * FROM `tema`");
  $TodosTemasArray		= array();
  while($TodosTemas		= $TodosTemasSql->fetch_array()):
- $TodosTemasArray[]	= $TodosTemas;
+ $TodosTemasArray[]		= $TodosTemas;
  endwhile;
 
 /**
@@ -44,7 +44,7 @@
  |	Usuarios
  |-------------------------------------------
  */
- $TodosLosUsuariosSql	= $db->Conectar()->query("SELECT id, usuario FROM `usuario` WHERE habilitado='1'");
+ $TodosLosUsuariosSql		= $db->Conectar()->query("SELECT id, usuario FROM `usuario` WHERE habilitado='1'");
  $TodosLosUsuariosArray		= array();
  while($TodosLosUsuariosVar	= $TodosLosUsuariosSql->fetch_array()):
  $TodosLosUsuariosArray[]	= $TodosLosUsuariosVar;
@@ -66,8 +66,8 @@
  |	Selector de Clientes
  |-------------------------------------------
  */
- $SelectorClientesQuery	= $db->Conectar()->query("SELECT id, nombre  FROM `cliente` WHERE habilitado='1'");
- $SelectorClientesArray	= array();
+ $SelectorClientesQuery		= $db->Conectar()->query("SELECT id, nombre  FROM `cliente` WHERE habilitado='1'");
+ $SelectorClientesArray		= array();
  while($SelectorClientes	= $SelectorClientesQuery->fetch_array()):
  $SelectorClientesArray[]	= $SelectorClientes;
  endwhile;
@@ -99,10 +99,10 @@
  |	Selector de Proveedores
  |-------------------------------------------
  */
- $ProveedoresStockQuery	= $db->Conectar()->query("SELECT * FROM `proveedor`");
- $ProveedoresStockArray	= array();
+ $ProveedoresStockQuery		= $db->Conectar()->query("SELECT * FROM `proveedor`");
+ $ProveedoresStockArray		= array();
  while($ProveedoresStock	= $ProveedoresStockQuery->fetch_array()):
- $ProveedoresStockArray[]= $ProveedoresStock;
+ $ProveedoresStockArray[]	= $ProveedoresStock;
  endwhile;
 
 /**
@@ -136,4 +136,15 @@
  $SelectorMonedaArray	= array();
  while($SelectorMoneda	= $SelectorMonedaQuery->fetch_array()):
  $SelectorMonedaArray[]	= $SelectorMoneda;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Kardex por fechas General
+ |-------------------------------------------
+ */
+ $KardexPorfechasQuery	= $db->Conectar()->query("SELECT * FROM `kardex`");
+ $KardexPorfechasArray	= array();
+ while($KardexPorfechas	= $KardexPorfechasQuery->fetch_array()):
+ $KardexPorfechasArray[]= $KardexPorfechas;
  endwhile;

@@ -41,14 +41,14 @@ $usuario->VerificacionCuenta();
 			<form class="form-horizontal" method="post" action="">
 				<div class="col-md-3">
 					<div class="form-group">
-						<label for="inputEmail" class="control-label">Codigo de Registro</label>
-						<input type="text" class="form-control" name="Codigo" placeholder="Codigo de Registro">
+						<label for="inputEmail" class="control-label">Nombre del Producto</label>
+						<input type="text" class="form-control" name="Nombre" placeholder="Nombre del Producto" autofocus>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
-						<label for="inputEmail" class="control-label">Nombre del Producto</label>
-						<input type="text" class="form-control" name="Nombre" placeholder="Nombre del Producto">
+						<label for="inputEmail" class="control-label">Codigo de Registro</label>
+						<input type="text" class="form-control" name="Codigo" placeholder="Codigo de Registro">
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -74,13 +74,13 @@ $usuario->VerificacionCuenta();
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="inputEmail" class="control-label">Stock</label>
-						<input type="text" class="form-control" name="Stock" placeholder="Stock del Producto">
+						<input type="text" class="form-control" name="Stock" placeholder="Stock del Producto" required >
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="inputEmail" class="control-label">Stock M&iacute;nimo</label>
-						<input type="text" class="form-control" name="StockMin" placeholder="Stock M&iacute;nimo del Producto">
+						<input type="text" class="form-control" name="StockMin" placeholder="Stock M&iacute;nimo del Producto" required >
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -99,7 +99,7 @@ $usuario->VerificacionCuenta();
 						<label for="inputEmail" class="control-label">Precio Costo</label>
 						<div class="input-group">
 							<span class="input-group-addon"><strong>$</strong></span>
-							<input type="text" class="form-control" name="PrecioCosto" placeholder="Precio Costo">
+							<input type="text" class="form-control" name="PrecioCosto" placeholder="Precio Costo" required >
 						</div>
 					</div>
 				</div>
@@ -108,7 +108,7 @@ $usuario->VerificacionCuenta();
 						<label for="inputEmail" class="control-label">Precio Venta</label>
 						<div class="input-group">
 							<span class="input-group-addon"><strong>$</strong></span>
-							<input type="text" class="form-control" name="PrecioVenta" placeholder="Precio Venta">
+							<input type="text" class="form-control" name="PrecioVenta" placeholder="Precio Venta" required >
 						</div>
 					</div>
 				</div>

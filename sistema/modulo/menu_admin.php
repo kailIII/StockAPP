@@ -15,6 +15,7 @@
 				<li class="menu" id="reviewsMenu">
 					<a href="<?php echo URLBASE ?>">Inicio</a>
 				</li>
+				<li class="menu"><a href="<?php echo URLBASE ?>kardex">Kardex</a></li>
 				<li class="dropdown menu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Productos <span class="caret"></span></a>
 					<ul class="dropdown-menu" aria-labelledby="download">
@@ -25,11 +26,11 @@
 						<li><a href="<?php echo URLBASE ?>impuestos">Impuestos</a></li>
 					</ul>
 				</li>
-				<li class="menu"><a href="<?php echo URLBASE ?>resumen">Resumen</a></li>
 				<li class="dropdown menu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Ventas <span class="caret"></span></a>
 					<ul class="dropdown-menu" aria-labelledby="download">
 						<li><a href="<?php echo URLBASE ?>venta-bruta-usuarios">Venta Bruta D&iacute;a</a></li>
+						<li><a href="<?php echo URLBASE ?>resumen">Resumen</a></li>
 					</ul>
 				</li>
 				<li class="dropdown menu">

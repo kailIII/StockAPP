@@ -101,13 +101,13 @@ class Sistema extends Conexion {
 	public function CambiarLogo(){
 
 		if(isset($_POST['CambiarLogo'])) {
-
+			// Directorio de la imagen
 			$target_dir = "estatico/img/";
 			$LogoSql= $this->Conectar()->query("SELECT logo FROM `sistema`");
 			$Logo	= $LogoSql->fetch_assoc();
 			$LogoApp= $target_dir.$Logo['logo'];
+			// Elimina el logo actual para no cargar mucho el servidor
 			unlink($LogoApp);
-			
 			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 			$CargaOk = 1;
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);

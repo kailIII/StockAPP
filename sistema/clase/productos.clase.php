@@ -55,6 +55,38 @@ class Productos extends Conexion {
 		}
 	}
 
+	public function ActualizarInventario(){
+		if(isset($_POST['ActualizarInventario'])){
+			$IdProducto			= filter_var($_POST['IdProducto'], FILTER_VALIDATE_INT);
+			$CantidadProducto	= filter_var($_POST['CantidadProducto'], FILTER_VALIDATE_INT);
+			$FechaActual		= FechaActual().' '.HoraActual();
+			$ActualizarInventarioSql= $this->Conectar()->query("UPDATE `producto` SET stock=stock+{$CantidadProducto} WHERE id='{$IdProducto}'");
+
+			$InformacionProductoSql = $this->Conectar()->query("SELECT precioventa, stock FROM `producto` WHERE id='{$IdProducto}'");
+			$InformacionProducto	= $InformacionProductoSql->fetch_array();
+			$StockProducto	= $InformacionProducto['stock']; // Stock del Producto
+			$PrecioUnitario = $InformacionProducto['precioventa']; // Precio por Unidad
+			$PrecioTotal	= $CantidadProducto*$InformacionProducto['precioventa']; // Precio Total
+			// Registro Kardex
+			$KardexSalidadLogSql	= $this->Conectar()->query("INSERT INTO `kardex` (`producto`, `entrada`, `salida`, `stock`, `preciounitario`, `preciototal`, `detalle`, `fecha`) VALUES ('{$IdProducto}', '{$CantidadProducto}', '0', '{$StockProducto}', '{$PrecioUnitario}', '{$PrecioTotal}', 'Ingreso de Producto', '{$FechaActual}')");
+			if($ActualizarInventarioSql && $KardexSalidadLogSql == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Excelente</strong> El inventario ha sido actualziado con exito.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'productos"/>';
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Oh no!</strong> A ocurrido un error al actualizar el inventario, por favor intentalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'productos"/>';
+			}
+		}
+	}
+
 	public function CrearDepartamentos(){
 
 		if(isset($_POST['CrearDepartamento'])){

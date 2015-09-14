@@ -1,3 +1,1 @@
-<?php
-				define('TEMA', 'united');
-				?>
+<?php define('TEMA', 'united'); ?>

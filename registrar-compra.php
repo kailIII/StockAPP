@@ -69,7 +69,6 @@ $usuario->VerificacionCuenta();
 				</div>
 			</div>
 		</div>
-		<?php include (MODULO.'contador.php'); ?>
 		<div class="row">
 			<div class="col-lg-12 well">
 				<table class="table table-bordered col-lg-3" style="background-color: #fff">

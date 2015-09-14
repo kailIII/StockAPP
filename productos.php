@@ -35,6 +35,9 @@ $usuario->VerificacionCuenta();
 				</div>
 			</div>
 		</div>
+		<?php
+		$ProductosClase->ActualizarInventario();
+		?>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="productos">
 				<thead>
@@ -76,8 +79,34 @@ $usuario->VerificacionCuenta();
 						<td>
 						<button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
 						<button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i></button>
+						<button class="btn btn-success btn-xs"  type="button" data-toggle="modal" data-target="#AgrearProducto<?php echo $ProductosStockRow['id']; ?>"><i class="fa fa-plus"></i></button>
 						</td>
 					</tr>
+					<!-- Modal -->
+					<div class="modal fade" id="AgrearProducto<?php echo $ProductosStockRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					  <div class="modal-dialog" role="document">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Actualizar inventario (<?php echo $ProductosStockRow['nombre']; ?>)</h4>
+						  </div>
+						  <div class="modal-body">
+							<form class="form-horizontal" method="post">
+								<input type="hidden" name="IdProducto" value="<?php echo $ProductosStockRow['id']; ?>"/>
+								<div class="form-group">
+									<div class="col-lg-12">
+										<input type="number" min="1" step="1" maxlength="6" class="form-control" placeholder="Cantidad a ingresar al inventario" name="CantidadProducto" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off"  required />
+									</div>
+								</div>
+								<hr/>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+								<button type="submit" name="ActualizarInventario" class="btn btn-primary">Ingresar al Inventario</button>
+							</form>
+						  </div>
+						</div>
+					  </div>
+					</div>
+					<!-- Modal Fin-->
 					<?php endforeach; ?>
 				</tbody>
 			</table>
@@ -96,6 +125,15 @@ $usuario->VerificacionCuenta();
 			"scrollX": true
 		});
 	});
+	// Permitir Solo numeros en los input
+	function PermitirSoloNumeros(e)
+	{
+		var keynum = window.event ? window.event.keyCode : e.which;
+		if ((keynum == 8) || (keynum == 46))
+		return true;
+
+		return /\d/.test(String.fromCharCode(keynum));
+	}
 	</script>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido Fin -->
 </body>
