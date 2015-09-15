@@ -119,32 +119,6 @@ class Venta extends Conexion {
 		}
 	}
 
-	public function EliminarVentaActual(){
-
-		if(isset($_POST['EliminarVentaActual'])){
-			// Variables
-			$IdUsuario	= filter_var($_POST['IdUsuario'], FILTER_VALIDATE_INT);
-			// Query Para Actulizar La Cantidad Apuesta
-			$EliminarNumeroSql = $this->Conectar()->query("DELETE FROM `cajatmp` WHERE vendedor='{$IdUsuario}'");
-			// Mensaje De Comprobacion
-			if($EliminarNumeroSql==true){
-				echo'
-				<div class="alert alert-dismissible alert-success">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>&iexcl;Bien hecho!</strong> Se ha eliminado la venta actual con exito.
-				</div>
-				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
-			}else{
-				echo'
-				<div class="alert alert-dismissible alert-danger">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
-				</div>
-				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
-			}
-		}
-	}
-
 	public function ActualizarCantidadCajaTmp(){
 		//Eliminar Todo del carrito de compras o parte del mismo
 		if(isset($_POST['ActualizarCantidadCajaTmp'])){
@@ -192,22 +166,23 @@ class Venta extends Conexion {
 				if($IdEliminar!=""){
 					$EliminarQuery	= $this->Conectar()->query("DELETE FROM `cajatmp` WHERE `id` ='{$IdEliminar}'");
 					$ActualizarQuery=$this->Conectar()->query("UPDATE `producto` SET `stock` = `stock`+{$Cantidad} WHERE `id`='{$IdProducto}'");
-					if($EliminarQuery && $ActualizarQuery == true){
-						echo'
-						<div class="alert alert-dismissible alert-success">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>&iexcl;Bien hecho!</strong> Se ha eliminado la venta actual con exito.
-						</div>
-						<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
-					}else{
-						echo'
-						<div class="alert alert-dismissible alert-danger">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
-						</div>
-						<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
-					}
 				}
+			}
+
+			if($EliminarQuery && $ActualizarQuery == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Bien hecho!</strong> Se ha eliminado la venta actual con exito.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
 			}
 		}
 	}
