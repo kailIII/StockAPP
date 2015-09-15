@@ -2,7 +2,7 @@
     <!--/.footer-bottom--> 
     <div class="footer-bottom">
         <div class="container">
-            <p class="pull-left"> &copy; <?php echo date('Y'); ?> Todos Los Derechos Reservados <a href="<?php echo URLBASE ?>"><?php echo TITULO ?></a> | Version <a>v1.0.3 Estable</a></p>
+            <p class="pull-left"> &copy; <?php echo date('Y'); ?> Todos Los Derechos Reservados <a href="<?php echo URLBASE ?>"><?php echo TITULO ?></a> | Version <a>v1.0.4 Desarrollo</a></p>
             <div class="pull-right">
                 <ul class="nav nav-pills payments">
                 	<li><i class="fa fa-cc-visa"></i></li>

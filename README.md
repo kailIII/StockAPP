@@ -1,4 +1,4 @@
-# ![logo](https://raw.githubusercontent.com/Qualtiva/StockAPP/master/estatico/img/logo.png)
+# ![logo](https://raw.githubusercontent.com/Qualtiva/StockAPP/master/estatico/img/logo.png) v1.0.4 Dev
 ## Requerimientos
 
 + Platforma: Windows
@@ -14,7 +14,7 @@ Puede instalar y acceder a él StockAPP súper fácil. Recuerde que debe elimina
 Para desarrollar "StockAPP" recomendamos activar la opción de  [ENTORNO_DESARROLLO](https://github.com/Qualtiva/StockAPP/blob/master/sistema/Qualtiva.php#L28)
 
 ## Temas de Información
-Los problemas pueden ser reportados a través del [seguimiento de incidencias Github] (https://github.com/Qualtiva/StockAPP/issues).
+Los problemas pueden ser reportados a través del [seguimiento de incidencias de Github] (https://github.com/Qualtiva/StockAPP/issues).
 
 ## * IIS 8.0:
 http://www.iis.net/downloads/microsoft/url-rewrite
@@ -51,14 +51,3 @@ rewrite ^/estado-de-cuenta/(.+)/(.+)$ /estadodecuenta.php?id=$1&title=$2;
 - [ ] Módulo de Inventario
 - [ ] Generación de reportes por rango de fecha
 - [ ] Impresión de reportes en Word, Excel & PDF
-
-
-
-
-
-
-
-
-
-
-
