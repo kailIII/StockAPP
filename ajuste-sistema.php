@@ -45,6 +45,9 @@ $usuario->ZonaAdministrador();
 		$sistema->EditarMoneda();
 		$sistema->CambiarTema();
 		$sistema->CambiarLogo();
+		$sistema->TipoDeCambioActivo();
+		$sistema->ActivarTipoDeCambio();
+		$sistema->DesactivarTipoDeCambio();
 		?>
 		<div class="row">
 			<div class="col-md-8">
@@ -55,6 +58,7 @@ $usuario->ZonaAdministrador();
 								<td><strong>Moneda</strong></td>
 								<td><strong>Signo</strong></td>
 								<td><strong>Valor</strong></td>
+								<td><strong>Rango</strong></td>
 								<td><strong><center>Estado</center></strong></td>
 								<td><strong><center>Opciones</center></strong></td>
 							</tr>
@@ -65,6 +69,19 @@ $usuario->ZonaAdministrador();
 								<td><?php echo $SelectorMonedaRow['moneda']; ?></td>
 								<td><?php echo $SelectorMonedaRow['signo']; ?></td>
 								<td><?php echo $SelectorMonedaRow['valor']; ?></td>
+								<td>
+									<center>
+									<?php
+									if($SelectorMonedaRow['rango'] == 1){
+										echo'<span class="label label-success">Moneda Principal</span>';
+									}elseif($SelectorMonedaRow['rango'] == 2){
+										echo'<span class="label label-warning">Moneda Segundaria</span>';
+									}if($SelectorMonedaRow['rango'] == 3){
+										echo'<span class="label label-danger">&iexcl;No se Utiliza!</span>';
+									}
+									?>
+									</center>
+								</td>
 								<td>
 									<center>
 									<?php
@@ -83,6 +100,34 @@ $usuario->ZonaAdministrador();
 									<!-- Modal Editar -->
 									<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EditarProveedor<?php echo $SelectorMonedaRow['id']; ?>"><i class="fa fa-pencil-square-o"></i></button>
 									<!-- Modal Editar -->
+									<!-- Modal Activar -->
+									<?php
+									if($SelectorMonedaRow['rango'] == 1){
+										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-toggle-on"></i></button>';
+									}elseif($SelectorMonedaRow['rango'] == 2){
+										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-toggle-on"></i></button>';
+									}else{
+										echo'<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ActivarMoneda'.$SelectorMonedaRow['id'].'"><i class="fa fa-toggle-on"></i></button>';
+									}
+									?>
+									<!-- Modal Activar -->
+									<!-- Modal Activar -->
+									<?php
+									if($SelectorMonedaRow['rango'] == 2){
+										$TipoCambioMonedaSql= $db->Conectar()->query("SELECT TipoCambio FROM `sistema`");
+										$TipoCambioMoneda	= $TipoCambioMonedaSql->fetch_assoc();
+										if($TipoCambioMoneda['TipoCambio'] == 1){
+											echo'<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#DesactivarTipoDeCambio"><i class="fa fa-power-off"></i></button>';
+										}else{
+											echo'<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ActivarTipoDeCambio"><i class="fa fa-power-off"></i></button>';
+										}
+									}elseif(1 or 3 == $SelectorMonedaRow['rango']){
+										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-power-off"></i></button>';
+									}else{
+										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-power-off"></i></button>';
+									}
+									?>
+									<!-- Modal Activar -->
 								</td>
 							</tr>
 							<!-- Modal Eliminar-->
@@ -103,7 +148,7 @@ $usuario->ZonaAdministrador();
 											</div>
 										</div>
 										<div class="form-group">
-										   <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 											<button type="submit" name="EliminarProveedor" class="btn btn-primary">Si, Eliminar</button>
 										</div>
 									</form>
@@ -143,8 +188,31 @@ $usuario->ZonaAdministrador();
 													</select>
 												</div>
 												<div class="form-group">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 													<button type="submit" name="EditarMoneda" class="btn btn-primary">Editar Moneda</button>
-													<a href="#" class="btn btn-default">Cancelar</a>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Modal Editar-->
+							<div class="modal fade" id="ActivarMoneda<?php echo $SelectorMonedaRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Activar Moneda <?php echo $SelectorMonedaRow['moneda']; ?></h4>
+										</div>
+										<div class="modal-body">
+											<form method="post" action="" class="form-horizontal">
+												<input type="hidden" name="IdMoneda" value="<?php echo $SelectorMonedaRow['id']; ?>">
+												<div class="form-group">
+													<div class="form-group">
+														<p>¿Desea activar como segunda moneda del sistema?</p>
+													</div>
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+													<button type="submit" name="ActivarSegundaMoneda" class="btn btn-primary">Activar Moneda</button>
 												</div>
 											</form>
 										</div>
@@ -152,6 +220,52 @@ $usuario->ZonaAdministrador();
 								</div>
 							</div>
 							<!-- Modal Editar Final -->
+							<!-- Modal Activar Tipo de Cambio -->
+							<div class="modal fade" id="ActivarTipoDeCambio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">&iquest;Activar Tipo de Cambio?</h4>
+										</div>
+										<div class="modal-body">
+											<form method="post" action="" class="form-horizontal">
+												<div class="form-group">
+													<div class="form-group">
+														<p>¿Desea activar tipo de cambio del sistema?</p>
+													</div>
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+													<button type="submit" name="ActivarTipoDeCambio" class="btn btn-primary">Activar Tipo De Cambio</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Modal Modal Activar Tipo de Cambio Final -->
+							<!-- Modal Activar Tipo de Cambio -->
+							<div class="modal fade" id="DesactivarTipoDeCambio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">&iquest;Activar Tipo de Cambio?</h4>
+										</div>
+										<div class="modal-body">
+											<form method="post" action="" class="form-horizontal">
+												<div class="form-group">
+													<div class="form-group">
+														<p>¿Desea desactivar tipo de cambio del sistema?</p>
+													</div>
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+													<button type="submit" name="DesactivarTipoDeCambio" class="btn btn-primary">Desactivar Tipo De Cambio</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Modal Modal Activar Tipo de Cambio Final -->
 							<?php endforeach?>
 						</tbody>
 					</table>

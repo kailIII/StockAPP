@@ -192,5 +192,70 @@ class Sistema extends Conexion {
 		$Logo	= $LogoSql->fetch_assoc();
 		echo $Logo['logo'];
 	}
+
+	public function TipoDeCambioActivo(){
+		if(isset($_POST['ActivarSegundaMoneda'])){
+			$IdMoneda = filter_var($_POST['IdMoneda'], FILTER_VALIDATE_INT);
+			$ActualizarRangoSql	= $this->Conectar()->query("UPDATE `moneda` SET `rango` = '3' WHERE `rango`  = '2'");
+			$CambiarRangoSql	= $this->Conectar()->query("UPDATE `moneda` SET `rango` = '2' WHERE `id` = '{$IdMoneda}'");
+			if ($ActualizarRangoSql && $CambiarRangoSql == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Bien hecho!</strong> Se ha actualizado la segunda moneda del sistema.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			} else {
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, hubo un error al actualizar la segunda moneda del sistema.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			}
+		}
+	}
+
+	public function ActivarTipoDeCambio(){
+		if(isset($_POST['ActivarTipoDeCambio'])){
+			$ActivarTipoDeCambio	= $this->Conectar()->query("UPDATE `sistema` SET `TipoCambio` = '1' WHERE `id` = '1'");
+			if ($ActivarTipoDeCambio == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Bien hecho!</strong> Se ha activado el tipo de cambio del sistema.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			} else {
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, hubo un error al activar el tipo de cambio del sistema.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			}
+		}
+	}
+
+	public function DesactivarTipoDeCambio(){
+		if(isset($_POST['DesactivarTipoDeCambio'])){
+			$DesactivarTipoDeCambio	= $this->Conectar()->query("UPDATE `sistema` SET `TipoCambio` = '0' WHERE `id` = '1'");
+			if ($DesactivarTipoDeCambio == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Bien hecho!</strong> Se ha desactivado el tipo de cambio del sistema.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			} else {
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Lo Sentimos!</strong> Lo sentimos, hubo un error al desactivar el tipo de cambio del sistema.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'ajuste-sistema"/>';
+			}
+		}
+	}
 }
 ?>

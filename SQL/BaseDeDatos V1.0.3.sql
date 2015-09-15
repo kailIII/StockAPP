@@ -419,16 +419,17 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `sistema`;
 
 CREATE TABLE `sistema` (
-  `id` INT(1) NOT NULL AUTO_INCREMENT,
-  `logo` VARCHAR(55) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'logo.jpg',
+  `id` int(1) NOT NULL AUTO_INCREMENT,
+  `logo` varchar(55) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'logo.jpg',
+  `TipoCambio` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sistema` */
 
 LOCK TABLES `sistema` WRITE;
 
-INSERT  INTO `sistema`(`id`,`logo`) VALUES (1,'applogo.png');
+INSERT  INTO `sistema`(`id`,`logo`) VALUES (1,'applogo.png', '1');
 
 UNLOCK TABLES;
 
@@ -506,8 +507,6 @@ CREATE TABLE `ventas` (
 /*Data for the table `ventas` */
 
 LOCK TABLES `ventas` WRITE;
-
-INSERT  INTO `ventas`(`id`,`idfactura`,`producto`,`cantidad`,`precio`,`totalprecio`,`vendedor`,`cliente`,`fecha`,`tipo`,`habilitada`) VALUES (1,1,1,4,8.9,35.6,1,1,'31/08/2015',NULL,1),(2,2,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(3,3,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(4,4,1,1,8.9,8.9,1,3,'31/08/2015',NULL,1),(5,5,1,4,8.9,35.6,1,1,'31/08/2015',NULL,1),(6,7,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(7,8,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(8,8,2,3,9.9,29.7,1,1,'31/08/2015',NULL,1),(9,8,3,2,11.9,23.8,1,1,'31/08/2015',NULL,1),(10,8,3,1,11.9,11.9,1,1,'31/08/2015',NULL,1),(11,8,2,1,9.9,9.9,1,1,'31/08/2015',NULL,1),(14,9,1,2,8.9,17.8,1,1,'31/08/2015',NULL,1),(15,10,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(16,11,1,3,8.9,26.7,1,1,'31/08/2015',NULL,1),(17,12,3,2,11.9,23.8,1,1,'31/08/2015',NULL,1),(18,12,2,1,9.9,9.9,1,1,'31/08/2015',NULL,1),(20,13,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(21,13,3,1,11.9,11.9,1,1,'31/08/2015',NULL,1),(22,13,2,4,9.9,39.6,1,1,'31/08/2015',NULL,1),(23,14,2,1,9.9,9.9,1,1,'31/08/2015',NULL,1),(24,14,2,1,9.9,9.9,1,1,'31/08/2015',NULL,1),(26,15,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(27,15,2,3,9.9,29.7,1,1,'31/08/2015',NULL,1),(29,16,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(30,17,1,1,8.9,8.9,1,1,'31/08/2015',NULL,1),(31,18,3,1,11.9,11.9,1,1,'01/09/2015',NULL,1),(32,19,3,2,11.9,23.8,1,1,'01/09/2015',NULL,1),(33,20,1,3,8.9,26.7,1,1,'01/09/2015',NULL,1),(34,21,1,3,8.9,26.7,1,1,'01/09/2015',NULL,1);
 
 UNLOCK TABLES;
 

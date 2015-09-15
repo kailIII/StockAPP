@@ -157,11 +157,24 @@
 	<?php
 	$netoSql= $db->Conectar()->query("SELECT SUM(totalprecio) AS deudatotal FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
 	$neto	= $netoSql->fetch_array();
+	$TipoDeCambioSql= $db->Conectar()->query("SELECT valor FROM `moneda` WHERE rango='2'");
+	$TipoDeCambio	= $TipoDeCambioSql->fetch_assoc();
 	?>
 	<div class="panel panel-default">
 	  <div class="panel-heading"><center><strong>Neto a Pagar</strong></center></div>
 	  <div class="panel-body">
-		<h2 class="text-success" align="center">$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?><br/><small class="text-info" >&cent; <?php echo $Vendedor->FormatoSaldo($neto['deudatotal']*528); ?></small></h2>
+		<h2 class="text-success" align="center">$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?>
+		<?php
+		$TipoDeCambioActivoSql	= $db->Conectar()->query("SELECT TipoCambio FROM `sistema`");
+		$TipoDeCambioActivo		= $TipoDeCambioActivoSql->fetch_assoc();
+		if($TipoDeCambioActivo['TipoCambio'] == 1){
+		?>
+		<br/><small class="text-info" >&cent; <?php echo $Vendedor->FormatoSaldo($neto['deudatotal']*$TipoDeCambio['valor']); ?></small></h2>
+		<?php
+		}else{
+			// Tipo Cambio deshabilitado
+		}
+		?>
 	</div>
 	<div class="panel-heading">
 		<?php

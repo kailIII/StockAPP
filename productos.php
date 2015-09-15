@@ -54,12 +54,15 @@ $usuario->VerificacionCuenta();
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach($ProductosStockArray as $ProductosStockRow): ?>
+					<?php foreach($ProductosStockArray as $ProductosStockRow):
+						$TipoDeCambioSql= $db->Conectar()->query("SELECT valor FROM `moneda` WHERE rango='2'");
+						$TipoDeCambio	= $TipoDeCambioSql->fetch_assoc();
+					?>
 					<tr>
 						<td data-title="Code"><?php echo $ProductosStockRow['codigo']; ?></td>
 						<td><?php echo $ProductosStockRow['nombre']; ?></td>
-						<td data-title="Price" class="numeric"> $ <?php echo $ProductosStockRow['preciocosto']; ?> | &cent; <?php echo $Vendedor->FormatoSaldo($ProductosStockRow['preciocosto']*528); ?></td>
-						<td data-title="Price" class="numeric"> $ <?php echo $ProductosStockRow['precioventa']; ?> | &cent; <?php echo $Vendedor->FormatoSaldo($ProductosStockRow['precioventa']*528); ?></td>
+						<td data-title="Price" class="numeric"> $ <?php echo $ProductosStockRow['preciocosto']; ?> | &cent; <?php echo $Vendedor->FormatoSaldo($ProductosStockRow['preciocosto']*$TipoDeCambio['valor']); ?></td>
+						<td data-title="Price" class="numeric"> $ <?php echo $ProductosStockRow['precioventa']; ?> | &cent; <?php echo $Vendedor->FormatoSaldo($ProductosStockRow['precioventa']*$TipoDeCambio['valor']); ?></td>
 						<td><?php echo $ProductosStockRow['stock']; ?></td>
 						<td><?php echo $ProductosStockRow['stockMin']; ?></td>
 						<td>
