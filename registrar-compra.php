@@ -49,6 +49,19 @@ $usuario->VerificacionCuenta();
 		  `producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`
 		FROM   `cajatmp`
 		WHERE  vendedor='{$vendedor}'");
+
+		//Registras Salidas en el kardex
+		$KardexSalidaSql = $db->Conectar()->query("SELECT `producto`, `cantidad`, `stockTmp`, `precio`, `totalprecio`, `fecha` FROM `cajatmp` WHERE  vendedor='{$vendedor}'");
+		while ($row = $KardexSalidaSql->fetch_array()) {
+			$campo1		= $row['producto'];
+			$campo2		= $row['cantidad'];
+			$campo3		= $row['stockTmp'];
+			$campo4		= $row['precio'];
+			$campo5		= $row['totalprecio'];
+			$campo6		= $row['fecha'];
+			$KardexQuery= $db->Conectar()->query("INSERT INTO `kardex` (`producto`, `salida`, `stock`, `preciounitario`, `preciototal`, `fecha`) VALUES ('{$campo1}', '{$campo2}', '{$campo3}', '{$campo4}', '{$campo5}', '{$campo6}')");
+		}
+
 		//Obteniendo Id de la Factura
 		$IdFacturaSql	= $db->Conectar()->query("SELECT MAX(id) AS ultimaid FROM factura WHERE usuario='{$vendedor}'");
 		$IdFactura		= $IdFacturaSql->fetch_array();

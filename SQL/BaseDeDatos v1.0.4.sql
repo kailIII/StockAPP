@@ -228,15 +228,16 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `kardex`;
 
 CREATE TABLE `kardex` (
-  `id` int(5) DEFAULT NULL,
+  `id` int(5) NOT NULL AUTO_INCREMENT,
   `producto` varchar(255) DEFAULT NULL,
-  `entrada` int(11) DEFAULT NULL,
-  `salida` int(11) DEFAULT NULL,
+  `entrada` int(11) DEFAULT '0',
+  `salida` int(11) DEFAULT '0',
   `stock` int(11) DEFAULT NULL,
   `preciounitario` varchar(15) DEFAULT NULL,
   `preciototal` varchar(15) DEFAULT NULL,
-  `detalle` text,
-  `fecha` varchar(255) DEFAULT NULL
+  `detalle` varchar(50) DEFAULT 'Salida de Producto',
+  `fecha` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `kardex` */
