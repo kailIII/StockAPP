@@ -82,7 +82,7 @@ $usuario->VerificacionCuenta();
 							<td data-title="Price" class="numeric"> $ <?php echo $KardexPorfechasRow['preciounitario']; ?></td>
 							<td data-title="Price" class="numeric"> $ <?php echo $KardexPorfechasRow['preciototal']; ?></td>
 							<td><?php echo $KardexPorfechasRow['detalle']; ?></td>
-							<td><?php echo $KardexPorfechasRow['fecha']; ?></td>
+							<td><?php echo $KardexPorfechasRow['fecha'].' '.$KardexPorfechasRow['hora']; ?></td>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>

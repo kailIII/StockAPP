@@ -8,6 +8,7 @@ $cliente	= filter_var($_POST['cliente'], FILTER_VALIDATE_INT);
 $producto	= filter_var($_POST['codigo'], FILTER_VALIDATE_INT);
 $cantidad	= filter_var($_POST['cantidad'], FILTER_VALIDATE_INT);
 $fecha		= FechaActual();
+$hora		= HoraActual();
 
 if($producto == null or $producto == ''){
 	echo'
@@ -30,8 +31,8 @@ if($producto == null or $producto == ''){
 		$PrecioProductos	= $PrecioProductoSql->fetch_array();
 		$TotalPrecio 		= $PrecioProductos['precioventa']*$cantidad;
 		
-		$CrearCajaTmpSql = "INSERT INTO `cajatmp` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `stockTmp`, `stock`, `fecha`) VALUES
-		('{$producto}', '{$cantidad}', '{$PrecioProductos['precioventa']}', '{$TotalPrecio}', '{$VendedorId}', '{$cliente}', '{$StockTmp}', '{$StockProducto['stock']}', '{$fecha}')";
+		$CrearCajaTmpSql = "INSERT INTO `cajatmp` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `stockTmp`, `stock`, `fecha`, `hora`) VALUES
+		('{$producto}', '{$cantidad}', '{$PrecioProductos['precioventa']}', '{$TotalPrecio}', '{$VendedorId}', '{$cliente}', '{$StockTmp}', '{$StockProducto['stock']}', '{$fecha}', '{$hora}')";
 		$ActualizarStockSql = $db->Conectar()->query("UPDATE `producto` SET `stock` = '{$StockTmp}' WHERE `id`='{$producto}'");
 		// Registra Producto en la caja tmp
 		$db->Conectar()->query($CrearCajaTmpSql);

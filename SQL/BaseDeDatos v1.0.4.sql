@@ -18,12 +18,12 @@ MySQL - 5.6.24 : Database - stockdev
 DROP TABLE IF EXISTS `caja`;
 
 CREATE TABLE `caja` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `saldoanterior` VARCHAR(25) DEFAULT '0',
-  `saldoventa` VARCHAR(25) DEFAULT '0',
-  `total` VARCHAR(25) DEFAULT '0',
-  `fecha` VARCHAR(25) DEFAULT NULL,
-  `vendedor` VARCHAR(25) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `saldoanterior` varchar(25) DEFAULT '0',
+  `saldoventa` varchar(25) DEFAULT '0',
+  `total` varchar(25) DEFAULT '0',
+  `fecha` varchar(25) DEFAULT NULL,
+  `vendedor` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -48,7 +48,8 @@ CREATE TABLE `cajatmp` (
   `cliente` int(9) DEFAULT '1',
   `stockTmp` int(9) DEFAULT '0',
   `stock` int(9) DEFAULT NULL,
-  `fecha` varchar(25) DEFAULT NULL,
+  `fecha` varchar(10) DEFAULT NULL,
+  `hora` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -63,9 +64,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `canton`;
 
 CREATE TABLE `canton` (
-  `id` SMALLINT(5) UNSIGNED NOT NULL,
-  `id_provincia` SMALLINT(5) UNSIGNED NOT NULL,
-  `canton` VARCHAR(45) NOT NULL,
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `id_provincia` smallint(5) UNSIGNED NOT NULL,
+  `canton` varchar(45) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_CANTON_PROVINCIA` (`id_provincia`),
   CONSTRAINT `FK_CANTON_PROVINCIA` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id`)
@@ -84,15 +85,15 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `cierre`;
 
 CREATE TABLE `cierre` (
-  `id` INT(25) NOT NULL AUTO_INCREMENT,
-  `numero` INT(2) DEFAULT NULL,
-  `valor` INT(5) DEFAULT NULL,
-  `tipo` VARCHAR(35) DEFAULT NULL,
-  `fecha` VARCHAR(25) DEFAULT NULL,
-  `hora` VARCHAR(25) DEFAULT NULL,
-  `vendedor` VARCHAR(35) DEFAULT NULL,
-  `cliente` VARCHAR(35) DEFAULT NULL,
-  `habilitado` TINYINT(1) DEFAULT '0',
+  `id` int(25) NOT NULL AUTO_INCREMENT,
+  `numero` int(2) DEFAULT NULL,
+  `valor` int(5) DEFAULT NULL,
+  `tipo` varchar(35) DEFAULT NULL,
+  `fecha` varchar(25) DEFAULT NULL,
+  `hora` varchar(25) DEFAULT NULL,
+  `vendedor` varchar(35) DEFAULT NULL,
+  `cliente` varchar(35) DEFAULT NULL,
+  `habilitado` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -107,10 +108,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `cliente`;
 
 CREATE TABLE `cliente` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(255) DEFAULT NULL,
-  `descuento` VARCHAR(4) DEFAULT '0',
-  `habilitado` TINYINT(1) DEFAULT '1',
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) DEFAULT NULL,
+  `descuento` varchar(4) DEFAULT '0',
+  `habilitado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -127,9 +128,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `departamento`;
 
 CREATE TABLE `departamento` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(80) DEFAULT NULL,
-  `habilitada` TINYINT(1) DEFAULT '1',
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) DEFAULT NULL,
+  `habilitada` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -146,9 +147,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `distrito`;
 
 CREATE TABLE `distrito` (
-  `id` INT(10) UNSIGNED NOT NULL,
-  `id_canton` SMALLINT(5) UNSIGNED NOT NULL,
-  `distrito` VARCHAR(45) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_canton` smallint(5) UNSIGNED NOT NULL,
+  `distrito` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_DISTRITO_CANTON` (`id_canton`),
   CONSTRAINT `FK_DISTRITO_CANTON` FOREIGN KEY (`id_canton`) REFERENCES `canton` (`id`)
@@ -167,9 +168,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `establecimiento`;
 
 CREATE TABLE `establecimiento` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(35) DEFAULT NULL,
-  `telefono` VARCHAR(35) DEFAULT NULL,
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(35) DEFAULT NULL,
+  `telefono` varchar(35) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -186,14 +187,14 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `factura`;
 
 CREATE TABLE `factura` (
-  `id` INT(20) NOT NULL AUTO_INCREMENT,
-  `total` VARCHAR(20) DEFAULT NULL,
-  `fecha` VARCHAR(25) DEFAULT NULL,
-  `hora` VARCHAR(25) DEFAULT NULL,
-  `usuario` VARCHAR(30) DEFAULT NULL,
-  `cliente` VARCHAR(30) DEFAULT '1',
-  `tipo` TINYINT(1) DEFAULT '1',
-  `habilitado` INT(1) DEFAULT '1',
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `total` varchar(20) DEFAULT NULL,
+  `fecha` varchar(25) DEFAULT NULL,
+  `hora` varchar(25) DEFAULT NULL,
+  `usuario` varchar(30) DEFAULT NULL,
+  `cliente` varchar(30) DEFAULT '1',
+  `tipo` tinyint(1) DEFAULT '1',
+  `habilitado` int(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -208,10 +209,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `iva`;
 
 CREATE TABLE `iva` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `nombre` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre del impuesto de venta',
-  `valor` INT(4) DEFAULT NULL COMMENT 'Valor del impuesto de venta',
-  `habilitado` TINYINT(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `nombre` varchar(50) DEFAULT NULL COMMENT 'Nombre del impuesto de venta',
+  `valor` int(4) DEFAULT NULL COMMENT 'Valor del impuesto de venta',
+  `habilitado` tinyint(1) DEFAULT NULL COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -236,7 +237,8 @@ CREATE TABLE `kardex` (
   `preciounitario` varchar(15) DEFAULT NULL,
   `preciototal` varchar(15) DEFAULT NULL,
   `detalle` varchar(50) DEFAULT 'Salida de Producto',
-  `fecha` varchar(25) DEFAULT NULL,
+  `fecha` varchar(10) DEFAULT NULL,
+  `hora` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -251,9 +253,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `medida`;
 
 CREATE TABLE `medida` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(50) DEFAULT NULL,
-  `signo` VARCHAR(5) DEFAULT NULL,
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `signo` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -270,11 +272,11 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `moneda`;
 
 CREATE TABLE `moneda` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT,
-  `moneda` VARCHAR(55) DEFAULT NULL,
-  `signo` VARCHAR(25) DEFAULT NULL,
-  `valor` INT(9) DEFAULT NULL,
-  `habilitada` TINYINT(1) DEFAULT '1',
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `moneda` varchar(55) DEFAULT NULL,
+  `signo` varchar(25) DEFAULT NULL,
+  `valor` int(9) DEFAULT NULL,
+  `habilitada` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -291,9 +293,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `notificaciones`;
 
 CREATE TABLE `notificaciones` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `notificacion` TEXT,
-  `fecha` VARCHAR(25) DEFAULT NULL,
+  `fecha` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -308,10 +310,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `perfil`;
 
 CREATE TABLE `perfil` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `perfil` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre del perfil de usuario',
+  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `perfil` varchar(50) DEFAULT NULL COMMENT 'Nombre del perfil de usuario',
   `comentario` TEXT COMMENT 'aclaración o comentario explicativo del tipo de perfil',
-  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `habilitado` tinyint(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -328,19 +330,19 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `producto`;
 
 CREATE TABLE `producto` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(50) DEFAULT NULL,
-  `nombre` VARCHAR(255) DEFAULT NULL,
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(50) DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
   `preciocosto` FLOAT DEFAULT NULL,
   `precioventa` FLOAT DEFAULT NULL,
-  `proveedor` INT(9) DEFAULT NULL,
-  `departamento` INT(6) DEFAULT NULL,
-  `stock` INT(9) DEFAULT NULL,
-  `stockMin` INT(9) DEFAULT NULL,
-  `impuesto` INT(3) DEFAULT '0',
-  `medida` VARCHAR(50) DEFAULT NULL,
+  `proveedor` int(9) DEFAULT NULL,
+  `departamento` int(6) DEFAULT NULL,
+  `stock` int(9) DEFAULT NULL,
+  `stockMin` int(9) DEFAULT NULL,
+  `impuesto` int(3) DEFAULT '0',
+  `medida` varchar(50) DEFAULT NULL,
   `especificaciones` TEXT,
-  `habilitado` TINYINT(1) DEFAULT '1',
+  `habilitado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_producto` (`departamento`),
   KEY `FK_id_proveedor` (`proveedor`),
@@ -361,12 +363,12 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `proveedor`;
 
 CREATE TABLE `proveedor` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(80) DEFAULT NULL,
-  `telefono` VARCHAR(35) DEFAULT NULL,
-  `contacto` VARCHAR(80) DEFAULT NULL,
-  `direccion` VARCHAR(150) DEFAULT NULL,
-  `habilitado` TINYINT(1) DEFAULT '1',
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) DEFAULT NULL,
+  `telefono` varchar(35) DEFAULT NULL,
+  `contacto` varchar(80) DEFAULT NULL,
+  `direccion` varchar(150) DEFAULT NULL,
+  `habilitado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -383,8 +385,8 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `provincia`;
 
 CREATE TABLE `provincia` (
-  `id` SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `provincia` VARCHAR(45) NOT NULL,
+  `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `provincia` varchar(45) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
@@ -401,9 +403,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `tema`;
 
 CREATE TABLE `tema` (
-  `id` INT(5) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(35) DEFAULT NULL,
-  `habilitado` TINYINT(1) DEFAULT '0',
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(35) DEFAULT NULL,
+  `habilitado` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
@@ -439,12 +441,12 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `usuario` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre del pseudonimo del usuario del sistema',
-  `contrasena` VARCHAR(40) DEFAULT NULL COMMENT 'Contraseña de acceso al sistema',
-  `id_vendedor` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Perfil)(1:1)',
-  `id_perfil` INT(1) DEFAULT '2',
-  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `usuario` varchar(50) DEFAULT NULL COMMENT 'Nombre del pseudonimo del usuario del sistema',
+  `contrasena` varchar(40) DEFAULT NULL COMMENT 'Contraseña de acceso al sistema',
+  `id_vendedor` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Perfil)(1:1)',
+  `id_perfil` int(1) DEFAULT '2',
+  `habilitado` tinyint(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`),
   KEY `FK_usuario` (`id_vendedor`),
   KEY `FK_perfil` (`id_perfil`)
@@ -463,17 +465,17 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `vendedores`;
 
 CREATE TABLE `vendedores` (
-  `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
-  `nombre` VARCHAR(50) DEFAULT NULL COMMENT 'Nombre real de la persona que va a utilizar el sistema',
-  `apellido1` VARCHAR(50) DEFAULT NULL COMMENT 'Primer apellido de la persona que va a utilizar el sistema',
-  `apellido2` VARCHAR(50) DEFAULT NULL COMMENT 'Segundo apellido de la persona que va a utilizar el sistema',
-  `establecimiento` VARCHAR(80) DEFAULT NULL COMMENT 'Nombre del Establecimiento',
+  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Primaria)',
+  `nombre` varchar(50) DEFAULT NULL COMMENT 'Nombre real de la persona que va a utilizar el sistema',
+  `apellido1` varchar(50) DEFAULT NULL COMMENT 'Primer apellido de la persona que va a utilizar el sistema',
+  `apellido2` varchar(50) DEFAULT NULL COMMENT 'Segundo apellido de la persona que va a utilizar el sistema',
+  `establecimiento` varchar(80) DEFAULT NULL COMMENT 'Nombre del Establecimiento',
   `nota` TEXT COMMENT 'Dirección de la residencia de la persona',
-  `provincia` INT(15) DEFAULT NULL,
-  `canton` INT(10) DEFAULT NULL,
-  `distrito` INT(10) DEFAULT NULL,
-  `id_usuario` INT(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Usuario(1:1). Relaciona un usuario específico con un empleado en una relación uno a uno.',
-  `habilitado` TINYINT(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
+  `provincia` int(15) DEFAULT NULL,
+  `canton` int(10) DEFAULT NULL,
+  `distrito` int(10) DEFAULT NULL,
+  `id_usuario` int(9) DEFAULT NULL COMMENT 'Identificador numérico para cada uno de los registros de la tabla.(Llave Foránea-Tabla Usuario(1:1). Relaciona un usuario específico con un empleado en una relación uno a uno.',
+  `habilitado` tinyint(1) DEFAULT '1' COMMENT 'Determina si el registro es válido para utilizarse o se debe ignorar para operaciones sobre los datos.',
   PRIMARY KEY (`id`),
   KEY `FK_usuario` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -491,19 +493,20 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `ventas`;
 
 CREATE TABLE `ventas` (
-  `id` INT(25) NOT NULL AUTO_INCREMENT,
-  `idfactura` INT(25) DEFAULT NULL,
-  `producto` INT(2) DEFAULT NULL,
-  `cantidad` INT(5) DEFAULT '1',
+  `id` int(25) NOT NULL AUTO_INCREMENT,
+  `idfactura` int(25) DEFAULT NULL,
+  `producto` int(2) DEFAULT NULL,
+  `cantidad` int(5) DEFAULT '1',
   `precio` FLOAT DEFAULT NULL,
   `totalprecio` FLOAT DEFAULT NULL,
-  `vendedor` INT(9) DEFAULT NULL,
-  `cliente` INT(9) DEFAULT '1',
-  `fecha` VARCHAR(25) DEFAULT NULL,
-  `tipo` TINYINT(1) DEFAULT NULL,
-  `habilitada` INT(1) DEFAULT '1',
+  `vendedor` int(9) DEFAULT NULL,
+  `cliente` int(9) DEFAULT '1',
+  `fecha` varchar(10) DEFAULT NULL,
+  `hora` varchar(11) DEFAULT NULL,
+  `tipo` tinyint(1) DEFAULT NULL,
+  `habilitada` int(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `ventas` */
 

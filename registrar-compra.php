@@ -44,14 +44,14 @@ $usuario->VerificacionCuenta();
 		// Agrego los datos para generar la factura
 		$facturaSql	= $db->Conectar()->query("INSERT INTO `factura` (`total`, `fecha`, `hora`, `usuario`, `cliente`, `tipo`, `habilitado`) VALUES ('{$total}', '{$fecha}',  '{$hora}', '{$vendedor}', '{$cliente}', '{$tipo}', '1')");
 		// Copiando Datos de la caja temporal a la caja principal
-		$registrarSql = $db->Conectar()->query("INSERT INTO `ventas` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`)
+		$registrarSql = $db->Conectar()->query("INSERT INTO `ventas` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`, `hora`)
 		SELECT
-		  `producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`
+		  `producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`, `hora`
 		FROM   `cajatmp`
 		WHERE  vendedor='{$vendedor}'");
 
 		//Registras Salidas en el kardex
-		$KardexSalidaSql = $db->Conectar()->query("SELECT `producto`, `cantidad`, `stockTmp`, `precio`, `totalprecio`, `fecha` FROM `cajatmp` WHERE  vendedor='{$vendedor}'");
+		$KardexSalidaSql = $db->Conectar()->query("SELECT `producto`, `cantidad`, `stockTmp`, `precio`, `totalprecio`, `fecha`, `hora` FROM `cajatmp` WHERE  vendedor='{$vendedor}'");
 		while ($row = $KardexSalidaSql->fetch_array()) {
 			$campo1		= $row['producto'];
 			$campo2		= $row['cantidad'];
@@ -59,7 +59,8 @@ $usuario->VerificacionCuenta();
 			$campo4		= $row['precio'];
 			$campo5		= $row['totalprecio'];
 			$campo6		= $row['fecha'];
-			$KardexQuery= $db->Conectar()->query("INSERT INTO `kardex` (`producto`, `salida`, `stock`, `preciounitario`, `preciototal`, `fecha`) VALUES ('{$campo1}', '{$campo2}', '{$campo3}', '{$campo4}', '{$campo5}', '{$campo6}')");
+			$campo7		= $row['hora'];
+			$KardexQuery= $db->Conectar()->query("INSERT INTO `kardex` (`producto`, `salida`, `stock`, `preciounitario`, `preciototal`, `fecha`, `hora`) VALUES ('{$campo1}', '{$campo2}', '{$campo3}', '{$campo4}', '{$campo5}', '{$campo6}', '{$campo7}')");
 		}
 
 		//Obteniendo Id de la Factura
