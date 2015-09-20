@@ -33,8 +33,11 @@ $usuario->VerificacionCuenta();
 			<div class="page-header" id="banner">
 				<div class="row">
 					<div class="col-md-6">
-						<h1>Kardex General</h1>
+						<h1>Kardex Por Producto</h1>
 					</div>
+					<?php
+					if(isset($_POST['BuscarProductoKartex'])== true){
+					?>
 					<div class="col-md-6">
 						<form method="post" action="<?php echo URLBASE ?>kardex-por-producto">
 							<h1></h1>
@@ -55,8 +58,15 @@ $usuario->VerificacionCuenta();
 							</div>
 						</form>
 					</div>
+					<?php
+					}
+					?>
 				</div>
 			</div>
+			<?php
+			if(isset($_POST['BuscarProductoKartex'])){
+			$Producto	= filter_var($_POST['codigo'], FILTER_VALIDATE_INT);
+			?>
 			<div class="row">
 				<div class="table-responsive">
 					<table class="table table-striped table-bordered dt-responsive nowrap" id="kardex">
@@ -74,11 +84,14 @@ $usuario->VerificacionCuenta();
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach($KardexPorfechasArray as $KardexPorfechasRow): ?>
+							<?php 
+							$KardexPorProductoQuery	= $db->Conectar()->query("SELECT * FROM `kardex` WHERE id='{$Producto}'");
+							while($KardexPorProducto= $KardexPorProductoQuery->fetch_array()){
+							?>
 							<tr>
 								<td>
 									<?php
-									$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$KardexPorfechasRow['producto']}'");
+									$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$KardexPorProducto['producto']}'");
 									$CodigoProducto		= $CodigoProductoSql->fetch_array();
 									if($CodigoProducto['codigo'] == null){
 										echo'Este C&oacute;digo ya se no encuentra en el inventario';
@@ -89,7 +102,7 @@ $usuario->VerificacionCuenta();
 								</td>
 								<td>
 									<?php
-									$NombreProductoSql	= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$KardexPorfechasRow['producto']}'");
+									$NombreProductoSql	= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$KardexPorProducto['producto']}'");
 									$NombreProducto		= $NombreProductoSql->fetch_array();
 									if($CodigoProducto['codigo'] == null){
 										echo'Este Producto ya se encuentra en el inventario';
@@ -98,19 +111,44 @@ $usuario->VerificacionCuenta();
 									}
 									?>
 								</td>
-								<td><?php echo $KardexPorfechasRow['entrada']; ?></td>
-								<td><?php echo $KardexPorfechasRow['salida']; ?></td>
-								<td><?php echo $KardexPorfechasRow['stock']; ?></td>
-								<td data-title="Price" class="numeric"> $ <?php echo $KardexPorfechasRow['preciounitario']; ?></td>
-								<td data-title="Price" class="numeric"> $ <?php echo $KardexPorfechasRow['preciototal']; ?></td>
-								<td><?php echo $KardexPorfechasRow['detalle']; ?></td>
-								<td><?php echo $KardexPorfechasRow['fecha'].' '.$KardexPorfechasRow['hora']; ?></td>
+								<td><?php echo $KardexPorProducto['entrada']; ?></td>
+								<td><?php echo $KardexPorProducto['salida']; ?></td>
+								<td><?php echo $KardexPorProducto['stock']; ?></td>
+								<td data-title="Price" class="numeric"> $ <?php echo $KardexPorProducto['preciounitario']; ?></td>
+								<td data-title="Price" class="numeric"> $ <?php echo $KardexPorProducto['preciototal']; ?></td>
+								<td><?php echo $KardexPorProducto['detalle']; ?></td>
+								<td><?php echo $KardexPorProducto['fecha'].' '.$KardexPorProducto['hora']; ?></td>
 							</tr>
-							<?php endforeach; ?>
+							<?php
+							}
+							?>
 						</tbody>
 					</table>
 				</div>
 			</div>
+			<?php
+			}else{
+			?>
+			<div class="row">
+				<legend>Buscar Kardex Por Producto</legend>
+				<form method="post" action="">
+					<div class="form-group">
+						<select class="form-control productos" placeholder="Buscar Por Producto" name="codigo" id="select" autofocus>
+							<option value=""></option>
+							<?php foreach($ProductosStockArray as $ProductosStockRow): ?>
+							<option value="<?php echo $ProductosStockRow['id']; ?>"><?php echo $ProductosStockRow['codigo'].' - '.$ProductosStockRow['nombre']; ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary" type="submit" name="BuscarProductoKartex">Buscar Producto</button>
+						<button class="btn btn-default" type="reset">Restablecer</button>
+					</div>
+				</form>
+			</div>
+			<?php
+			}
+			?>
 		</div>
     </div>
 	<?php include (MODULO.'footer.php'); ?>

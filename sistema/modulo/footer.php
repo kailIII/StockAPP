@@ -1,20 +1,14 @@
-<footer>
-    <!--/.footer-bottom--> 
-    <div class="footer-bottom">
-        <div class="container">
-            <p class="pull-left"> &copy; <?php echo date('Y'); ?> Todos Los Derechos Reservados <a href="<?php echo URLBASE ?>"><?php echo TITULO ?></a> | Version <a>v1.0.4 Desarrollo</a></p>
-            <div class="pull-right">
-                <ul class="nav nav-pills payments">
-                	<li><i class="fa fa-cc-visa"></i></li>
-                    <li><i class="fa fa-cc-mastercard"></i></li>
-                    <li><i class="fa fa-cc-amex"></i></li>
-                    <li><i class="fa fa-cc-paypal"></i></li>
-                </ul> 
-            </div>
-        </div>
-    </div>
-    <!--/.footer-bottom--> 
-</footer>
-<?php
-$sistema->GoogleAnalytics();
-?>
+<div id="footer">
+	<div class="container">
+		<p class="pull-left text-muted creditos"> &copy; <?php echo date('Y'); ?> Todos Los Derechos Reservados <a href="<?php echo URLBASE ?>"><?php echo TITULO ?></a> | Version <a>V1.0.4 Desarrollo</a></p>
+		<div class="pull-right">
+			<ul class="nav nav-pills payments creditosFormasPago">
+				<li><i class="fa fa-cc-visa"></i></li>
+				<li><i class="fa fa-cc-mastercard"></i></li>
+				<li><i class="fa fa-cc-amex"></i></li>
+				<li><i class="fa fa-cc-paypal"></i></li>
+			</ul> 
+		</div>
+	</div>
+</div>
+<?php $sistema->GoogleAnalytics(); ?>

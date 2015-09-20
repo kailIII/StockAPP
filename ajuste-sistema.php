@@ -32,321 +32,322 @@ $usuario->ZonaAdministrador();
 	}
 	//Menu Fin
 	?>
-    <div class="container">
+	<div id="wrap">
+		<div class="container">
 
-		<div class="page-header" id="banner">
-			<div class="row">
-				<div class="col-lg-8 col-md-7 col-sm-6">
-					<h1>Ajuste del Sistema</h1>
+			<div class="page-header" id="banner">
+				<div class="row">
+					<div class="col-lg-8 col-md-7 col-sm-6">
+						<h1>Ajuste del Sistema</h1>
+					</div>
 				</div>
 			</div>
-		</div>
-		<?php
-		$sistema->EditarMoneda();
-		$sistema->CambiarTema();
-		$sistema->CambiarLogo();
-		$sistema->TipoDeCambioActivo();
-		$sistema->ActivarTipoDeCambio();
-		$sistema->DesactivarTipoDeCambio();
-		?>
-		<div class="row">
-			<div class="col-md-8">
-				<div class="">
-					<table class="table table-bordered" id="Monedas">
-						<thead>
-							<tr>
-								<td><strong>Moneda</strong></td>
-								<td><strong>Signo</strong></td>
-								<td><strong>Valor</strong></td>
-								<td><strong>Rango</strong></td>
-								<td><strong><center>Estado</center></strong></td>
-								<td><strong><center>Opciones</center></strong></td>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach($SelectorMonedaArray as $SelectorMonedaRow): ?>
-							<tr>
-								<td><?php echo $SelectorMonedaRow['moneda']; ?></td>
-								<td><?php echo $SelectorMonedaRow['signo']; ?></td>
-								<td><?php echo $SelectorMonedaRow['valor']; ?></td>
-								<td>
-									<center>
-									<?php
-									if($SelectorMonedaRow['rango'] == 1){
-										echo'<span class="label label-success">Moneda Principal</span>';
-									}elseif($SelectorMonedaRow['rango'] == 2){
-										echo'<span class="label label-warning">Moneda Segundaria</span>';
-									}if($SelectorMonedaRow['rango'] == 3){
-										echo'<span class="label label-danger">&iexcl;No se Utiliza!</span>';
-									}
-									?>
-									</center>
-								</td>
-								<td>
-									<center>
-									<?php
-									if($SelectorMonedaRow['habilitada'] == 1){
-										echo'<span class="label label-success">Activo</span>';
-									}else{
-										echo'<span class="label label-danger">No Activo</span>';
-									}
-									?>
-									</center>
-								</td>
-								<td>
-									<!-- Modal Eliminar-->
-									<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EliminarProveedor<?php echo $SelectorMonedaRow['id']; ?>"><i class="fa fa-trash-o"></i></button>
-									<!-- Modal Eliminar Final -->
-									<!-- Modal Editar -->
-									<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EditarProveedor<?php echo $SelectorMonedaRow['id']; ?>"><i class="fa fa-pencil-square-o"></i></button>
-									<!-- Modal Editar -->
-									<!-- Modal Activar -->
-									<?php
-									if($SelectorMonedaRow['rango'] == 1){
-										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-toggle-on"></i></button>';
-									}elseif($SelectorMonedaRow['rango'] == 2){
-										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-toggle-on"></i></button>';
-									}else{
-										echo'<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ActivarMoneda'.$SelectorMonedaRow['id'].'"><i class="fa fa-toggle-on"></i></button>';
-									}
-									?>
-									<!-- Modal Activar -->
-									<!-- Modal Activar -->
-									<?php
-									if($SelectorMonedaRow['rango'] == 2){
-										$TipoCambioMonedaSql= $db->Conectar()->query("SELECT TipoCambio FROM `sistema`");
-										$TipoCambioMoneda	= $TipoCambioMonedaSql->fetch_assoc();
-										if($TipoCambioMoneda['TipoCambio'] == 1){
-											echo'<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#DesactivarTipoDeCambio"><i class="fa fa-power-off"></i></button>';
-										}else{
-											echo'<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ActivarTipoDeCambio"><i class="fa fa-power-off"></i></button>';
+			<?php
+			$sistema->EditarMoneda();
+			$sistema->CambiarTema();
+			$sistema->CambiarLogo();
+			$sistema->TipoDeCambioActivo();
+			$sistema->ActivarTipoDeCambio();
+			$sistema->DesactivarTipoDeCambio();
+			?>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="">
+						<table class="table table-bordered" id="Monedas">
+							<thead>
+								<tr>
+									<td><strong>Moneda</strong></td>
+									<td><strong>Signo</strong></td>
+									<td><strong>Valor</strong></td>
+									<td><strong>Rango</strong></td>
+									<td><strong><center>Estado</center></strong></td>
+									<td><strong><center>Opciones</center></strong></td>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($SelectorMonedaArray as $SelectorMonedaRow): ?>
+								<tr>
+									<td><?php echo $SelectorMonedaRow['moneda']; ?></td>
+									<td><?php echo $SelectorMonedaRow['signo']; ?></td>
+									<td><?php echo $SelectorMonedaRow['valor']; ?></td>
+									<td>
+										<center>
+										<?php
+										if($SelectorMonedaRow['rango'] == 1){
+											echo'<span class="label label-success">Moneda Principal</span>';
+										}elseif($SelectorMonedaRow['rango'] == 2){
+											echo'<span class="label label-warning">Moneda Segundaria</span>';
+										}if($SelectorMonedaRow['rango'] == 3){
+											echo'<span class="label label-danger">&iexcl;No se Utiliza!</span>';
 										}
-									}elseif(1 or 3 == $SelectorMonedaRow['rango']){
-										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-power-off"></i></button>';
-									}else{
-										echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-power-off"></i></button>';
-									}
-									?>
-									<!-- Modal Activar -->
-								</td>
-							</tr>
-							<!-- Modal Eliminar-->
-							<div class="modal fade" id="EliminarProveedor<?php echo $SelectorMonedaRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							  <div class="modal-dialog">
-								<div class="modal-content">
-								  <div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="myModalLabesl">Eliminar <?php echo $SelectorMonedaRow['moneda']; ?> del sistema</h4>
+										?>
+										</center>
+									</td>
+									<td>
+										<center>
+										<?php
+										if($SelectorMonedaRow['habilitada'] == 1){
+											echo'<span class="label label-success">Activo</span>';
+										}else{
+											echo'<span class="label label-danger">No Activo</span>';
+										}
+										?>
+										</center>
+									</td>
+									<td>
+										<!-- Modal Eliminar-->
+										<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EliminarProveedor<?php echo $SelectorMonedaRow['id']; ?>"><i class="fa fa-trash-o"></i></button>
+										<!-- Modal Eliminar Final -->
+										<!-- Modal Editar -->
+										<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EditarProveedor<?php echo $SelectorMonedaRow['id']; ?>"><i class="fa fa-pencil-square-o"></i></button>
+										<!-- Modal Editar -->
+										<!-- Modal Activar -->
+										<?php
+										if($SelectorMonedaRow['rango'] == 1){
+											echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-toggle-on"></i></button>';
+										}elseif($SelectorMonedaRow['rango'] == 2){
+											echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-toggle-on"></i></button>';
+										}else{
+											echo'<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ActivarMoneda'.$SelectorMonedaRow['id'].'"><i class="fa fa-toggle-on"></i></button>';
+										}
+										?>
+										<!-- Modal Activar -->
+										<!-- Modal Activar -->
+										<?php
+										if($SelectorMonedaRow['rango'] == 2){
+											$TipoCambioMonedaSql= $db->Conectar()->query("SELECT TipoCambio FROM `sistema`");
+											$TipoCambioMoneda	= $TipoCambioMonedaSql->fetch_assoc();
+											if($TipoCambioMoneda['TipoCambio'] == 1){
+												echo'<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#DesactivarTipoDeCambio"><i class="fa fa-power-off"></i></button>';
+											}else{
+												echo'<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ActivarTipoDeCambio"><i class="fa fa-power-off"></i></button>';
+											}
+										}elseif(1 or 3 == $SelectorMonedaRow['rango']){
+											echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-power-off"></i></button>';
+										}else{
+											echo'<button type="button" class="btn btn-primary btn-xs disabled" ><i class="fa fa-power-off"></i></button>';
+										}
+										?>
+										<!-- Modal Activar -->
+									</td>
+								</tr>
+								<!-- Modal Eliminar-->
+								<div class="modal fade" id="EliminarProveedor<?php echo $SelectorMonedaRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabesl">Eliminar <?php echo $SelectorMonedaRow['moneda']; ?> del sistema</h4>
+									  </div>
+									  <div class="modal-body">
+										<form method="post" action="" class="form-horizontal" >
+											<input type="hidden" name="IdMoneda" value="<?php echo $SelectorMonedaRow['id']; ?>">
+											<input type="hidden" name="moneda" value="<?php echo $SelectorMonedaRow['moneda']; ?>">
+											<div class="form-group">
+												<div class="input-group">
+													¿Est&aacute; seguro que desea eliminar el proveedor?
+												</div>
+											</div>
+											<div class="form-group">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+												<button type="submit" name="EliminarProveedor" class="btn btn-primary">Si, Eliminar</button>
+											</div>
+										</form>
+									  </div>
+									</div>
 								  </div>
-								  <div class="modal-body">
-									<form method="post" action="" class="form-horizontal" >
-										<input type="hidden" name="IdMoneda" value="<?php echo $SelectorMonedaRow['id']; ?>">
-										<input type="hidden" name="moneda" value="<?php echo $SelectorMonedaRow['moneda']; ?>">
-										<div class="form-group">
-											<div class="input-group">
-												¿Est&aacute; seguro que desea eliminar el proveedor?
+								</div>
+								<!-- Modal Eliminar Fin -->
+								<!-- Modal Editar-->
+								<div class="modal fade" id="EditarProveedor<?php echo $SelectorMonedaRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">Editar Moneda <?php echo $SelectorMonedaRow['moneda']; ?></h4>
+											</div>
+											<div class="modal-body">
+												<form method="post" action="" class="form-horizontal">
+													<input type="hidden" name="IdMoneda" value="<?php echo $SelectorMonedaRow['id']; ?>">
+													<div class="form-group">
+														<label>Moneda</label>
+														<input type="text" class="form-control" name="moneda" value="<?php echo $SelectorMonedaRow['moneda']; ?>" required autocomplete="off"/>
+													</div>
+													<div class="form-group">
+														<label>Signo</label>
+														<input type="text" class="form-control" name="signo" value="<?php echo $SelectorMonedaRow['signo']; ?>" required autocomplete="off"/>
+													</div>
+													<div class="form-group">
+														<label>Valor</label>
+														<input type="text" class="form-control" name="valor" value="<?php echo $SelectorMonedaRow['valor']; ?>" required autocomplete="off"/>
+													</div>
+													<div class="form-group">
+														<label>Estado</label>
+														<select name="estado" class="form-control">
+															<option value="1" <?php if($SelectorMonedaRow['habilitada']=='1'){ echo 'selected'; }else{} ?>>ACTIVO</option>
+															<option value="0" <?php if($SelectorMonedaRow['habilitada']=='0'){ echo 'selected'; }else{} ?>>NO ACTIVO</option>
+														</select>
+													</div>
+													<div class="form-group">
+														<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+														<button type="submit" name="EditarMoneda" class="btn btn-primary">Editar Moneda</button>
+													</div>
+												</form>
 											</div>
 										</div>
-										<div class="form-group">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-											<button type="submit" name="EliminarProveedor" class="btn btn-primary">Si, Eliminar</button>
-										</div>
-									</form>
-								  </div>
-								</div>
-							  </div>
-							</div>
-							<!-- Modal Eliminar Fin -->
-							<!-- Modal Editar-->
-							<div class="modal fade" id="EditarProveedor<?php echo $SelectorMonedaRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">Editar Moneda <?php echo $SelectorMonedaRow['moneda']; ?></h4>
-										</div>
-										<div class="modal-body">
-											<form method="post" action="" class="form-horizontal">
-												<input type="hidden" name="IdMoneda" value="<?php echo $SelectorMonedaRow['id']; ?>">
-												<div class="form-group">
-													<label>Moneda</label>
-													<input type="text" class="form-control" name="moneda" value="<?php echo $SelectorMonedaRow['moneda']; ?>" required autocomplete="off"/>
-												</div>
-												<div class="form-group">
-													<label>Signo</label>
-													<input type="text" class="form-control" name="signo" value="<?php echo $SelectorMonedaRow['signo']; ?>" required autocomplete="off"/>
-												</div>
-												<div class="form-group">
-													<label>Valor</label>
-													<input type="text" class="form-control" name="valor" value="<?php echo $SelectorMonedaRow['valor']; ?>" required autocomplete="off"/>
-												</div>
-												<div class="form-group">
-													<label>Estado</label>
-													<select name="estado" class="form-control">
-														<option value="1" <?php if($SelectorMonedaRow['habilitada']=='1'){ echo 'selected'; }else{} ?>>ACTIVO</option>
-														<option value="0" <?php if($SelectorMonedaRow['habilitada']=='0'){ echo 'selected'; }else{} ?>>NO ACTIVO</option>
-													</select>
-												</div>
-												<div class="form-group">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-													<button type="submit" name="EditarMoneda" class="btn btn-primary">Editar Moneda</button>
-												</div>
-											</form>
-										</div>
 									</div>
 								</div>
-							</div>
-							<!-- Modal Editar-->
-							<div class="modal fade" id="ActivarMoneda<?php echo $SelectorMonedaRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">Activar Moneda <?php echo $SelectorMonedaRow['moneda']; ?></h4>
-										</div>
-										<div class="modal-body">
-											<form method="post" action="" class="form-horizontal">
-												<input type="hidden" name="IdMoneda" value="<?php echo $SelectorMonedaRow['id']; ?>">
-												<div class="form-group">
+								<!-- Modal Editar-->
+								<div class="modal fade" id="ActivarMoneda<?php echo $SelectorMonedaRow['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">Activar Moneda <?php echo $SelectorMonedaRow['moneda']; ?></h4>
+											</div>
+											<div class="modal-body">
+												<form method="post" action="" class="form-horizontal">
+													<input type="hidden" name="IdMoneda" value="<?php echo $SelectorMonedaRow['id']; ?>">
 													<div class="form-group">
-														<p>¿Desea activar como segunda moneda del sistema?</p>
+														<div class="form-group">
+															<p>¿Desea activar como segunda moneda del sistema?</p>
+														</div>
+														<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+														<button type="submit" name="ActivarSegundaMoneda" class="btn btn-primary">Activar Moneda</button>
 													</div>
-													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-													<button type="submit" name="ActivarSegundaMoneda" class="btn btn-primary">Activar Moneda</button>
-												</div>
-											</form>
+												</form>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<!-- Modal Editar Final -->
-							<!-- Modal Activar Tipo de Cambio -->
-							<div class="modal fade" id="ActivarTipoDeCambio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">&iquest;Activar Tipo de Cambio?</h4>
-										</div>
-										<div class="modal-body">
-											<form method="post" action="" class="form-horizontal">
-												<div class="form-group">
+								<!-- Modal Editar Final -->
+								<!-- Modal Activar Tipo de Cambio -->
+								<div class="modal fade" id="ActivarTipoDeCambio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">&iquest;Activar Tipo de Cambio?</h4>
+											</div>
+											<div class="modal-body">
+												<form method="post" action="" class="form-horizontal">
 													<div class="form-group">
-														<p>¿Desea activar tipo de cambio del sistema?</p>
+														<div class="form-group">
+															<p>¿Desea activar tipo de cambio del sistema?</p>
+														</div>
+														<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+														<button type="submit" name="ActivarTipoDeCambio" class="btn btn-primary">Activar Tipo De Cambio</button>
 													</div>
-													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-													<button type="submit" name="ActivarTipoDeCambio" class="btn btn-primary">Activar Tipo De Cambio</button>
-												</div>
-											</form>
+												</form>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<!-- Modal Modal Activar Tipo de Cambio Final -->
-							<!-- Modal Activar Tipo de Cambio -->
-							<div class="modal fade" id="DesactivarTipoDeCambio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">&iquest;Activar Tipo de Cambio?</h4>
-										</div>
-										<div class="modal-body">
-											<form method="post" action="" class="form-horizontal">
-												<div class="form-group">
+								<!-- Modal Modal Activar Tipo de Cambio Final -->
+								<!-- Modal Activar Tipo de Cambio -->
+								<div class="modal fade" id="DesactivarTipoDeCambio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">&iquest;Activar Tipo de Cambio?</h4>
+											</div>
+											<div class="modal-body">
+												<form method="post" action="" class="form-horizontal">
 													<div class="form-group">
-														<p>¿Desea desactivar tipo de cambio del sistema?</p>
+														<div class="form-group">
+															<p>¿Desea desactivar tipo de cambio del sistema?</p>
+														</div>
+														<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+														<button type="submit" name="DesactivarTipoDeCambio" class="btn btn-primary">Desactivar Tipo De Cambio</button>
 													</div>
-													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-													<button type="submit" name="DesactivarTipoDeCambio" class="btn btn-primary">Desactivar Tipo De Cambio</button>
-												</div>
-											</form>
+												</form>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<!-- Modal Modal Activar Tipo de Cambio Final -->
-							<?php endforeach?>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="panel panel-default">
-					<div class="panel-heading"><strong>Crear Nueva Moneda</strong></div>
-					<div class="panel-body">
-						<form method="post" action="" class="form-horizontal">
-							<div class="form-group">
-								<label>Nombre Moneda</label>
-								<input type="text" class="form-control" name="moneda" required autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<label>Signo</label>
-								<input type="text" class="form-control" name="signo" required autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<label>Valor al tipo de cambio del dolar</label>
-								<input type="text" class="form-control" name="valor" required autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<button type="submit" name="CrearMoneda" class="btn btn-primary">Crear Moneda</button>
-								<a href="#" class="btn btn-default">Cancelar</a>
-							</div>
-						</form>
+								<!-- Modal Modal Activar Tipo de Cambio Final -->
+								<?php endforeach?>
+							</tbody>
+						</table>
 					</div>
-				</div>
-			</div>
-		</div>
-		<hr/>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="col-md-8">
-					<form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
-						<input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept="image/*" required /> 
-						<button type="submit" name="CambiarLogo" id="CambiarLogo" class="btn btn-primary btn-block"><i class="fa fa-picture-o"></i> Cambiar Logo</button>
-					</form>
 				</div>
 				<div class="col-md-4">
-					<div class="well well-sm">
-						<img src="<?php echo ESTATICO ?>img/<?php $sistema->Logo(); ?>" width="330px"></img>
+					<div class="panel panel-default">
+						<div class="panel-heading"><strong>Crear Nueva Moneda</strong></div>
+						<div class="panel-body">
+							<form method="post" action="" class="form-horizontal">
+								<div class="form-group">
+									<label>Nombre Moneda</label>
+									<input type="text" class="form-control" name="moneda" required autocomplete="off"/>
+								</div>
+								<div class="form-group">
+									<label>Signo</label>
+									<input type="text" class="form-control" name="signo" required autocomplete="off"/>
+								</div>
+								<div class="form-group">
+									<label>Valor al tipo de cambio del dolar</label>
+									<input type="text" class="form-control" name="valor" required autocomplete="off"/>
+								</div>
+								<div class="form-group">
+									<button type="submit" name="CrearMoneda" class="btn btn-primary">Crear Moneda</button>
+									<a href="#" class="btn btn-default">Cancelar</a>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<hr/>
-		<div class="row">
-			<h2>Escoja el tema para la aplicaci&oacute;n</h2>
-			<ul class="thumbnails">
-				<?php foreach ($TodosTemasArray as $TodosTemasAjustes): ?>
-				<li class="col-md-2">
-					<div class="thumbnail">
-						<img src="<?php echo ESTATICO ?>tema/<?php echo strtolower($TodosTemasAjustes['nombre']); ?>/thumbnail.png" alt="<?php echo $TodosTemasAjustes['nombre']; ?>">
-						<div class="caption">
-							<h3><?php echo $TodosTemasAjustes['nombre']; ?></h3>
-							<?php
-							if($TodosTemasAjustes['habilitado']==0){
-							?>
-							<form method="post">
-							<input name="id" value="<?php echo $TodosTemasAjustes['id']; ?>" hidden>
-							<input name="nombre" value="<?php echo strtolower($TodosTemasAjustes['nombre']); ?>" hidden>
-							<p align="center"><button type="submit" name="ActivarTema" class="btn btn-danger btn-block">Activar</button></p>
-							</form>
-							<?php
-							}else{
-							?>
-							<p align="center"><a class="btn btn-success btn-block">Activado</a></p>
-							<?php
-							}
-							?>
+			<hr/>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-md-8">
+						<form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+							<input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept="image/*" required /> 
+							<button type="submit" name="CambiarLogo" id="CambiarLogo" class="btn btn-primary btn-block"><i class="fa fa-picture-o"></i> Cambiar Logo</button>
+						</form>
+					</div>
+					<div class="col-md-4">
+						<div class="well well-sm">
+							<img src="<?php echo ESTATICO ?>img/<?php $sistema->Logo(); ?>" width="330px"></img>
 						</div>
 					</div>
-				</li>
-				<?php endforeach; ?>
-			</ul>
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<h2>Escoja el tema para la aplicaci&oacute;n</h2>
+				<ul class="thumbnails">
+					<?php foreach ($TodosTemasArray as $TodosTemasAjustes): ?>
+					<li class="col-md-2">
+						<div class="thumbnail">
+							<img src="<?php echo ESTATICO ?>tema/<?php echo strtolower($TodosTemasAjustes['nombre']); ?>/thumbnail.png" alt="<?php echo $TodosTemasAjustes['nombre']; ?>">
+							<div class="caption">
+								<h3><?php echo $TodosTemasAjustes['nombre']; ?></h3>
+								<?php
+								if($TodosTemasAjustes['habilitado']==0){
+								?>
+								<form method="post">
+								<input name="id" value="<?php echo $TodosTemasAjustes['id']; ?>" hidden>
+								<input name="nombre" value="<?php echo strtolower($TodosTemasAjustes['nombre']); ?>" hidden>
+								<p align="center"><button type="submit" name="ActivarTema" class="btn btn-danger btn-block">Activar</button></p>
+								</form>
+								<?php
+								}else{
+								?>
+								<p align="center"><a class="btn btn-success btn-block">Activado</a></p>
+								<?php
+								}
+								?>
+							</div>
+						</div>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
 		</div>
-		<hr/>
-		<?php include (MODULO.'footer.php'); ?>
     </div>
+	<?php include (MODULO.'footer.php'); ?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>
 	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>js/jquery.dataTables.min.js"></script>

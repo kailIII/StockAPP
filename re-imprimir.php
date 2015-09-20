@@ -13,10 +13,12 @@ if (isset($_GET['id'])){
 	$error = true;
 }
 
-$localSql	= $db->Conectar()->query("SELECT establecimiento, telefono, canton, distrito, direccion FROM `vendedores` WHERE id='{$usuarioApp['id']}'");
+$localSql	= $db->Conectar()->query("SELECT establecimiento, canton, distrito FROM `vendedores` WHERE id='{$usuarioApp['id']}'");
 $local		= $localSql->fetch_array();
-$ventaSql	= $db->Conectar()->query("SELECT `total`, `fecha`, `tipo`, `habilitado` FROM `factura` WHERE id='{$_GET['id']}'");
+$ventaSql	= $db->Conectar()->query("SELECT * FROM `factura` WHERE id='{$_GET['id']}'");
 $venta		= $ventaSql->fetch_array();
+$clienteSql	= $db->Conectar()->query("SELECT nombre FROM `cliente` WHERE id='{$venta['cliente']}'");
+$cliente	= $clienteSql->fetch_array();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,90 +42,86 @@ $venta		= $ventaSql->fetch_array();
 	}
 	//Menu Fin
 	?>
-    <div class="container">
-
-		<div class="page-header" id="banner">
+	<div id="wrap">
+		<div class="container">
+			<div class="page-header" id="banner">
+				<div class="row">
+					<div class="col-lg-8 col-md-7 col-sm-6">
+						<h1>Comprobante de Compra</h1>
+						<p class="lead">Impresi&oacute;n de comprobante</p>
+					</div>
+				</div>
+			</div>
 			<div class="row">
-				<div class="col-lg-8 col-md-7 col-sm-6">
-					<h1>Comprobante de Compra</h1>
-					<p class="lead">Impresi&oacute;n de comprobante</p>
+				<div class="col-lg-12 well">
+					<table class="table table-bordered col-lg-3" style="background-color: #fff">
+						<tbody>
+							<tr>
+								<td>
+									<center>
+									<button onclick="imprimir();" class="btn btn-primary"><i class="fa fa-print"></i> <strong>IMPRIMIR</strong></button> | <a href="<?php echo URLBASE ?>" class="btn btn-default"><i class="fa fa-print"></i> <strong>No, Gracias</strong></a><br><br>
+									<div id="imprimeme">
+										<table width="95%">
+											<tbody>
+												<tr>
+													<td><br>
+														<strong><?php echo $local['establecimiento']; ?><br>
+														<strong>Factura: </strong><?php echo $venta['id']; ?><br>
+														<strong>Fecha: </strong><?php echo $venta['fecha'].' '.$venta['hora']; ?><br>
+														<strong>Cliente: </strong><?php echo $cliente['nombre']; ?><br>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<br>
+										<table width="95%" border="0">
+											<tbody>
+												<tr>
+													<td align="center"><strong>Producto</strong></td>
+													<td align="center"><strong>Cantidad</strong></td>
+													<td align="center"><strong>Valor</strong></td>
+												</tr>
+												<?php
+												$cajaSql	= $db->Conectar()->query("SELECT * FROM ventas WHERE idfactura='{$venta['id']}'");
+												while($caja	= $cajaSql->fetch_array()){
+												?>
+												<tr>
+													<td align="center">
+													<?php
+													$ProductoFacturaSql		= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$caja['producto']}'");
+													$ProductoFactura		= $ProductoFacturaSql->fetch_array();
+													echo $ProductoFactura['nombre'];
+													?>
+													</td>
+													<td align="center"><?php echo $caja['cantidad']; ?></td>
+													<td align="center"> $ <?php echo $Vendedor->Formato($caja['precio']); ?></td>
+												</tr>
+												<?php
+												}
+												?>
+												<tr>
+													<td><div align="center"><strong>Total</strong></div></td>
+													<td></td>
+													<?php
+													$netoSql= $db->Conectar()->query("SELECT SUM(totalprecio) AS deudatotal FROM ventas WHERE idfactura='{$venta['id']}'");
+													$neto	= $netoSql->fetch_array();
+													?>
+													<td><div align="center"><strong>$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?></strong></div></td>
+												</tr>
+											</tbody>
+										</table>
+										<br/>
+									</div>
+									</center>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-		<?php include (MODULO.'contador.php'); ?>
-		<div class="row">
-			<div class="col-lg-12 well">
-				<table class="table table-bordered col-lg-3" style="background-color: #fff">
-					<tbody>
-						<tr>
-							<td>
-								<center>
-									<button onclick="imprimir();" class="btn btn-primary"><i class="fa fa-print"></i> <strong>IMPRIMIR</strong></button> | <a href="<?php echo URLBASE ?>" class="btn btn-default"><i class="fa fa-print"></i> <strong>No, Gracias</strong></a><br><br>
-								</center>
-								<div id="imprimeme">
-								
-								<center>
-									<table width="55%">
-										<tbody>
-											<tr>
-												<td><br>
-													<strong><?php echo $local['establecimiento']; ?><br>
-													<strong>Factura: </strong><?php echo $imprimir['idfactura']; ?><br>
-													<strong>Fecha: </strong><?php echo $venta['fecha']; ?><br>
-													<strong>
-													<?php
-													if($venta['tipo'] == 0){
-														echo'Sorteo Mediod&iacute;a';
-													}else if($venta['tipo'] == 1){
-														echo'Sorteo Nocturno';
-													}else{
-														echo'no existe un tipo de sorteo disponible';
-													}
-													?>
-													</strong>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</center>
-									<br>
-									<table width="98%" border="0">
-										<tbody>
-											<tr>
-												<td align="center"><strong>N&uacute;mero</strong></td>
-												<td align="center"><strong>Valor</strong></td>
-											</tr>
-											<?php
-											$cajaSql	= $db->Conectar()->query("SELECT * FROM ventas WHERE idfactura='{$imprimir['idfactura']}'");
-											while($caja	= $cajaSql->fetch_array()){
-											?>
-											<tr>
-												<td align="center"><?php echo $caja['numero']; ?></td>
-												<td align="center"><?php echo $caja['cantidad']; ?></td>
-											</tr>
-											<?php
-											}
-											?>
-											<tr>
-												<td colspan="1"><div align="center"><strong>Total</strong></div></td>
-												<?php
-												$netoSql= $db->Conectar()->query("SELECT SUM(cantidad) AS deudatotal FROM ventas WHERE idfactura='{$imprimir['idfactura']}'");
-												$neto	= $netoSql->fetch_array();
-												?>
-												<td><div align="center"><strong>&cent; <?php echo $Vendedor->FormatoSaldo($neto['deudatotal']); ?></strong></div></td>
-											</tr>
-										</tbody>
-									</table>
-									<br/>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	<?php include (MODULO.'footer.php'); ?>
     </div>
+	<?php include (MODULO.'footer.php'); ?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>
   	<script type="text/javascript">

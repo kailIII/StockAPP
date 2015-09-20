@@ -12,10 +12,7 @@
 		</div>
 		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="nav navbar-nav">
-				<li class="menu" id="reviewsMenu">
-					<a href="<?php echo URLBASE ?>">Inicio</a>
-				</li>
-				<li class="menu"><a href="<?php echo URLBASE ?>mis-ventas-del-dia">Venta del D&iacute;a</a></li>
+				<li class="menu" id="reviewsMenu"><a href="<?php echo URLBASE ?>">Inicio</a></li>
 				<li class="menu"><a href="<?php echo URLBASE ?>ventas-totales-vendedor">Facturas</a></li>
 				<?php
 				//if(HoraActualNotificar()>1300 && HoraActualNotificar()<1330 or HoraActualNotificar()>1900 && HoraActualNotificar()<1930){

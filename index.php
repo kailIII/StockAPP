@@ -28,83 +28,84 @@ $usuario->VerificacionCuenta();
 	}
 	// Menu Fin
 	?>
-    <div class="container">
-		<div class="page-header" id="banner">
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-4"></div>
-			</div>
-		</div>
-		<div class="row">
-			<?php
-			$CajaDeVenta->EliminarProducto();
-			$CajaDeVenta->LimpiarCarritoCompras();
-			$CajaDeVenta->ActualizarCantidadCajaTmp();
-			?>
-			<div class="row">
-				<div class="col-md-12">
-					<form name="nuevo_producto" action="" class="contact-form" onsubmit="enviarDatosProducto(); return false">
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<select class="form-control clientes" value="Cliente Contado"  name="cliente" id="select" required >
-										<?php foreach($SelectorClientesArray as $SelectorClientesRow): ?>
-										<option value="<?php echo $SelectorClientesRow['id']; ?>" <?php if($SelectorClientesRow['id']==1){echo'selected="selected"';}else{} ?> ><?php echo $SelectorClientesRow['nombre']; ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control" id="inputEmail3" value="<?php echo FechaActual(); ?>"  required disabled>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label>
-										Hora: <div id="hora"></div>
-									</label>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="well well-sm"><center>Nombre del Cajero/a: <?php echo ucwords($usuarioApp['usuario']); ?></center></div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<select class="form-control productos" name="codigo" id="select" autofocus>
-										<option value=""></option>
-										<?php foreach($ProductosStockArray as $ProductosStockRow): ?>
-										<option value="<?php echo $ProductosStockRow['id']; ?>"><?php echo $ProductosStockRow['codigo'].' - '.$ProductosStockRow['nombre']; ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<div class="input-group">
-										<span class="input-group-addon"><strong>#</strong></span>
-										<input type="number" min="1" step="1" maxlength="6" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" value="1" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off"  required />
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<button type="submit" name="Submit" id="btsubmit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
-								</div>
-							</div>
-						</div>
-						<br/>
-					</form>
+	<div id="wrap">
+		<div class="container">
+			<div class="page-header" id="banner">
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-4"></div>
 				</div>
-				<div id="resultado"><?php include('consulta.php');?></div>
-				<?php include (MODULO.'tipo-compra.php'); ?>
+			</div>
+			<div class="row">
+				<?php
+				$CajaDeVenta->EliminarProducto();
+				$CajaDeVenta->LimpiarCarritoCompras();
+				$CajaDeVenta->ActualizarCantidadCajaTmp();
+				?>
+				<div class="row">
+					<div class="col-md-12">
+						<form name="nuevo_producto" action="" class="contact-form" onsubmit="enviarDatosProducto(); return false">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<select class="form-control clientes" value="Cliente Contado"  name="cliente" id="select" required >
+											<?php foreach($SelectorClientesArray as $SelectorClientesRow): ?>
+											<option value="<?php echo $SelectorClientesRow['id']; ?>" <?php if($SelectorClientesRow['id']==1){echo'selected="selected"';}else{} ?> ><?php echo $SelectorClientesRow['nombre']; ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control" id="inputEmail3" value="<?php echo FechaActual(); ?>"  required disabled>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<label>
+											Hora: <div id="hora"></div>
+										</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="well well-sm"><center>Nombre del Cajero/a: <?php echo ucwords($usuarioApp['usuario']); ?></center></div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<select class="form-control productos" name="codigo" id="select" autofocus>
+											<option value=""></option>
+											<?php foreach($ProductosStockArray as $ProductosStockRow): ?>
+											<option value="<?php echo $ProductosStockRow['id']; ?>"><?php echo $ProductosStockRow['codigo'].' - '.$ProductosStockRow['nombre']; ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><strong>#</strong></span>
+											<input type="number" min="1" step="1" maxlength="6" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" value="1" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off"  required />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<button type="submit" name="Submit" id="btsubmit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
+									</div>
+								</div>
+							</div>
+							<br/>
+						</form>
+					</div>
+					<div id="resultado"><?php include('consulta.php');?></div>
+					<?php include (MODULO.'tipo-compra.php'); ?>
+				</div>
 			</div>
 		</div>
-		<hr/>
-		<?php include (MODULO.'footer.php'); ?>
     </div>
+	<?php include (MODULO.'footer.php'); ?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>
 	<script type="text/javascript" charset="utf-8">

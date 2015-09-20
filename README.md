@@ -1,4 +1,4 @@
-# ![logo](https://raw.githubusercontent.com/Qualtiva/StockAPP/master/estatico/img/logo.png) v1.0.4 Dev
+# ![logo](https://raw.githubusercontent.com/Qualtiva/StockAPP/master/estatico/img/logo.png) v1.0.5 Estable
 ## Requerimientos
 
 + Platforma: Windows
@@ -46,8 +46,8 @@ rewrite ^/estado-de-cuenta/(.+)/(.+)$ /estadodecuenta.php?id=$1&title=$2;
 - [x] Módulo de Clientes
 - [x] Módulo de Proveedores
 - [x] Módulo de Categorías (Departamentos)
-- [ ] Kardex (Prioridad) :red_circle:
+- [x] Kardex
+- [x] Módulo de Inventario
 - [ ] Módulo de Cortes de Caja
-- [ ] Módulo de Inventario
 - [ ] Generación de reportes por rango de fecha
 - [ ] Impresión de reportes en Word, Excel & PDF

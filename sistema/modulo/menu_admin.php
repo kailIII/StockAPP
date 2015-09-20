@@ -29,6 +29,8 @@
 				<li class="dropdown menu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Ventas <span class="caret"></span></a>
 					<ul class="dropdown-menu" aria-labelledby="download">
+						<li><a href="<?php echo URLBASE ?>registro-de-ventas">Registro De Ventas</a></li>
+						<li><a href="<?php echo URLBASE ?>ventas-totales-vendedor">Ventas Totales Vendedor</a></li>
 						<li><a href="<?php echo URLBASE ?>venta-bruta-usuarios">Venta Bruta D&iacute;a</a></li>
 						<li><a href="<?php echo URLBASE ?>resumen">Resumen</a></li>
 					</ul>

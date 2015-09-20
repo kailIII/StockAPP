@@ -26,18 +26,20 @@ $usuario->VerificacionCuenta();
 	}
 	//Menu Fin
 	?>
-    <div class="container">
+	<div id="wrap">
+		<div class="container">
 
-		<div class="page-header" id="banner">
-			<div class="row">
-				<div class="col-lg-8 col-md-7 col-sm-6">
-					<h1><?php echo TITULO ?></h1>
-					<p class="lead">Desarrollo para aplicaciones web</p>
+			<div class="page-header" id="banner">
+				<div class="row">
+					<div class="col-lg-8 col-md-7 col-sm-6">
+						<h1><?php echo TITULO ?></h1>
+						<p class="lead">Desarrollo para aplicaciones web</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	<?php include (MODULO.'footer.php'); ?>
     </div>
+	<?php include (MODULO.'footer.php'); ?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido Fin -->

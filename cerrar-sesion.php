@@ -25,24 +25,26 @@ $usuario->VerificacionCuenta();
 	}
 	//Menu Fin
 	?>
-    <div class="container">
-		<div class="page-header" id="banner">
-			<div class="row">
-				<div class="col-lg-8 col-md-7 col-sm-6">
-					<h1>Cerrar Sesi&oacute;n</h1>
-					<?php $usuario->CierreSesion(); ?>
+	<div id="wrap">
+		<div class="container">
+			<div class="page-header" id="banner">
+				<div class="row">
+					<div class="col-lg-8 col-md-7 col-sm-6">
+						<h1>Cerrar Sesi&oacute;n</h1>
+						<?php $usuario->CierreSesion(); ?>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-			  <div class="col-lg-12">
-				<div class="bs-component">
-					<p class="lead">Cerrando Sesi&oacute;n</p>
+				<div class="row">
+				  <div class="col-lg-12">
+					<div class="bs-component">
+						<p class="lead">Cerrando Sesi&oacute;n</p>
+					</div>
+				  </div>
 				</div>
-			  </div>
 			</div>
 		</div>
-	<?php include (MODULO.'footer.php'); ?>
     </div>
+	<?php include (MODULO.'footer.php'); ?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido Fin -->

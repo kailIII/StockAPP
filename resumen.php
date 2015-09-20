@@ -29,101 +29,101 @@ $fechaActual = FechaActual();
 	}
 	//Menu Fin
 	?>
-    <div class="container">
+	<div id="wrap">
+		<div class="container">
 
-		<div class="page-header" id="banner">
-			<div class="row">
-				<div class="col-lg-8 col-md-7 col-sm-6">
-					<h1>Resumen de Venta</h1>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-9">
-				<table cellpadding="0" cellspacing="0" border="0" data-sort-order="desc" class="table table-striped table-bordered table-condensed" id="TotalResumen">
-					<thead>
-						<tr>
-							<th>C&oacute;digo</th>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>Monto Vendido</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$ResumenVentaDiaSql = $db->Conectar()->query("SELECT
-						COUNT(cantidad) AS cantidad,
-						producto,
-						SUM(totalprecio) AS precio
-						FROM ventas WHERE fecha='{$fechaActual}' AND habilitada='1'
-						GROUP BY `producto` ORDER BY cantidad DESC");
-						while($ResumenVentaDia = $ResumenVentaDiaSql->fetch_array()){
-						?>
-						<tr class="gradeA">
-							<td>
-							<?php
-							$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
-							$CodigoProducto		= $CodigoProductoSql->fetch_array();
-							echo $CodigoProducto['codigo'];
-							?>
-							</td>
-							<td>
-							<?php
-							$NombreProductoSql	= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
-							$NombreProducto		= $NombreProductoSql->fetch_array();
-							echo $NombreProducto['nombre'];
-							?>
-							</td>
-							<td><?php echo $ResumenVentaDia['cantidad']; ?></td>
-							<td>$ <?php echo $Vendedor->Formato($ResumenVentaDia['precio']); ?></td>
-						</tr>
-						<?php
-						}
-						?>
-					</tbody>
-				</table>
-			</div>
-			<?php
-			$ResumenVentaDiaDatosSql = $db->Conectar()->query("SELECT
-			SUM(totalprecio) AS cantidad,
-			COUNT(DISTINCT producto) AS ProductoTotal
-			FROM ventas
-			WHERE fecha='{$fechaActual}' AND habilitada='1'");
-			$ResumenVentaDiaDatos = $ResumenVentaDiaDatosSql->fetch_array();
-			?>
-			<div class="col-md-3">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Resumen Venta</h3>
-					</div>
-					<div class="panel-body">
-						Venta: $ <?php echo $Vendedor->Formato($ResumenVentaDiaDatos['cantidad']); ?><br/>
-						Productos: <?php echo $ResumenVentaDiaDatos['ProductoTotal']; ?><br/>
-					</div>
-				</div>
-				
+			<div class="page-header" id="banner">
 				<div class="row">
 					<div class="col-lg-8 col-md-7 col-sm-6">
-						<a href="javascript:void" onclick="return CargarUrl('<?php echo URLBASE ?>sistema/modulo/exportar-resumen.php');">
-							<button type="submit" class="btn btn-primary">
-								<i class="glyphicon glyphicon-export"></i> Exportar Resumen de Venta Actual
-							</button>
-						</a>
+						<h1>Resumen de Venta</h1>
 					</div>
 				</div>
-				<hr>
-				<div class="row">
-					<div class="col-md-12">
-						<a href="<?php echo URLBASE ?>sistema/modulo/calculadora.php" class="btn btn-primary btn-lg btn-block" target="_blank" onclick="window.open(this.href,this.target,'width=400%,height=510%,top=0,left=0,toolbar=no,location=no,status=no,menubar=no');return false;"><i class="fa fa-calculator"></i> Abrir Calculadora</a>
+			</div>
+
+			<div class="row">
+				<div class="col-md-9">
+					<table cellpadding="0" cellspacing="0" border="0" data-sort-order="desc" class="table table-striped table-bordered table-condensed" id="TotalResumen">
+						<thead>
+							<tr>
+								<th>C&oacute;digo</th>
+								<th>Producto</th>
+								<th>Cantidad</th>
+								<th>Monto Vendido</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$ResumenVentaDiaSql = $db->Conectar()->query("SELECT
+							COUNT(cantidad) AS cantidad,
+							producto,
+							SUM(totalprecio) AS precio
+							FROM ventas WHERE fecha='{$fechaActual}' AND habilitada='1'
+							GROUP BY `producto` ORDER BY cantidad DESC");
+							while($ResumenVentaDia = $ResumenVentaDiaSql->fetch_array()){
+							?>
+							<tr class="gradeA">
+								<td>
+								<?php
+								$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
+								$CodigoProducto		= $CodigoProductoSql->fetch_array();
+								echo $CodigoProducto['codigo'];
+								?>
+								</td>
+								<td>
+								<?php
+								$NombreProductoSql	= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
+								$NombreProducto		= $NombreProductoSql->fetch_array();
+								echo $NombreProducto['nombre'];
+								?>
+								</td>
+								<td><?php echo $ResumenVentaDia['cantidad']; ?></td>
+								<td>$ <?php echo $Vendedor->Formato($ResumenVentaDia['precio']); ?></td>
+							</tr>
+							<?php
+							}
+							?>
+						</tbody>
+					</table>
+				</div>
+				<?php
+				$ResumenVentaDiaDatosSql = $db->Conectar()->query("SELECT
+				SUM(totalprecio) AS cantidad,
+				COUNT(DISTINCT producto) AS ProductoTotal
+				FROM ventas
+				WHERE fecha='{$fechaActual}' AND habilitada='1'");
+				$ResumenVentaDiaDatos = $ResumenVentaDiaDatosSql->fetch_array();
+				?>
+				<div class="col-md-3">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Resumen Venta</h3>
+						</div>
+						<div class="panel-body">
+							Venta: $ <?php echo $Vendedor->Formato($ResumenVentaDiaDatos['cantidad']); ?><br/>
+							Productos: <?php echo $ResumenVentaDiaDatos['ProductoTotal']; ?><br/>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-8 col-md-7 col-sm-6">
+							<a href="javascript:void" onclick="return CargarUrl('<?php echo URLBASE ?>sistema/modulo/exportar-resumen.php');">
+								<button type="submit" class="btn btn-primary">
+									<i class="glyphicon glyphicon-export"></i> Exportar Resumen de Venta Actual
+								</button>
+							</a>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							<a href="<?php echo URLBASE ?>sistema/modulo/calculadora.php" class="btn btn-primary btn-lg btn-block" target="_blank" onclick="window.open(this.href,this.target,'width=400%,height=510%,top=0,left=0,toolbar=no,location=no,status=no,menubar=no');return false;"><i class="fa fa-calculator"></i> Abrir Calculadora</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<hr/>
-		<?php include (MODULO.'footer.php'); ?>
     </div>
+	<?php include (MODULO.'footer.php'); ?>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido -->
 	<?php include(MODULO.'Tema.JS.php');?>
 	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>js/jquery.dataTables.min.js"></script>
