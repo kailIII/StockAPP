@@ -15,7 +15,13 @@
 				<li class="menu" id="reviewsMenu">
 					<a href="<?php echo URLBASE ?>">Inicio</a>
 				</li>
-				<li class="menu"><a href="<?php echo URLBASE ?>kardex">Kardex</a></li>
+				<li class="dropdown menu">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Kardex <span class="caret"></span></a>
+					<ul class="dropdown-menu" aria-labelledby="download">
+						<li><a href="<?php echo URLBASE ?>kardex">Kardex General</a></li>
+						<li><a href="<?php echo URLBASE ?>kardex-por-producto">Kardex Por Productos</a></li>
+					</ul>
+				</li>
 				<li class="dropdown menu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Productos <span class="caret"></span></a>
 					<ul class="dropdown-menu" aria-labelledby="download">
@@ -50,6 +56,7 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<?php include(MODULO."notificaciones-inventario.php");?>
 				<li class="dropdown menu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Cuenta <span class="caret"></span></a>
 					<ul class="dropdown-menu" aria-labelledby="themes">

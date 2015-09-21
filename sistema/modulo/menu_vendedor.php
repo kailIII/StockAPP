@@ -23,6 +23,7 @@
 				?>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<?php include(MODULO."notificaciones-inventario.php");?>
 				<li class="dropdown menu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Cuenta <span class="caret"></span></a>
 					<ul class="dropdown-menu" aria-labelledby="themes">
