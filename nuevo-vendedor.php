@@ -9,7 +9,7 @@ $fechaActual = FechaActualRegistroVendedor();
 <html lang="es">
 <head>
 	<meta charset="utf-8">
-	<title><?php echo TITULO ?></title>
+	<title>Nuevo Vendedor | <?php echo TITULO ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<link rel="shortcut icon" href="<?php echo ESTATICO ?>img/favicon.ico">
@@ -137,17 +137,17 @@ $fechaActual = FechaActualRegistroVendedor();
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<input type="text" class="form-control" name="nombre" autocomplete="off" id="nombre" placeholder="Nombre del Cliente" required >
+								<input type="text" class="form-control" name="nombre" autocomplete="off" id="nombre" placeholder="Nombre del Vendedor" required >
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<input type="text" class="form-control" name="apellido1" autocomplete="off" id="apellido1" placeholder="Primer Apellido del Cliente" required >
+								<input type="text" class="form-control" name="apellido1" autocomplete="off" id="apellido1" placeholder="Primer Apellido del Vendedor" required >
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<input type="text" class="form-control" name="apellido2" autocomplete="off" id="apellido2" placeholder="Segundo Apellido del Cliente" required >
+								<input type="text" class="form-control" name="apellido2" autocomplete="off" id="apellido2" placeholder="Segundo Apellido del Vendedor" required >
 							</div>
 						</div>
 					</div>
@@ -201,7 +201,7 @@ $fechaActual = FechaActualRegistroVendedor();
 					<br/>
 					<div class="row">
 						<div class="col-md-12">
-							<button type="submit" name="crearusuario" class="btn btn-primary pull-right">Crear Nuevo Cliente</button>
+							<button type="submit" name="crearusuario" class="btn btn-primary pull-right">Crear Nuevo Vendedor</button>
 						</div>
 					</div>
 				</form>
