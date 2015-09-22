@@ -46,8 +46,12 @@ rewrite ^/estado-de-cuenta/(.+)/(.+)$ /estadodecuenta.php?id=$1&title=$2;
 - [x] Módulo de Clientes
 - [x] Módulo de Proveedores
 - [x] Módulo de Categorías (Departamentos)
-- [x] Kardex
+- [x] Módulo de Kardex
+- [x] Módulo de Notificaciones
 - [x] Módulo de Inventario
+- [ ] Módulo de Entradas y Salidas de Dinero
+- [ ] Módulo de Caja Chica
 - [ ] Módulo de Cortes de Caja
+- [ ] Módulo de Multi-Tabs Caja Temporal(Multiples clientes)
 - [ ] Generación de reportes por rango de fecha
 - [ ] Impresión de reportes en Word, Excel & PDF
