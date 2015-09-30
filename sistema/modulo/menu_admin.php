@@ -51,6 +51,8 @@
 				<li class="dropdown menu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Sistema<span class="caret"></span></a>
 					<ul class="dropdown-menu" aria-labelledby="download">
+						<li><a href="<?php echo URLBASE ?>cajas">Cajas Del Sistema</a></li>
+						<li><a href="<?php echo URLBASE ?>entradas-salidas-dinero">Entradas &amp; Salidas De Dinero</a></li>
 						<li><a href="<?php echo URLBASE ?>ajuste-sistema">Ajustes De La Aplicaci&oacute;n</a></li>
 					</ul>
 				</li>

@@ -246,4 +246,3 @@ class Productos extends Conexion {
 	}
 }
 
-?>

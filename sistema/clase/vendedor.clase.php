@@ -54,4 +54,3 @@ class Vendedor extends Conexion {
 		return number_format($valor, 0, ',', ',');
 	}
 }
-?>

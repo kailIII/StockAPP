@@ -92,7 +92,7 @@ $usuario->VerificacionCuenta();
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
-										<button type="submit" name="Submit" id="btsubmit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
+										<button type="submit" name="Submit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
 									</div>
 								</div>
 							</div>
@@ -149,6 +149,11 @@ $usuario->VerificacionCuenta();
 		return true;
 	}
 
+function checkSubmit() {
+	document.getElementById("btsubmitEliminar").value = "Eliminando...";
+	document.getElementById("btsubmitEliminar").disabled = true;
+	return true;
+}
 	var statSend = false;
 	function ComprobarVenta(){
 		if (!statSend) {

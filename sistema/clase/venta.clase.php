@@ -33,7 +33,7 @@ class Venta extends Conexion {
 
 			$StockProductoSql	= $this->Conectar()->query("SELECT stock FROM `producto` WHERE id='{$producto}'");
 			$StockProducto		= $StockProductoSql->fetch_array();
-			$StockTmp			=$StockProducto['stock']-$cantidad;
+			$StockTmp			= $StockProducto['stock']-$cantidad;
 
 			$PrecioProductoSql	= $this->Conectar()->query("SELECT precioventa FROM `producto` WHERE id='{$producto}'");
 			$PrecioProductos	= $PrecioProductoSql->fetch_array();
@@ -120,22 +120,23 @@ class Venta extends Conexion {
 	}
 
 	public function ActualizarCantidadCajaTmp(){
-		//Eliminar Todo del carrito de compras o parte del mismo
+		// Actualiza la cantidad del producto en el carrito de compras
 		if(isset($_POST['ActualizarCantidadCajaTmp'])){
 			$IdCajaTmp					= filter_var($_POST['IdCajaTmp'], FILTER_VALIDATE_INT);
 			$IdProducto					= filter_var($_POST['IdProducto'], FILTER_VALIDATE_INT);
 			$Cantidad					= filter_var($_POST['Cantidad'], FILTER_VALIDATE_INT);
 			$Precio						= filter_var($_POST['Precio'], FILTER_SANITIZE_STRING);
 			$AntiguaCantidad			= filter_var($_POST['CantidadAnterior'], FILTER_VALIDATE_INT);
+			
 			$PrecioTotal				= $Precio*$Cantidad;
 			
 			$ActualizarProductoQuery	= $this->Conectar()->query("UPDATE `producto` SET `stock` = `stock`+{$AntiguaCantidad} WHERE `id`='{$IdProducto}'");
 			$StockProductoSql			= $this->Conectar()->query("SELECT stock FROM `producto` WHERE id='{$IdProducto}'");
 			$StockProducto				= $StockProductoSql->fetch_array();
 			
-			$StockTmp					=$StockProducto['stock']-$Cantidad;
+			$StockTmp					= $StockProducto['stock']-$Cantidad;
 			$ActulizarStockSql			= $this->Conectar()->query("UPDATE `producto` SET `stock` = '{$StockTmp}' WHERE `id`='{$IdCajaTmp}'");
-			$ActualizarProductoTmpQuery	= $this->Conectar()->query("UPDATE `cajatmp` SET `cantidad` = '{$Cantidad}' , `totalprecio` = '{$PrecioTotal}' , `stockTmp` = '{$StockTmp}' WHERE `id` = '{$IdCajaTmp}'");
+			$ActualizarProductoTmpQuery	= $this->Conectar()->query("UPDATE `cajatmp` SET `cantidad` = '{$Cantidad}' , `totalprecio` = '{$PrecioTotal}' , `stockTmp` = '{$StockTmp}', `stock` = '{$StockTmp}' WHERE `id` = '{$IdCajaTmp}'");
 
 			if($ActualizarProductoQuery && $ActulizarStockSql && $ActualizarProductoTmpQuery == true){
 				echo'
@@ -187,4 +188,3 @@ class Venta extends Conexion {
 		}
 	}
 }
-?>

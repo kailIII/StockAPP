@@ -257,5 +257,82 @@ class Sistema extends Conexion {
 			}
 		}
 	}
+
+	public function AperturaCaja(){
+
+		if(isset($_POST['AperturaCaja'])){
+			$tipo	= filter_var($_POST['tipo'], FILTER_VALIDATE_INT);
+			$fecha	= filter_var($_POST['fecha'], FILTER_SANITIZE_STRING);
+			$monto	= filter_var($_POST['monto'], FILTER_SANITIZE_STRING);
+			$hora	= HoraActual();
+			$AperturaCajaQuery	= $this->Conectar()->query("INSERT INTO `cajaregistros` (`monto`, `tipo`, `fecha`, `hora`, `Detalle`) VALUES ('{$monto}', '{$tipo}', '{$fecha}', '{$hora}', 'Apertura de Caja')");
+			$CajaTotalQuery		= $this->Conectar()->query("INSERT INTO `caja` (`monto`, `fecha`, `hora`) VALUES ('{$monto}','{$fecha}', '{$hora}')");
+			if($AperturaCajaQuery && $CajaTotalQuery == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Excelente</strong> La apertura de la caja se ha realizado con exito.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'cajas"/>';
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Oh no!</strong> A ocurrido un error al realizar la apertura de la caja, por favor intentalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="5;url='.URLBASE.'cajas"/>';
+			}
+		}
+	}
+
+	public function CierreCaja(){
+
+		if(isset($_POST['CierreCaja'])){
+			$tipo	= filter_var($_POST['tipo'], FILTER_VALIDATE_INT);
+			$fecha	= filter_var($_POST['fecha'], FILTER_SANITIZE_STRING);
+			$hora	= HoraActual();
+			// Total Facturas
+			$CierreCajaFacturasQuery= $this->Conectar()->query("SELECT SUM(total) AS total FROM `factura` WHERE fecha='{$fecha}' AND habilitado='1'");
+			$CierreCajaFacturas		= $CierreCajaFacturasQuery->fetch_array();
+			// Total Entrada
+			$CierreCajaEntradaQuery	= $this->Conectar()->query("SELECT SUM(monto) AS total FROM `entradasalidaregistro` WHERE fecha='{$fecha}' AND tipo='5' AND habilitado='1'");
+			$CierreCajaEntrada		= $CierreCajaEntradaQuery->fetch_array();
+			// Total Salida
+			$CierreCajaSalidaQuery	= $this->Conectar()->query("SELECT SUM(monto) AS total FROM `entradasalidaregistro` WHERE fecha='{$fecha}' AND tipo='6' AND habilitado='1'");
+			$CierreCajaSalida		= $CierreCajaSalidaQuery->fetch_array();
+
+			// Monto Total
+			$MontoFacturaEntrada	= $CierreCajaFacturas['total']+$CierreCajaEntrada['total'];
+			$MontoTotal				= $MontoFacturaEntrada-$CierreCajaSalida['total'];
+			
+			$CierreRealizadosQuery	= $this->Conectar()->query("SELECT COUNT(id) AS CierreRealizados  FROM `cajaregistros` WHERE fecha='{$fecha}' AND tipo='{$tipo}' AND habilitado='1'");
+			$CierreRealizados		= $CierreRealizadosQuery->fetch_array();
+			if($CierreRealizados['CierreRealizados'] <= 0){
+				$CierreCajaQuery	= $this->Conectar()->query("INSERT INTO `cajaregistros` (`monto`, `tipo`, `fecha`, `hora`, `Detalle`) VALUES ('{$MontoTotal}', '{$tipo}', '{$fecha}', '{$hora}', 'Cierre de Caja')");
+				if($CierreCajaQuery == true){
+					echo'
+					<div class="alert alert-dismissible alert-success">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>&iexcl;Excelente</strong> El cierre de la caja se ha realizado con exito.
+					</div>
+					<meta http-equiv="refresh" content="0;url='.URLBASE.'cajas"/>';
+				}else{
+					echo'
+					<div class="alert alert-dismissible alert-danger">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>&iexcl;Oh no!</strong> A ocurrido un error al realizar el cierre de la caja, por favor intentalo de nuevo.
+					</div>
+					<meta http-equiv="refresh" content="3;url='.URLBASE.'cajas"/>';
+				}
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Oh no!</strong> A ocurrido un error al realizar el cierre de la caja, por favor elimina el &uacute;ltimo cierre y realizalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="8;url='.URLBASE.'cajas"/>';
+			}
+		}
+	}
+
 }
-?>

@@ -17,6 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  **/
 
+$fechaActual = FechaActual();
 /**
  |-------------------------------------------
  |	Establecimientos
@@ -147,4 +148,81 @@
  $KardexPorfechasArray	= array();
  while($KardexPorfechas	= $KardexPorfechasQuery->fetch_array()):
  $KardexPorfechasArray[]= $KardexPorfechas;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Notificaciones Stock
+ |-------------------------------------------
+ */
+ $NotificacionesStockQuery	= $db->Conectar()->query("SELECT id, codigo, nombre, stock, stockMin FROM `producto` WHERE stock < stockMin");
+ $NotificacionesStockArray	= array();
+ while($NotificacionesStock	= $NotificacionesStockQuery->fetch_array()):
+ $NotificacionesStockArray[]= $NotificacionesStock;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja
+ |-------------------------------------------
+ */
+ $CajaQuery		= $db->Conectar()->query("SELECT * FROM `caja` WHERE estado='1'");
+ $CajaArray		= array();
+ while($Caja	= $CajaQuery->fetch_array()):
+ $CajaArray[]	= $Caja;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja
+ |-------------------------------------------
+ */
+ $CajaRegistroQuery		= $db->Conectar()->query("SELECT * FROM `cajaregistros` ORDER BY id DESC");
+ $CajaRegistroArray		= array();
+ while($CajaRegistro	= $CajaRegistroQuery->fetch_array()):
+ $CajaRegistroArray[]	= $CajaRegistro;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja Apertura
+ |-------------------------------------------
+ */
+ $CajaAperturaRegistroQuery		= $db->Conectar()->query("SELECT * FROM `cajaregistros` WHERE tipo='1' ORDER BY id DESC");
+ $CajaAperturaRegistroArray		= array();
+ while($CajaAperturaRegistro	= $CajaAperturaRegistroQuery->fetch_array()):
+ $CajaAperturaRegistroArray[]	= $CajaAperturaRegistro;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja Cierre
+ |-------------------------------------------
+ */
+ $CajaCierreRegistroQuery		= $db->Conectar()->query("SELECT * FROM `cajaregistros` WHERE tipo='2' ORDER BY id DESC");
+ $CajaCierreRegistroArray		= array();
+ while($CajaCierreRegistro	= $CajaCierreRegistroQuery->fetch_array()):
+ $CajaCierreRegistroArray[]	= $CajaCierreRegistro;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja Efectivo
+ |-------------------------------------------
+ */
+ $CajaCierreRegistroEfectivoQuery		= $db->Conectar()->query("SELECT * FROM `factura` WHERE tipo='1' AND fecha='{$fechaActual}'");
+ $CajaCierreRegistroEfectivoArray		= array();
+ while($CajaCierreRegistroEfectivo		= $CajaCierreRegistroEfectivoQuery->fetch_array()):
+ $CajaCierreRegistroEfectivoArray[]		= $CajaCierreRegistroEfectivo;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja Tarjeta
+ |-------------------------------------------
+ */
+ $CajaCierreRegistroTarjetaQuery		= $db->Conectar()->query("SELECT * FROM `factura` WHERE tipo='0' AND fecha='{$fechaActual}'");
+ $CajaCierreRegistroTarjetaArray		= array();
+ while($CajaCierreRegistroTarjeta		= $CajaCierreRegistroTarjetaQuery->fetch_array()):
+ $CajaCierreRegistroTarjetaArray[]		= $CajaCierreRegistroTarjeta;
  endwhile;

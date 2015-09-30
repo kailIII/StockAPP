@@ -63,8 +63,6 @@ define('URLNOTIFICARVENTA', '#');
  |-------------------------------------------
  */
 define('HORARIO', 'America/Costa_Rica');
-define('LIMITEBLOQUEARDIA',		1220);
-define('LIMITEBLOQUEARNOCHE',	1840);
 define('GOOGLEANALYTICS',		'');
 
 /**

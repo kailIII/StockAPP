@@ -35,4 +35,3 @@ class EstadoCuenta extends Conexion {
 		}
 	}
 }
-?>
