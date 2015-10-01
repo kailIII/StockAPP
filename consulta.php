@@ -31,8 +31,8 @@
 									</div>
 									<div class="form-group">
 										<div class="col-md-12">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-											<button type="submit" name="EliminarTodo" class="btn btn-primary">Si, Eliminar</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+											<button type="submit" name="EliminarTodo" class="btn btn-primary" onclick="$(this).button('loading');" >Si, Eliminar</button>
 										</div>
 									</div>
 								</form>
@@ -89,7 +89,7 @@
 								<h4 class="modal-title" id="myModalLabel">Eliminar <?php echo $cajatmp['producto']; ?> de la factura</h4>
 							  </div>
 							  <div class="modal-body">
-								<form class="form-horizontal" method="post" action="" onsubmit="InhabilitarSubmitEliminarProducto();  return true">
+								<form class="form-horizontal" method="post" action="">
 									<input type="hidden" name="IdCajatmp" value="<?php echo $cajatmp['id']; ?>">
 									<input type="hidden" name="IdProducto" value="<?php echo $cajatmp['producto']; ?>">
 									<input type="hidden" name="CantidadStock" value="<?php echo $cajatmp['cantidad']; ?>">
@@ -103,7 +103,7 @@
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 										   <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-											<button type="submit" name="EliminarProducto"  id="btsubmitEliminarProducto" class="btn btn-primary">Si, Eliminar</button>
+											<button type="submit" name="EliminarProducto" class="btn btn-primary" onclick="$(this).button('loading');" >Si, Eliminar</button>
 										</div>
 									</div>
 								</form>
@@ -140,7 +140,7 @@
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 										   <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-											<button type="submit" name="ActualizarCantidadCajaTmp" class="btn btn-primary">Actualizar Cantidad de Productos</button>
+											<button type="submit" name="ActualizarCantidadCajaTmp" class="btn btn-primary" onclick="$(this).button('loading');" >Actualizar Cantidad de Productos</button>
 										</div>
 									</div>
 								</form>
