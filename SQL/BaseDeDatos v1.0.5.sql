@@ -528,8 +528,9 @@ DROP TABLE IF EXISTS `sistema`;
 
 CREATE TABLE `sistema` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `logo` varchar(55) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'logo.jpg',
+  `logo` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'logo.jpg',
   `TipoCambio` tinyint(1) DEFAULT '1',
+  `version` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -537,7 +538,7 @@ CREATE TABLE `sistema` (
 
 LOCK TABLES `sistema` WRITE;
 
-INSERT  INTO `sistema`(`id`,`logo`,`TipoCambio`) VALUES (1,'applogo.png',1);
+INSERT  INTO `sistema`(`id`,`logo`,`TipoCambio`) VALUES (1,'applogo.png',1,'v1.0.5 Estable');
 
 UNLOCK TABLES;
 

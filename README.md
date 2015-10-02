@@ -1,5 +1,5 @@
-# ![logo](https://raw.githubusercontent.com/Qualtiva/StockAPP/master/estatico/img/logo.png) v1.0.5 Estable
-## StockApp
+# ![logo](https://raw.githubusercontent.com/Qualtiva/StockAPP/master/estatico/img/logo.png)
+## StockApp v1.0.5 Estable
 StockApp es el mejor software para Puntos de Venta, Ferreterías, Bodegas, Farmacias y muchos otros negocios podrán gestionarse fácilmente con StockApp, controle fácilmente su Stock de Productos agrupe sus productos por Categorías, Marcas, controle las Unidades de Medida de cada uno de ellos , Registre sus Ventas las cuales disminuirán automáticamente el stock de sus productos al igual que las Compras adicionarán el stock de ellos, sepa cuánto gana que artículos vende más, cuanto artículos tiene en su Stock cual es el precio de sus artículos, sepa cuanto compró este mes , cuanto gastó, obtenga el inventario valorizado de su negocio con un solo click, StockApp es muy fácil de usar y lo mejor de todo es que es GRATIS.
 
 StockApp es muy fácil de utilizar y no requiere de conocimientos de Contabilidad u otros términos complejos para las PYMES y MYPES, es ideal para pequeños y medianos negocios. Controle su Stock fácilmente ya que al realizar una venta, el Stock disminuirá automáticamente , y al realizar una compra aumentará. Así de Fácil, no se complique con terminos contables y operaciones en sistemas Grandes que no se adaptan a su negocio, y si no se adapta StockApp lo adaptamos completamente a tu negocio, solamente tienes que [Contáctanos](http://www.qualtivacr.com/contacto/)

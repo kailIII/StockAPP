@@ -1,6 +1,6 @@
 <div id="footer">
 	<div class="container">
-		<p class="pull-left text-muted creditos"> &copy; <?php echo date('Y'); ?> Todos Los Derechos Reservados <a href="<?php echo URLBASE ?>"><?php echo TITULO ?></a> | Version <a>V1.0.4 Desarrollo</a></p>
+		<p class="pull-left text-muted creditos"> &copy; <?php echo date('Y'); ?> Todos Los Derechos Reservados <a href="<?php echo URLBASE ?>"><?php echo TITULO ?></a> | Version <a><?php $sistema->VersionStockApp(); ?></a></p>
 		<div class="pull-right">
 			<ul class="nav nav-pills payments creditosFormasPago">
 				<li><i class="fa fa-cc-visa"></i></li>

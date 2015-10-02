@@ -1,3 +1,7 @@
+<?php
+$numerosTotalSql= $db->Conectar()->query("SELECT COUNT(id) FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
+$numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
+?>
 <div class="col-md-9">
 	<div style="width:100%; height:300px; overflow: auto;">
 		<form name="EliminarCampos" id="EliminarCampos" method="post" action="">
@@ -12,7 +16,7 @@
 					<td><strong>Precio</strong></td>
 					<td><strong>Importe</strong></td>
 					<td>
-						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#EliminarVenta"><i class="fa fa-trash-o"></i> Limpiar Venta</button>
+						<button type="button" class="btn btn-primary btn-xs <?php if($numerosTotal <= 0): echo'disabled'; else: endif; ?>" data-toggle="modal" data-target="#EliminarVenta"><i class="fa fa-trash-o"></i> Limpiar Venta</button>
 						<!-- Modal -->
 						<div class="modal fade" id="EliminarVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						  <div class="modal-dialog">
@@ -183,10 +187,6 @@
 		?>
 	</div>
 	<div class="panel-heading">
-		<?php
-		$numerosTotalSql= $db->Conectar()->query("SELECT COUNT(id) FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
-		$numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
-		?>
 		<center><strong>Cantidad de Productos: <br><span class="badge badge-success"><?php echo $numerosTotal; ?></span></strong></center>
 	</div>
 	</div>

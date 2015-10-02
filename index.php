@@ -149,11 +149,6 @@ $usuario->VerificacionCuenta();
 		return true;
 	}
 
-function checkSubmit() {
-	document.getElementById("btsubmitEliminar").value = "Eliminando...";
-	document.getElementById("btsubmitEliminar").disabled = true;
-	return true;
-}
 	var statSend = false;
 	function ComprobarVenta(){
 		if (!statSend) {

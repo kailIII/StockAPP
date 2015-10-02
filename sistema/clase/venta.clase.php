@@ -19,47 +19,6 @@
 
 class Venta extends Conexion {
 
-	public function RegistrarCajaTmp(){
-
-		/*if(isset($_POST['RegistrarVenta'])){*/
-
-			global $usuarioApp;
-
-			$VendedorId	= $usuarioApp['id'];
-			$cliente	= filter_var($_POST['cliente'], FILTER_VALIDATE_INT);
-			$producto	= filter_var($_POST['codigo'], FILTER_VALIDATE_INT);
-			$cantidad	= filter_var($_POST['cantidad'], FILTER_VALIDATE_INT);
-			$fecha		= FechaActual();
-
-			$StockProductoSql	= $this->Conectar()->query("SELECT stock FROM `producto` WHERE id='{$producto}'");
-			$StockProducto		= $StockProductoSql->fetch_array();
-			$StockTmp			= $StockProducto['stock']-$cantidad;
-
-			$PrecioProductoSql	= $this->Conectar()->query("SELECT precioventa FROM `producto` WHERE id='{$producto}'");
-			$PrecioProductos	= $PrecioProductoSql->fetch_array();
-			$TotalPrecio 		= $PrecioProductos['precioventa']*$cantidad;
-
-			$CrearCajaTmpSql = "INSERT INTO `cajatmp` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `stockTmp`, `fecha`) VALUES
-			('{$producto}', '{$cantidad}', '{$PrecioProductos['precioventa']}', '{$TotalPrecio}', '{$VendedorId}', '{$cliente}', '{$StockTmp}', '{$fecha}')";
-			$ActulizarStockSql = $this->Conectar()->query("UPDATE `producto` SET `stock` = '{$StockTmp}' WHERE `id`='{$producto}'");
-
-			$BorraCajaTmpSql = "DELETE FROM `cajatmp` WHERE `precio` = '0' AND `vendedor` ='{VendedorId}'";
-			$this->Conectar()->query($CrearCajaTmpSql);
-			$this->Conectar()->query($BorraCajaTmpSql);
-			if($CrearCajaTmpSql && $BorraCajaTmpSql == true){
-				// Exitos al Insertar los datos
-			}else{
-				echo'
-				<div class="alert alert-dismissible alert-danger">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al agregado n&uacute;mero, intentalo de nuevo.
-				</div>';
-			}
-		/*}*/
-		
-		include('consulta.php');
-	}
-
 	public function EditarProducto(){
 
 		if(isset($_POST['ActualizarApuesta'])){
@@ -131,11 +90,12 @@ class Venta extends Conexion {
 			$PrecioTotal				= $Precio*$Cantidad;
 			
 			$ActualizarProductoQuery	= $this->Conectar()->query("UPDATE `producto` SET `stock` = `stock`+{$AntiguaCantidad} WHERE `id`='{$IdProducto}'");
+			$ActulizarStockSql			= $this->Conectar()->query("UPDATE `producto` SET `stock` = `stock`-{$Cantidad} WHERE `id`='{$IdProducto}'");
+			
 			$StockProductoSql			= $this->Conectar()->query("SELECT stock FROM `producto` WHERE id='{$IdProducto}'");
 			$StockProducto				= $StockProductoSql->fetch_array();
 			
-			$StockTmp					= $StockProducto['stock']-$Cantidad;
-			$ActulizarStockSql			= $this->Conectar()->query("UPDATE `producto` SET `stock` = '{$StockTmp}' WHERE `id`='{$IdCajaTmp}'");
+			$StockTmp					= $StockProducto['stock'];
 			$ActualizarProductoTmpQuery	= $this->Conectar()->query("UPDATE `cajatmp` SET `cantidad` = '{$Cantidad}' , `totalprecio` = '{$PrecioTotal}' , `stockTmp` = '{$StockTmp}', `stock` = '{$StockTmp}' WHERE `id` = '{$IdCajaTmp}'");
 
 			if($ActualizarProductoQuery && $ActulizarStockSql && $ActualizarProductoTmpQuery == true){
@@ -158,33 +118,34 @@ class Venta extends Conexion {
 
 	public function LimpiarCarritoCompras(){
 		//Eliminar Todo del carrito de compras o parte del mismo
-		if(isset($_POST['EliminarTodo'])){
+		if(isset($_POST['EliminarTodo'])):
 			$TotalEliminar	= filter_var($_POST['contadorx'], FILTER_VALIDATE_INT);
-			for($xrecibe = 1 ; $xrecibe<=$TotalEliminar; $xrecibe++){
+
+			for($xrecibe = 1 ; $xrecibe<=$TotalEliminar; $xrecibe++):
 				$IdEliminar	= isset($_POST['IDS'.$xrecibe]) ? $_POST['IDS'.$xrecibe] : null;
 				$IdProducto	= filter_var($_POST['IdProducto'.$xrecibe], FILTER_VALIDATE_INT);
 				$Cantidad	= filter_var($_POST['cantidad'.$xrecibe], FILTER_VALIDATE_INT);
-				if($IdEliminar!=""){
+				if($IdEliminar!=""):
 					$EliminarQuery	= $this->Conectar()->query("DELETE FROM `cajatmp` WHERE `id` ='{$IdEliminar}'");
 					$ActualizarQuery=$this->Conectar()->query("UPDATE `producto` SET `stock` = `stock`+{$Cantidad} WHERE `id`='{$IdProducto}'");
-				}
-			}
 
-			if($EliminarQuery && $ActualizarQuery == true){
-				echo'
-				<div class="alert alert-dismissible alert-success">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>&iexcl;Bien hecho!</strong> Se ha eliminado la venta actual con exito.
-				</div>
-				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
-			}else{
-				echo'
-				<div class="alert alert-dismissible alert-danger">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
-				</div>
-				<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
-			}
-		}
+					if($EliminarQuery && $ActualizarQuery == true):
+						echo'
+						<div class="alert alert-dismissible alert-success">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>&iexcl;Bien hecho!</strong> Se ha eliminado la venta actual con exito.
+						</div>
+						<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+					else:
+						echo '
+						<div class="alert alert-dismissible alert-danger">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al eliminar la venta actual, intentalo de nuevo.
+						</div>
+						<meta http-equiv="refresh" content="0;url='.URLBASE.'"/>';
+					endif;
+				endif;
+			endfor;
+		endif;
 	}
 }

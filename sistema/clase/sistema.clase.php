@@ -335,4 +335,9 @@ class Sistema extends Conexion {
 		}
 	}
 
+	public function VersionStockApp(){
+		$TipoDeCambioActivoSql	= $this->Conectar()->query("SELECT version FROM `sistema`");
+		$TipoDeCambioActivo		= $TipoDeCambioActivoSql->fetch_assoc();
+		echo $TipoDeCambioActivo['version'];
+	}
 }
