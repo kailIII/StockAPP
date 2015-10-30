@@ -38,31 +38,10 @@ $fecha	= FechaActual();
 					</div>
 				</div>
 			</div>
-			<?php
-			if(isset($_POST['CancelarFactura'])){
-				$Idfactura = $_POST['Idfactura'];
-				$actulizarFactura = $db->Conectar()->query("UPDATE `factura` SET `habilitado` = '0' WHERE `id` = '{$Idfactura}'");
-				$actulizarNumeros = $db->Conectar()->query("UPDATE `ventas` SET `habilitada` = '0' WHERE `idfactura` = '{$Idfactura}'");
-				if($actulizarFactura == true AND $actulizarNumeros==true){
-					echo'
-					<div class="alert alert-dismissible alert-success">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>&iexcl;Bien hecho!</strong> La Factura ha sido cancelada con exito.
-					</div>
-					<meta http-equiv="refresh" content="2;url='.URLBASE.'ventas-totales-vendedor"/>';
-				}else{
-					echo'
-					<div class="alert alert-dismissible alert-danger">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>&iexcl;Lo Sentimos!</strong> A ocurrido un error al cancelar la factura, intentalo de nuevo.
-					</div>
-					<meta http-equiv="refresh" content="2;url='.URLBASE.'ventas-totales-vendedor"/>';
-				}
-			}
-			?>
+			<?php $CajaDeVenta->CancelarFactura(); ?>
 			<div class="row">
 				<div class="col-sm-12">
-					<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-condensed" id="ventasnoche" data-sort-name="id" data-sort-order="desc">
+					<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-condensed" id="VentasVendedor" data-sort-name="id" data-sort-order="desc">
 						<thead>
 							<tr>
 								<td><strong>Id Factura</strong></td>
@@ -74,7 +53,7 @@ $fecha	= FechaActual();
 						</thead>
 						<tbody>
 						<?php
-						$cajatmpSql = $db->Conectar()->query("SELECT * FROM factura WHERE id AND usuario='{$usuarioApp['id']}' AND fecha='{$fecha}' ORDER BY id ASC");
+						$cajatmpSql = $db->SQL("SELECT * FROM factura WHERE id AND usuario='{$usuarioApp['id']}' AND fecha='{$fecha}' ORDER BY id ASC");
 						while($cajatmp	= $cajatmpSql->fetch_array()){
 						?>
 						<tr>
@@ -92,27 +71,39 @@ $fecha	= FechaActual();
 							<?php
 							if($cajatmp['habilitado']==1){
 							?>
-							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#CancelarApuesta<?php echo $cajatmp['id']; ?>" <?php DesabilitarVentaNoche(); ?>>Cancelar Factura</button>
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#CancelarApuesta<?php echo $cajatmp['id']; ?>">Cancelar Factura</button>
+
+
 							<!-- Modal -->
 							<div class="modal fade" id="CancelarApuesta<?php echo $cajatmp['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							  <div class="modal-dialog">
 								<div class="modal-content">
 								  <div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="myModalLabel">Cancelar Factura</h4>
+									<h4 class="modal-title" id="myModalLabel">¿Est&aacute; seguro que desea cancelar la factura #<?php echo $cajatmp['id']; ?>?</h4>
 								  </div>
 								  <div class="modal-body">
-									<form class="form-horizontal" method="post" action="">
+									<form class="form-horizontal" method="post" action="" class="form-horizontal">
 										<input type="hidden" name="Idfactura" value="<?php echo $cajatmp['id']; ?>">
 										<div class="form-group">
-											<div class="col-sm-12">
-												<div class="input-group">
-													¿Est&aacute; seguro que desea cancelar la factura #<?php echo $cajatmp['id']; ?>?
-												</div>
+											<div class="col-xs-6">
+												<img src="<?php echo ESTATICO ?>img/tarjeta.png" class="img-responsive img-radio">
+												<button type="button" class="btn btn-primary btn-radio">Cancelar Por Devoluci&oacute;n</button>
+												<input type="radio" name="tipo" value="0" id="left-item" class="hidden">
+											</div>
+											<div class="col-xs-6">
+												<img src="<?php echo ESTATICO ?>img/efectivo.png" class="img-responsive img-radio">
+												<button type="button" class="btn btn-primary btn-radio">Cancelar Por Garant&iacute;a</button>
+												<input type="radio" name="tipo" value="1" id="right-item" class="hidden">
 											</div>
 										</div>
+										<hr/>
 										<div class="form-group">
-											<div class="col-sm-12">
+											<textarea placeholder="Escriba un comentario si fuera necesario..." class="form-control" name="Comentario" rows="3" style="margin: 0px; width: 558px; height: 100px;"></textarea>
+										</div>
+										<hr/>
+										<div class="form-group">
+											<div class="col-md-12">
 											   <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 												<button type="submit" name="CancelarFactura" class="btn btn-primary">Si, Cancelar</button>
 											</div>
@@ -147,12 +138,20 @@ $fecha	= FechaActual();
 	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" language="javascript" src="<?php echo ESTATICO ?>js/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" charset="utf-8">
-		$(document).ready(function() {
-			$('#ventasdia').dataTable({"order":[0, 'desc']});
-		} );
-		$(document).ready(function() {
-			$('#ventasnoche').dataTable({"order":[0, 'desc']});
-		} );
+	$(document).ready(function() {
+		$('#VentasVendedor').dataTable({"order":[0, 'desc']});
+	} );
+
+	$(function () {
+		$('.btn-radio').click(function(e) {
+			$('.btn-radio').not(this).removeClass('active')
+				.siblings('input').prop('checked',false)
+				.siblings('.img-radio').css('opacity','0.5');
+			$(this).addClass('active')
+				.siblings('input').prop('checked',true)
+				.siblings('.img-radio').css('opacity','1');
+		});
+	});
 	</script>
 	<!-- Cargado archivos javascript al final para que la pagina cargue mas rapido Fin -->
 </body>

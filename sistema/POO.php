@@ -23,7 +23,7 @@ $fechaActual = FechaActual();
  |	Establecimientos
  |-------------------------------------------
  */
- $EstablecimientosSql		= $db->Conectar()->query("SELECT nombre FROM `establecimiento`");
+ $EstablecimientosSql		= $db->SQL("SELECT nombre FROM `establecimiento`");
  $EstablecimientosArray		= array();
  while($Establecimientos	= $EstablecimientosSql->fetch_array()):
  $EstablecimientosArray[]	= $Establecimientos;
@@ -34,7 +34,7 @@ $fechaActual = FechaActual();
  |	Temas
  |-------------------------------------------
  */
- $TodosTemasSql			= $db->Conectar()->query("SELECT * FROM `tema`");
+ $TodosTemasSql			= $db->SQL("SELECT * FROM `tema`");
  $TodosTemasArray		= array();
  while($TodosTemas		= $TodosTemasSql->fetch_array()):
  $TodosTemasArray[]		= $TodosTemas;
@@ -45,7 +45,7 @@ $fechaActual = FechaActual();
  |	Usuarios
  |-------------------------------------------
  */
- $TodosLosUsuariosSql		= $db->Conectar()->query("SELECT id, usuario FROM `usuario` WHERE habilitado='1'");
+ $TodosLosUsuariosSql		= $db->SQL("SELECT id, usuario FROM `usuario` WHERE habilitado='1'");
  $TodosLosUsuariosArray		= array();
  while($TodosLosUsuariosVar	= $TodosLosUsuariosSql->fetch_array()):
  $TodosLosUsuariosArray[]	= $TodosLosUsuariosVar;
@@ -56,7 +56,7 @@ $fechaActual = FechaActual();
  |	Selector de ProductosDATOS
  |-------------------------------------------
  */
- $SelectorProductosQuery	= $db->Conectar()->query("SELECT codigo, nombre  FROM producto");
+ $SelectorProductosQuery	= $db->SQL("SELECT codigo, nombre  FROM producto");
  $SelectorProductosArray	= array();
  while($SelectorProductos	= $SelectorProductosQuery->fetch_array()):
  $SelectorProductosArray[]	= $SelectorProductos;
@@ -67,7 +67,7 @@ $fechaActual = FechaActual();
  |	Selector de Clientes
  |-------------------------------------------
  */
- $SelectorClientesQuery		= $db->Conectar()->query("SELECT id, nombre  FROM `cliente` WHERE habilitado='1'");
+ $SelectorClientesQuery		= $db->SQL("SELECT id, nombre  FROM `cliente` WHERE habilitado='1'");
  $SelectorClientesArray		= array();
  while($SelectorClientes	= $SelectorClientesQuery->fetch_array()):
  $SelectorClientesArray[]	= $SelectorClientes;
@@ -78,7 +78,7 @@ $fechaActual = FechaActual();
  |	Selector de Productos
  |-------------------------------------------
  */
- $ProductosStockQuery	= $db->Conectar()->query("SELECT * FROM `producto`");
+ $ProductosStockQuery	= $db->SQL("SELECT * FROM `producto`");
  $ProductosStockArray	= array();
  while($ProductosStock	= $ProductosStockQuery->fetch_array()):
  $ProductosStockArray[]	= $ProductosStock;
@@ -89,7 +89,7 @@ $fechaActual = FechaActual();
  |	Selector de Departamentos
  |-------------------------------------------
  */
- $DepartamentoStockQuery	= $db->Conectar()->query("SELECT * FROM `departamento`");
+ $DepartamentoStockQuery	= $db->SQL("SELECT * FROM `departamento`");
  $DepartamentoStockArray	= array();
  while($DepartamentoStock	= $DepartamentoStockQuery->fetch_array()):
  $DepartamentoStockArray[]	= $DepartamentoStock;
@@ -100,7 +100,7 @@ $fechaActual = FechaActual();
  |	Selector de Proveedores
  |-------------------------------------------
  */
- $ProveedoresStockQuery		= $db->Conectar()->query("SELECT * FROM `proveedor`");
+ $ProveedoresStockQuery		= $db->SQL("SELECT * FROM `proveedor`");
  $ProveedoresStockArray		= array();
  while($ProveedoresStock	= $ProveedoresStockQuery->fetch_array()):
  $ProveedoresStockArray[]	= $ProveedoresStock;
@@ -111,7 +111,7 @@ $fechaActual = FechaActual();
  |	Selector de Unidad
  |-------------------------------------------
  */
- $UnidadStockQuery	= $db->Conectar()->query("SELECT * FROM `medida`");
+ $UnidadStockQuery	= $db->SQL("SELECT * FROM `medida`");
  $UnidadStockArray	= array();
  while($UnidadStock	= $UnidadStockQuery->fetch_array()):
  $UnidadStockArray[]= $UnidadStock;
@@ -122,7 +122,7 @@ $fechaActual = FechaActual();
  |	Selector de IVA Venta
  |-------------------------------------------
  */
- $IVAVentaStockQuery	= $db->Conectar()->query("SELECT * FROM `iva`");
+ $IVAVentaStockQuery	= $db->SQL("SELECT * FROM `iva`");
  $IVAVentaStockArray	= array();
  while($IVAVentaStock	= $IVAVentaStockQuery->fetch_array()):
  $IVAVentaStockArray[]	= $IVAVentaStock;
@@ -133,7 +133,7 @@ $fechaActual = FechaActual();
  |	Selector de IVA Venta
  |-------------------------------------------
  */
- $SelectorMonedaQuery	= $db->Conectar()->query("SELECT * FROM `moneda`");
+ $SelectorMonedaQuery	= $db->SQL("SELECT * FROM `moneda`");
  $SelectorMonedaArray	= array();
  while($SelectorMoneda	= $SelectorMonedaQuery->fetch_array()):
  $SelectorMonedaArray[]	= $SelectorMoneda;
@@ -144,7 +144,7 @@ $fechaActual = FechaActual();
  |	Kardex por fechas General
  |-------------------------------------------
  */
- $KardexPorfechasQuery	= $db->Conectar()->query("SELECT * FROM `kardex`");
+ $KardexPorfechasQuery	= $db->SQL("SELECT * FROM `kardex`");
  $KardexPorfechasArray	= array();
  while($KardexPorfechas	= $KardexPorfechasQuery->fetch_array()):
  $KardexPorfechasArray[]= $KardexPorfechas;
@@ -155,7 +155,7 @@ $fechaActual = FechaActual();
  |	Notificaciones Stock
  |-------------------------------------------
  */
- $NotificacionesStockQuery	= $db->Conectar()->query("SELECT id, codigo, nombre, stock, stockMin FROM `producto` WHERE stock < stockMin");
+ $NotificacionesStockQuery	= $db->SQL("SELECT id, codigo, nombre, stock, stockMin FROM `producto` WHERE stock < stockMin");
  $NotificacionesStockArray	= array();
  while($NotificacionesStock	= $NotificacionesStockQuery->fetch_array()):
  $NotificacionesStockArray[]= $NotificacionesStock;
@@ -166,7 +166,7 @@ $fechaActual = FechaActual();
  |	Caja
  |-------------------------------------------
  */
- $CajaQuery		= $db->Conectar()->query("SELECT * FROM `caja` WHERE estado='1'");
+ $CajaQuery		= $db->SQL("SELECT * FROM `caja` WHERE estado='1'");
  $CajaArray		= array();
  while($Caja	= $CajaQuery->fetch_array()):
  $CajaArray[]	= $Caja;
@@ -177,7 +177,7 @@ $fechaActual = FechaActual();
  |	Caja
  |-------------------------------------------
  */
- $CajaRegistroQuery		= $db->Conectar()->query("SELECT * FROM `cajaregistros` ORDER BY id DESC");
+ $CajaRegistroQuery		= $db->SQL("SELECT * FROM `cajaregistros` ORDER BY id DESC");
  $CajaRegistroArray		= array();
  while($CajaRegistro	= $CajaRegistroQuery->fetch_array()):
  $CajaRegistroArray[]	= $CajaRegistro;
@@ -188,7 +188,7 @@ $fechaActual = FechaActual();
  |	Caja Apertura
  |-------------------------------------------
  */
- $CajaAperturaRegistroQuery		= $db->Conectar()->query("SELECT * FROM `cajaregistros` WHERE tipo='1' ORDER BY id DESC");
+ $CajaAperturaRegistroQuery		= $db->SQL("SELECT * FROM `cajaregistros` WHERE tipo='1' ORDER BY id DESC");
  $CajaAperturaRegistroArray		= array();
  while($CajaAperturaRegistro	= $CajaAperturaRegistroQuery->fetch_array()):
  $CajaAperturaRegistroArray[]	= $CajaAperturaRegistro;
@@ -199,8 +199,8 @@ $fechaActual = FechaActual();
  |	Caja Cierre
  |-------------------------------------------
  */
- $CajaCierreRegistroQuery		= $db->Conectar()->query("SELECT * FROM `cajaregistros` WHERE tipo='2' ORDER BY id DESC");
- $CajaCierreRegistroArray		= array();
+ $CajaCierreRegistroQuery	= $db->SQL("SELECT * FROM `cajaregistros` WHERE tipo='2' ORDER BY id DESC");
+ $CajaCierreRegistroArray	= array();
  while($CajaCierreRegistro	= $CajaCierreRegistroQuery->fetch_array()):
  $CajaCierreRegistroArray[]	= $CajaCierreRegistro;
  endwhile;
@@ -210,10 +210,10 @@ $fechaActual = FechaActual();
  |	Caja Efectivo
  |-------------------------------------------
  */
- $CajaCierreRegistroEfectivoQuery		= $db->Conectar()->query("SELECT * FROM `factura` WHERE tipo='1' AND fecha='{$fechaActual}'");
- $CajaCierreRegistroEfectivoArray		= array();
- while($CajaCierreRegistroEfectivo		= $CajaCierreRegistroEfectivoQuery->fetch_array()):
- $CajaCierreRegistroEfectivoArray[]		= $CajaCierreRegistroEfectivo;
+ $CajaCierreRegistroEfectivoQuery	= $db->SQL("SELECT * FROM `factura` WHERE tipo='1' AND fecha='{$fechaActual}'");
+ $CajaCierreRegistroEfectivoArray	= array();
+ while($CajaCierreRegistroEfectivo	= $CajaCierreRegistroEfectivoQuery->fetch_array()):
+ $CajaCierreRegistroEfectivoArray[]	= $CajaCierreRegistroEfectivo;
  endwhile;
 
 /**
@@ -221,8 +221,41 @@ $fechaActual = FechaActual();
  |	Caja Tarjeta
  |-------------------------------------------
  */
- $CajaCierreRegistroTarjetaQuery		= $db->Conectar()->query("SELECT * FROM `factura` WHERE tipo='0' AND fecha='{$fechaActual}'");
- $CajaCierreRegistroTarjetaArray		= array();
- while($CajaCierreRegistroTarjeta		= $CajaCierreRegistroTarjetaQuery->fetch_array()):
- $CajaCierreRegistroTarjetaArray[]		= $CajaCierreRegistroTarjeta;
+ $CajaCierreRegistroTarjetaQuery	= $db->SQL("SELECT * FROM `factura` WHERE tipo='0' AND fecha='{$fechaActual}'");
+ $CajaCierreRegistroTarjetaArray	= array();
+ while($CajaCierreRegistroTarjeta	= $CajaCierreRegistroTarjetaQuery->fetch_array()):
+ $CajaCierreRegistroTarjetaArray[]	= $CajaCierreRegistroTarjeta;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja Chica
+ |-------------------------------------------
+ */
+ $CajaChicaQuery	= $db->SQL("SELECT * FROM `cajachica` ORDER BY id DESC");
+ $CajaChicaArray	= array();
+ while($CajaChica	= $CajaChicaQuery->fetch_array()):
+ $CajaChicaArray[]	= $CajaChica;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja Chica Registro Entrada Dinero
+ |-------------------------------------------
+ */
+ $CajaChicaRegistroEntradaDineroQuery	= $db->SQL("SELECT * FROM `cajachicaregistros` WHERE tipo='0' ORDER BY id DESC");
+ $CajaChicaRegistroEntradaDineroArray	= array();
+ while($CajaChicaRegistroEntradaDinero	= $CajaChicaRegistroEntradaDineroQuery->fetch_array()):
+ $CajaChicaRegistroEntradaDineroArray[]	= $CajaChicaRegistroEntradaDinero;
+ endwhile;
+
+/**
+ |-------------------------------------------
+ |	Caja Chica Registro Salida Dinero
+ |-------------------------------------------
+ */
+ $CajaChicaRegistroSalidaDineroQuery	= $db->SQL("SELECT * FROM `cajachicaregistros` WHERE tipo='1' ORDER BY id DESC");
+ $CajaChicaRegistroSalidaDineroArray	= array();
+ while($CajaChicaRegistroSalidaDinero	= $CajaChicaRegistroSalidaDineroQuery->fetch_array()):
+ $CajaChicaRegistroSalidaDineroArray[]	= $CajaChicaRegistroSalidaDinero;
  endwhile;

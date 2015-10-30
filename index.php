@@ -43,11 +43,15 @@ $usuario->VerificacionCuenta();
 				?>
 				<div class="row">
 					<div class="col-md-12">
+						<?php
+						$ComprobarCierreCajaSQL = $db->SQL("SELECT  id, tipo FROM `cajaregistros` ORDER BY id DESC LIMIT 1");
+						$ComprobarCierreCaja	= $ComprobarCierreCajaSQL->fetch_assoc();
+						?>
 						<form name="nuevo_producto" action="" class="contact-form" onsubmit="enviarDatosProducto(); return false">
 							<div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
-										<select class="form-control clientes" value="Cliente Contado"  name="cliente" id="select" required >
+										<select class="form-control clientes" value="Cliente Contado"  name="cliente" id="select" required <?php if($ComprobarCierreCaja['tipo']==2): echo'disabled'; else: endif;?> >
 											<?php foreach($SelectorClientesArray as $SelectorClientesRow): ?>
 											<option value="<?php echo $SelectorClientesRow['id']; ?>" <?php if($SelectorClientesRow['id']==1){echo'selected="selected"';}else{} ?> ><?php echo $SelectorClientesRow['nombre']; ?></option>
 											<?php endforeach; ?>
@@ -74,7 +78,7 @@ $usuario->VerificacionCuenta();
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<select class="form-control productos" name="codigo" id="select" autofocus>
+										<select class="form-control productos" name="codigo" id="select" autofocus <?php if($ComprobarCierreCaja['tipo']==2): echo'disabled'; else: endif;?>>
 											<option value=""></option>
 											<?php foreach($ProductosStockArray as $ProductosStockRow): ?>
 											<option value="<?php echo $ProductosStockRow['id']; ?>"><?php echo $ProductosStockRow['codigo'].' - '.$ProductosStockRow['nombre']; ?></option>
@@ -86,14 +90,20 @@ $usuario->VerificacionCuenta();
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><strong>#</strong></span>
-											<input type="number" min="1" step="1" maxlength="6" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" value="1" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off"  required />
+											<input type="number" min="1" step="1" maxlength="6" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad" value="1" onkeypress="return PermitirSoloNumeros(event);" autocomplete="off"  required <?php if($ComprobarCierreCaja['tipo']==2): echo'disabled'; else: endif;?> />
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
-										<button type="submit" name="Submit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
-									</div>
+<?php if($ComprobarCierreCaja['tipo']==2): ?>
+<button type="button" class="btn btn-primary btn-block" data-container="body" data-toggle="popover" data-placement="top" data-content="No a realizado la apertura de caja, haz la apertura para poder facturar." data-original-title="Apertura de Caja" title="Apertura de Caja" aria-describedby="Pr&eacute;stamo Cancelado">
+Agregar Producto
+</button>
+<?php else:?>
+	<button type="submit" name="Submit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
+<?php endif;?>
+										</div>
 								</div>
 							</div>
 							<br/>

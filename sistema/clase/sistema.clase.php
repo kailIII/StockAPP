@@ -265,8 +265,9 @@ class Sistema extends Conexion {
 			$fecha	= filter_var($_POST['fecha'], FILTER_SANITIZE_STRING);
 			$monto	= filter_var($_POST['monto'], FILTER_SANITIZE_STRING);
 			$hora	= HoraActual();
-			$AperturaCajaQuery	= $this->Conectar()->query("INSERT INTO `cajaregistros` (`monto`, `tipo`, `fecha`, `hora`, `Detalle`) VALUES ('{$monto}', '{$tipo}', '{$fecha}', '{$hora}', 'Apertura de Caja')");
-			$CajaTotalQuery		= $this->Conectar()->query("INSERT INTO `caja` (`monto`, `fecha`, `hora`) VALUES ('{$monto}','{$fecha}', '{$hora}')");
+			$Unix	= time();
+			$AperturaCajaQuery	= $this->Conectar()->query("INSERT INTO `cajaregistros` (`monto`, `tipo`, `fecha`, `hora`, `Detalle`, `unix`) VALUES ('{$monto}', '{$tipo}', '{$fecha}', '{$hora}', 'Apertura de Caja', '{$Unix}')");
+			$CajaTotalQuery		= $this->Conectar()->query("INSERT INTO `caja` (`monto`, `fecha`, `hora`, `unix`) VALUES ('{$monto}','{$fecha}', '{$hora}', '{$Unix}')");
 			if($AperturaCajaQuery && $CajaTotalQuery == true){
 				echo'
 				<div class="alert alert-dismissible alert-success">
@@ -291,6 +292,7 @@ class Sistema extends Conexion {
 			$tipo	= filter_var($_POST['tipo'], FILTER_VALIDATE_INT);
 			$fecha	= filter_var($_POST['fecha'], FILTER_SANITIZE_STRING);
 			$hora	= HoraActual();
+			$Unix	= time();
 			// Total Facturas
 			$CierreCajaFacturasQuery= $this->Conectar()->query("SELECT SUM(total) AS total FROM `factura` WHERE fecha='{$fecha}' AND habilitado='1'");
 			$CierreCajaFacturas		= $CierreCajaFacturasQuery->fetch_array();
@@ -308,7 +310,7 @@ class Sistema extends Conexion {
 			$CierreRealizadosQuery	= $this->Conectar()->query("SELECT COUNT(id) AS CierreRealizados  FROM `cajaregistros` WHERE fecha='{$fecha}' AND tipo='{$tipo}' AND habilitado='1'");
 			$CierreRealizados		= $CierreRealizadosQuery->fetch_array();
 			if($CierreRealizados['CierreRealizados'] <= 0){
-				$CierreCajaQuery	= $this->Conectar()->query("INSERT INTO `cajaregistros` (`monto`, `tipo`, `fecha`, `hora`, `Detalle`) VALUES ('{$MontoTotal}', '{$tipo}', '{$fecha}', '{$hora}', 'Cierre de Caja')");
+				$CierreCajaQuery	= $this->Conectar()->query("INSERT INTO `cajaregistros` (`monto`, `tipo`, `fecha`, `hora`, `Detalle`, `unix`) VALUES ('{$MontoTotal}', '{$tipo}', '{$fecha}', '{$hora}', 'Cierre de Caja', '{$Unix}')");
 				if($CierreCajaQuery == true){
 					echo'
 					<div class="alert alert-dismissible alert-success">
@@ -335,6 +337,24 @@ class Sistema extends Conexion {
 		}
 	}
 
+	public function CajaChica(){
+		if(isset($_POST['CajaChicaOperacion'])):
+			$tipo		= filter_var($_POST['tipo'], FILTER_VALIDATE_INT);
+			$monto		= filter_var($_POST['monto'], FILTER_SANITIZE_STRING);
+			$comentario = filter_var($_POST['comentario'], FILTER_SANITIZE_STRING);
+			$fechaActual= FechaActual();
+			$hora		= HoraActual();
+			$Unix		= time();
+			$CajaChicaRegistroQuery = $this->Conectar()->query("INSERT INTO `cajachicaregistros` (`monto`, `tipo`, `fecha`, `hora`, `Detalle`, `unix`) VALUES ('{$monto}', '{$tipo}', '{$fechaActual}', '{$hora}', '{$comentario}', '{$Unix}')");
+			if($tipo == 0):
+				$CajaChicaEntradaDineroQuery= $this->Conectar()->query("UPDATE `cajachica` SET `monto` = `monto`+'{$monto}' , `fecha` = '{$fechaActual}' , `hora` = '{$hora}' , `unix` = '{$Unix}' WHERE `id` = '1'");
+			elseif($tipo==1):
+				$CajaChicaSalidaDineroQuery	= $this->Conectar()->query("UPDATE `cajachica` SET `monto` = `monto`-'{$monto}' , `fecha` = '{$fechaActual}' , `hora` = '{$hora}' , `unix` = '{$Unix}' WHERE `id` = '1'");
+			else:
+			endif;
+			echo'<meta http-equiv="refresh" content="0;url='.URLBASE.'cajas"/>';
+		endif;
+	}
 	public function VersionStockApp(){
 		$TipoDeCambioActivoSql	= $this->Conectar()->query("SELECT version FROM `sistema`");
 		$TipoDeCambioActivo		= $TipoDeCambioActivoSql->fetch_assoc();

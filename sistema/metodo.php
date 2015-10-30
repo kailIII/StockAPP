@@ -133,32 +133,6 @@ function HoraActualNotificar(){
 
 /*
 |--------------------------------------------------------------------------------------|
-| Inhabilita la venta si el @LIMITEBLOQUEAR es menor a @HoraActualNotificar()
-|--------------------------------------------------------------------------------------|
-*/
-function DesabilitarVentaDia(){
-
-	if(HoraActualNotificar()>LIMITEBLOQUEARDIA){
-		echo'disabled';
-	}
-    return 'disabled';
-}
-
-/*
-|--------------------------------------------------------------------------------------|
-| Inhabilita la venta si el @LIMITEBLOQUEAR es menor a @HoraActualNotificar()
-|--------------------------------------------------------------------------------------|
-*/
-function DesabilitarVentaNoche(){
-
-	if(HoraActualNotificar()>LIMITEBLOQUEARNOCHE){
-		echo'disabled';
-	}
-    return 'disabled';
-}
-
-/*
-|--------------------------------------------------------------------------------------|
 | Devuelve la fecha Actual del Servidor para nombre del archivo excel
 |--------------------------------------------------------------------------------------|
 */
@@ -167,13 +141,13 @@ function FechaActualExcel(){
 }
 
 function LimitenotificarDia($LimiteDia){
-	$LimiteDiaSql	= $db->Conectar()->query("SELECT `hora` FROM `horalimite` WHERE tipo='0'");
+	$LimiteDiaSql	= $db->SQL("SELECT `hora` FROM `horalimite` WHERE tipo='0'");
 	$LimiteDia		= $LimiteDiaSql->fetch_array();
 	return $LimiteDia['hora'];
 }
 
 function LimitenotificarNoche($LimiteNoche){
-	$LimiteNocheSql = $db->Conectar()->query("SELECT `hora` FROM `horalimite` WHERE tipo='1'");
+	$LimiteNocheSql = $db->SQL("SELECT `hora` FROM `horalimite` WHERE tipo='1'");
 	$LimiteNoche	= $LimiteNocheSql->fetch_array();
 	return $LimiteNoche['hora'];
 }

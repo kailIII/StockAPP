@@ -1,5 +1,5 @@
 <?php
-$numerosTotalSql= $db->Conectar()->query("SELECT COUNT(id) FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
+$numerosTotalSql= $db->SQL("SELECT COUNT(id) FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
 $numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
 ?>
 <div class="col-md-9">
@@ -49,7 +49,7 @@ $numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
 				</tr>
 				<?php
 				$i				= 0;
-				$cajatmpSql		= $db->Conectar()->query("SELECT * FROM cajatmp WHERE vendedor='{$usuarioApp['id']}' ORDER BY id DESC");
+				$cajatmpSql		= $db->SQL("SELECT * FROM cajatmp WHERE vendedor='{$usuarioApp['id']}' ORDER BY id DESC");
 				while($cajatmp	= $cajatmpSql->fetch_array()){
 				$i	= $i + 1;
 				?>
@@ -58,14 +58,14 @@ $numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
 					<td><input id="ID<?php echo $i; ?>" name="IDS<?php echo $i; ?>" type="checkbox" value="<?php echo $cajatmp['id']; ?>" /></td>
 					<td>
 					<?php
-					$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$cajatmp['producto']}'");
+					$CodigoProductoSql	= $db->SQL("SELECT codigo FROM `producto` WHERE id='{$cajatmp['producto']}'");
 					$CodigoProducto		= $CodigoProductoSql->fetch_array();
 					echo $CodigoProducto['codigo'];
 					?>
 					</td>
 					<td>
 					<?php
-					$NombreProductoSql	= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$cajatmp['producto']}'");
+					$NombreProductoSql	= $db->SQL("SELECT nombre FROM `producto` WHERE id='{$cajatmp['producto']}'");
 					$NombreProducto		= $NombreProductoSql->fetch_array();
 					echo $NombreProducto['nombre'];
 					?>
@@ -165,9 +165,9 @@ $numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
 </div>
 <div class="col-md-3">
 	<?php
-	$netoSql= $db->Conectar()->query("SELECT SUM(totalprecio) AS deudatotal FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
+	$netoSql= $db->SQL("SELECT SUM(totalprecio) AS deudatotal FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
 	$neto	= $netoSql->fetch_array();
-	$TipoDeCambioSql= $db->Conectar()->query("SELECT valor FROM `moneda` WHERE rango='2'");
+	$TipoDeCambioSql= $db->SQL("SELECT valor FROM `moneda` WHERE rango='2'");
 	$TipoDeCambio	= $TipoDeCambioSql->fetch_assoc();
 	?>
 	<div class="panel panel-default">
@@ -175,7 +175,7 @@ $numerosTotal	= MysqliResultQualtiva($numerosTotalSql);
 	  <div class="panel-body">
 		<h2 class="text-success" align="center">$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?>
 		<?php
-		$TipoDeCambioActivoSql	= $db->Conectar()->query("SELECT TipoCambio FROM `sistema`");
+		$TipoDeCambioActivoSql	= $db->SQL("SELECT TipoCambio FROM `sistema`");
 		$TipoDeCambioActivo		= $TipoDeCambioActivoSql->fetch_assoc();
 		if($TipoDeCambioActivo['TipoCambio'] == 1){
 		?>

@@ -154,7 +154,7 @@ $usuario->ZonaAdministrador();
 										<div class="form-group">
 											<label>C&oacute;digo</label>
 											<?php
-											$CodigoSql	= $db->Conectar()->query("SELECT MAX(id)+1 AS MaxId FROM `departamento`");
+											$CodigoSql	= $db->SQL("SELECT MAX(id)+1 AS MaxId FROM `departamento`");
 											$Codigo		= $CodigoSql->fetch_array();
 											?>
 											<input type="text" class="form-control" name="id" value="<?php echo $Codigo['MaxId']; ?>" autocomplete="off" readonly />

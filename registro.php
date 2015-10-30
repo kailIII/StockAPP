@@ -18,7 +18,7 @@ if($producto == null or $producto == ''){
 	</div>';
 }else{
 
-	$StockProductoSql	= $db->Conectar()->query("SELECT nombre, stock FROM `producto` WHERE id='{$producto}'");
+	$StockProductoSql	= $db->SQL("SELECT nombre, stock FROM `producto` WHERE id='{$producto}'");
 	$StockProducto		= $StockProductoSql->fetch_array();
 	$StockTmp			= $StockProducto['stock']-$cantidad;
 	if($StockTmp <= 0):
@@ -28,24 +28,24 @@ if($producto == null or $producto == ''){
 			<strong>&iexcl;Lo Sentimos!</strong> La Cantidad que intentas comprar no se encuetra en el inventario, intentalo de nuevo.<br/>Existencia: '.$StockProducto['stock'].'
 		</div>';
 	else:
-		$ProductoTmpSql = $db->Conectar()->query("SELECT COUNT(producto) AS ProductoCajaTmp FROM `cajatmp` WHERE producto='{$producto}' AND vendedor='{$VendedorId}'");
+		$ProductoTmpSql = $db->SQL("SELECT COUNT(producto) AS ProductoCajaTmp FROM `cajatmp` WHERE producto='{$producto}' AND vendedor='{$VendedorId}'");
 		$ProductoTmp	= $ProductoTmpSql->fetch_array();
 
 		if($ProductoTmp['ProductoCajaTmp'] == 0){
 
-			$StockProductoSql	= $db->Conectar()->query("SELECT stock FROM `producto` WHERE id='{$producto}'");
+			$StockProductoSql	= $db->SQL("SELECT stock FROM `producto` WHERE id='{$producto}'");
 			$StockProducto		= $StockProductoSql->fetch_array();
 			$StockTmp			= $StockProducto['stock']-$cantidad;
 
-			$PrecioProductoSql	= $db->Conectar()->query("SELECT precioventa FROM `producto` WHERE id='{$producto}'");
+			$PrecioProductoSql	= $db->SQL("SELECT precioventa FROM `producto` WHERE id='{$producto}'");
 			$PrecioProductos	= $PrecioProductoSql->fetch_array();
 			$TotalPrecio 		= $PrecioProductos['precioventa']*$cantidad;
 			
 			$CrearCajaTmpSql = "INSERT INTO `cajatmp` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `stockTmp`, `stock`, `fecha`, `hora`) VALUES
 			('{$producto}', '{$cantidad}', '{$PrecioProductos['precioventa']}', '{$TotalPrecio}', '{$VendedorId}', '{$cliente}', '{$StockTmp}', '{$StockProducto['stock']}', '{$fecha}', '{$hora}')";
-			$ActualizarStockSql = $db->Conectar()->query("UPDATE `producto` SET `stock` = '{$StockTmp}' WHERE `id`='{$producto}'");
+			$ActualizarStockSql = $db->SQL("UPDATE `producto` SET `stock` = '{$StockTmp}' WHERE `id`='{$producto}'");
 			// Registra Producto en la caja tmp
-			$db->Conectar()->query($CrearCajaTmpSql);
+			$db->SQL($CrearCajaTmpSql);
 			
 			if($CrearCajaTmpSql && $ActualizarStockSql == true){
 				// Exitos al Insertar los datos
@@ -58,7 +58,7 @@ if($producto == null or $producto == ''){
 			}
 		}else{
 
-			$InfoCajaTmpSql			= $db->Conectar()->query("SELECT `cantidad`, `precio`, `stockTmp`, `stock`  FROM `cajatmp` WHERE producto='{$producto}'");
+			$InfoCajaTmpSql			= $db->SQL("SELECT `cantidad`, `precio`, `stockTmp`, `stock`  FROM `cajatmp` WHERE producto='{$producto}'");
 			$InfoCajaTmp			= $InfoCajaTmpSql->fetch_array();
 
 			$NuevaCantidad= $InfoCajaTmp['cantidad']+$cantidad;
@@ -66,11 +66,11 @@ if($producto == null or $producto == ''){
 			$NuevoStock	= $InfoCajaTmp['stock']-$NuevaCantidad;
 
 			// Actualizando Stock del producto
-			$ActualizarStockSql		= $db->Conectar()->query("UPDATE `producto` SET `stock` = '{$NuevoStock}' WHERE `id`='{$producto}'");
+			$ActualizarStockSql		= $db->SQL("UPDATE `producto` SET `stock` = '{$NuevoStock}' WHERE `id`='{$producto}'");
 
 			// Registra Producto en la caja tmp
 			$ActualizarCajaTmpSql	= "UPDATE `cajatmp` SET `cantidad` = '{$NuevaCantidad}' , `totalprecio` = '{$NuevoTotal}' , `stockTmp` = '{$NuevoStock}' WHERE `producto` = '{$producto}'";
-			$db->Conectar()->query($ActualizarCajaTmpSql);
+			$db->SQL($ActualizarCajaTmpSql);
 
 			if($ActualizarCajaTmpSql && $ActualizarStockSql == true){
 				// Exitos al Insertar los datos

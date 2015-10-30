@@ -40,8 +40,8 @@ $usuario->ZonaAdministrador();
 			<?php
 			if(isset($_POST['CancelarFactura'])){
 				$Idfactura = $_POST['Idfactura'];
-				$actulizarFactura = $db->Conectar()->query("UPDATE `factura` SET `habilitado` = '0' WHERE `id` = '{$Idfactura}'");
-				$actulizarNumeros = $db->Conectar()->query("UPDATE `ventas` SET `habilitada` = '0' WHERE `idfactura` = '{$Idfactura}'");
+				$actulizarFactura = $db->SQL("UPDATE `factura` SET `habilitado` = '0' WHERE `id` = '{$Idfactura}'");
+				$actulizarNumeros = $db->SQL("UPDATE `ventas` SET `habilitada` = '0' WHERE `idfactura` = '{$Idfactura}'");
 				if($actulizarFactura == true AND $actulizarNumeros==true){
 					echo'
 					<div class="alert alert-dismissible alert-success">
@@ -74,7 +74,7 @@ $usuario->ZonaAdministrador();
 						</thead>
 						<tbody>
 						<?php
-						$cajatmpSql = $db->Conectar()->query("SELECT * FROM factura WHERE id ORDER BY id ASC");
+						$cajatmpSql = $db->SQL("SELECT * FROM factura WHERE id ORDER BY id ASC");
 						while($cajatmp	= $cajatmpSql->fetch_array()){
 						?>
 						<tr>
@@ -83,7 +83,7 @@ $usuario->ZonaAdministrador();
 							<td> <?php echo $cajatmp['fecha'].' '.$cajatmp['hora']; ?></td>
 							<td>
 							<?php 
-							$vendedorSQLQuery	= $db->Conectar()->query("SELECT nombre, apellido1, apellido2 FROM `vendedores` WHERE id='{$cajatmp['usuario']}'");
+							$vendedorSQLQuery	= $db->SQL("SELECT nombre, apellido1, apellido2 FROM `vendedores` WHERE id='{$cajatmp['usuario']}'");
 							$vendedorNombre		= $vendedorSQLQuery->fetch_assoc();
 							echo $vendedorNombre['nombre'].' '.$vendedorNombre['apellido1'].' '.$vendedorNombre['apellido2'];
 							?></td>

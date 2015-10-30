@@ -115,7 +115,7 @@ $usuario->ZonaAdministrador();
 										<!-- Modal Activar -->
 										<?php
 										if($SelectorMonedaRow['rango'] == 2){
-											$TipoCambioMonedaSql= $db->Conectar()->query("SELECT TipoCambio FROM `sistema`");
+											$TipoCambioMonedaSql= $db->SQL("SELECT TipoCambio FROM `sistema`");
 											$TipoCambioMoneda	= $TipoCambioMonedaSql->fetch_assoc();
 											if($TipoCambioMoneda['TipoCambio'] == 1){
 												echo'<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#DesactivarTipoDeCambio"><i class="fa fa-power-off"></i></button>';
@@ -344,6 +344,59 @@ $usuario->ZonaAdministrador();
 					</li>
 					<?php endforeach; ?>
 				</ul>
+			</div>
+			<div class="row">
+			<?php 
+			//init
+			//put this function where it belongs plz
+			function get_content_from_github($url) {
+				//returns an array with all the content that the function will get
+				$ch = curl_init();
+				curl_setopt($ch,CURLOPT_URL,$url);
+				curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); 
+				curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,1);
+				$content = curl_exec($ch);
+				curl_close($ch);
+				return json_decode($content,true);
+			}
+			//function to check if it's updated or not
+			function check_updates($content_github=array()/*array*/,$current_version='')
+			{
+				if(count($content_github) == 0)
+				{
+					return 'e1';//error 1 -> no pointers on the array
+				}
+				else
+				{
+					if(($content_github['tag_name']==$current_version) && ($content_github['target_commitish']=='3.3.5'))
+					{
+						return '0';//no updates
+					}
+					elseif(($content_github['tag_name']!=$current_version) && ($content_github['target_commitish']=='3.3.5'))
+					{
+						return '1';//update
+					}
+					elseif(($content_github['tag_name']!=$current_version) && ($content_github['target_commitish']!='3.3.5'))
+					{
+						return 'e2';//can't find updates for this repo
+					}
+				}
+			}
+			//url to get the lastest version (still dont know how to separate the branches)
+			$url='https://api.github.com/repos/FlameNET/FlameCMS/releases/latest';
+			//call function get_content_from_github($url)
+			$content_github=get_content_from_github($url);
+			$updated=check_updates($content_github,'1.1');
+			if($updated=='1')
+			{
+				$update_link='https://github.com/FlameNET/FlameCMS/archive/v'.$content_github['tag_name'].'.zip';
+			}
+			else
+			{
+				//not counting with errors (e1 && e2)
+				//no updates
+			}
+			?>
 			</div>
 		</div>
     </div>

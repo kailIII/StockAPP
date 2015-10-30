@@ -53,7 +53,7 @@ $fechaActual = FechaActual();
 						</thead>
 						<tbody>
 							<?php
-							$ResumenVentaDiaSql = $db->Conectar()->query("SELECT
+							$ResumenVentaDiaSql = $db->SQL("SELECT
 							COUNT(cantidad) AS cantidad,
 							producto,
 							SUM(totalprecio) AS precio
@@ -64,14 +64,14 @@ $fechaActual = FechaActual();
 							<tr class="gradeA">
 								<td>
 								<?php
-								$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
+								$CodigoProductoSql	= $db->SQL("SELECT codigo FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
 								$CodigoProducto		= $CodigoProductoSql->fetch_array();
 								echo $CodigoProducto['codigo'];
 								?>
 								</td>
 								<td>
 								<?php
-								$NombreProductoSql	= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
+								$NombreProductoSql	= $db->SQL("SELECT nombre FROM `producto` WHERE id='{$ResumenVentaDia['producto']}'");
 								$NombreProducto		= $NombreProductoSql->fetch_array();
 								echo $NombreProducto['nombre'];
 								?>
@@ -86,7 +86,7 @@ $fechaActual = FechaActual();
 					</table>
 				</div>
 				<?php
-				$ResumenVentaDiaDatosSql = $db->Conectar()->query("SELECT
+				$ResumenVentaDiaDatosSql = $db->SQL("SELECT
 				SUM(totalprecio) AS cantidad,
 				COUNT(DISTINCT producto) AS ProductoTotal
 				FROM ventas

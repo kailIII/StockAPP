@@ -19,7 +19,7 @@ $objPHPExcel->getProperties()->setCreator("Luis Cortés Juarez")
 							->setCategory("Venta de tiempo");
 // Obtenemos la fecha Actual
 $fecha = FechaActual();
-$result = $db->Conectar()->query("SELECT
+$result = $db->SQL("SELECT
 numero,
 SUM(cantidad) AS cantidad,
 SUM(cantidad)*70 AS cantidadtotal,

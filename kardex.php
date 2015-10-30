@@ -78,7 +78,7 @@ $usuario->VerificacionCuenta();
 							<tr>
 								<td>
 									<?php
-									$CodigoProductoSql	= $db->Conectar()->query("SELECT codigo FROM `producto` WHERE id='{$KardexPorfechasRow['producto']}'");
+									$CodigoProductoSql	= $db->SQL("SELECT codigo FROM `producto` WHERE id='{$KardexPorfechasRow['producto']}'");
 									$CodigoProducto		= $CodigoProductoSql->fetch_array();
 									if($CodigoProducto['codigo'] == null){
 										echo'Este C&oacute;digo ya se no encuentra en el inventario';
@@ -89,7 +89,7 @@ $usuario->VerificacionCuenta();
 								</td>
 								<td>
 									<?php
-									$NombreProductoSql	= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$KardexPorfechasRow['producto']}'");
+									$NombreProductoSql	= $db->SQL("SELECT nombre FROM `producto` WHERE id='{$KardexPorfechasRow['producto']}'");
 									$NombreProducto		= $NombreProductoSql->fetch_array();
 									if($CodigoProducto['codigo'] == null){
 										echo'Este Producto ya se encuentra en el inventario';

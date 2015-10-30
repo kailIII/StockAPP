@@ -11,7 +11,7 @@ RewriteRule ^(.*)$ $1.php [L,QSA]
 
 ## URL AMIGABLES
 RewriteRule ^reimprimir/(.+)$ re-imprimir.php?id=$1 [QSA]
-RewriteRule ^estado-de-cuenta/(.+)/(.+)$ estadodecuenta.php?id=$1&title=$2 [QSA]
+RewriteRule ^editar-producto/(.+)/(.+)$ editarproducto.php?id=$1&nombre=$2 [QSA]
 
 <Files *.md>
     ForceType application/octet-stream

@@ -11,14 +11,14 @@
 			<form class="form-horizontal" method="post" action="<?php echo URLBASE ?>registrar-compra" onsubmit="return ComprobarVenta();">
 				<div class="row">
 					<div class="col-xs-6">
-						<img src="<?php echo ESTATICO ?>img/tarjeta.png" class="img-responsive img-radio">
-						<button type="button" class="btn btn-primary btn-radio">Pagar Con Tarjeta</button>
-						<input type="radio" name="tipo" value="0" id="left-item" class="hidden">
-					</div>
-					<div class="col-xs-6">
 						<img src="<?php echo ESTATICO ?>img/efectivo.png" class="img-responsive img-radio">
 						<button type="button" class="btn btn-primary btn-radio">Paga Con Efectivo</button>
 						<input type="radio" name="tipo" value="1" id="right-item" class="hidden">
+					</div>
+					<div class="col-xs-6">
+						<img src="<?php echo ESTATICO ?>img/tarjeta.png" class="img-responsive img-radio">
+						<button type="button" class="btn btn-primary btn-radio">Pagar Con Tarjeta</button>
+						<input type="radio" name="tipo" value="0" id="left-item" class="hidden">
 					</div>
 				</div>
 				<div class="form-group">

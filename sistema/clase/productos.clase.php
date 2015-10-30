@@ -244,5 +244,58 @@ class Productos extends Conexion {
 			}
 		}
 	}
+
+	public function URLProductoID(){
+
+		global $ProductoID;
+		global $ProductoIDSql;
+
+		if (isset($_GET['id'])){
+			$ProductoIDSql = $this->Conectar()->query("SELECT * FROM `producto` WHERE id='{$_GET['id']}'");
+			$ProductoID = $ProductoIDSql->fetch_assoc();
+			if (!$ProductoID['id']){
+				$error = true;
+			}
+		}else{
+			$error = true;
+		}
+	}
+
+	public function EditarProducto(){
+		if(isset($_POST['EditarProducto'])){
+			$IdProducto		= filter_var($_POST['Id'], FILTER_VALIDATE_INT);
+			$Codigo			= filter_var($_POST['Codigo'], FILTER_SANITIZE_STRING);
+			$Nombre			= filter_var($_POST['Nombre'], FILTER_SANITIZE_STRING);
+			$PrecioCosto	= filter_var($_POST['PrecioCosto'], FILTER_SANITIZE_STRING);
+			$PrecioVenta	= filter_var($_POST['PrecioVenta'], FILTER_SANITIZE_STRING);
+			$Proveedor		= filter_var($_POST['Proveedor'], FILTER_VALIDATE_INT);
+			$Departamento	= filter_var($_POST['Departamento'], FILTER_VALIDATE_INT);
+			$Stock			= filter_var($_POST['Stock'], FILTER_VALIDATE_INT);
+			$StockMin		= filter_var($_POST['StockMin'], FILTER_VALIDATE_INT);
+			$IVA			= filter_var($_POST['IVA'], FILTER_VALIDATE_INT);
+			$Unidad			= filter_var($_POST['Unidad'], FILTER_VALIDATE_INT);
+			$Nota			= filter_var($_POST['Nota'], FILTER_SANITIZE_STRING);
+			// Mayusculas
+			$Codigo = strtoupper($Codigo);
+			$Nombre = ucwords($Nombre);
+
+			$EditarProductoSql = $this->Conectar()->query("UPDATE `producto` SET `codigo` = '{$Codigo}' , `nombre` = '{$Nombre}' , `preciocosto` = '{$PrecioCosto}' , `precioventa` = '{$PrecioVenta}' , `proveedor` = '{$Proveedor}' , `departamento` = '{$Departamento}' , `stock` = '{$Stock}' , `stockMin` = '{$StockMin}' , `impuesto` = '{$IVA}' , `medida` = '{$Unidad}' , `especificaciones` = '{$Nota}' WHERE `id` = '{$IdProducto}'");
+			if($EditarProductoSql == true){
+				echo'
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Excelente</strong> El producto "'.$Nombre.'" ha sido creada con actulizado.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'productos"/>';
+			}else{
+				echo'
+				<div class="alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>&iexcl;Oh no!</strong> A ocurrido un error al actulizar el producto "'.$Nombre.'", por favor intentalo de nuevo.
+				</div>
+				<meta http-equiv="refresh" content="0;url='.URLBASE.'productos"/>';
+			}
+		}
+	}
 }
 

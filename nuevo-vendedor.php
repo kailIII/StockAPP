@@ -60,7 +60,7 @@ $fechaActual = FechaActualRegistroVendedor();
 				$fecha		= FechaActual();
 				$sha = sha1(strtoupper($usuario) . ":" . strtoupper($contrasena));
 
-				$VerificarDatosSQL	= $db->Conectar()->query("SELECT usuario FROM `usuario` WHERE usuario='{$usuario}'");
+				$VerificarDatosSQL	= $db->SQL("SELECT usuario FROM `usuario` WHERE usuario='{$usuario}'");
 				$VerificarDatos		= $VerificarDatosSQL->fetch_array();
 				if($VerificarDatos	> 0){
 					echo'
@@ -76,14 +76,14 @@ $fechaActual = FechaActualRegistroVendedor();
 				}
 				else
 				{
-					$idUsuarioSql	= $db->Conectar()->query("SELECT MAX(id) AS idusuario FROM `usuario`");
+					$idUsuarioSql	= $db->SQL("SELECT MAX(id) AS idusuario FROM `usuario`");
 					$idUsuarios 	= $idUsuarioSql->fetch_array();
 					$idUsuario		= $idUsuarios['idusuario']+1;
-					$creaVendedorSql= $db->Conectar()->query("INSERT INTO `vendedores` (`nombre`, `apellido1`, `apellido2`, `establecimiento`, `nota`, `provincia`, `canton`, `distrito`, `id_usuario`) VALUES ('{$nombre}', '{$apellido1}', '{$apellido2}', '{$local}', '{$nota}', '{$provincia}', '{$canton}', '{$distrito}', '{$idUsuario}')");
-					$idvendedorSql	= $db->Conectar()->query("SELECT MAX(id) AS idvendedor FROM `vendedores`");
+					$creaVendedorSql= $db->SQL("INSERT INTO `vendedores` (`nombre`, `apellido1`, `apellido2`, `establecimiento`, `nota`, `provincia`, `canton`, `distrito`, `id_usuario`) VALUES ('{$nombre}', '{$apellido1}', '{$apellido2}', '{$local}', '{$nota}', '{$provincia}', '{$canton}', '{$distrito}', '{$idUsuario}')");
+					$idvendedorSql	= $db->SQL("SELECT MAX(id) AS idvendedor FROM `vendedores`");
 					$idvendedores 	= $idvendedorSql->fetch_array();
 					$idVendedor		= $idvendedores['idvendedor'];
-					$CredencialesSql= $db->Conectar()->query("INSERT INTO `usuario` (`usuario`, `contrasena`, `id_vendedor`,`id_perfil`) VALUES ('{$usuario}', '{$sha}', '{$idVendedor}', '{$idperfil}')");
+					$CredencialesSql= $db->SQL("INSERT INTO `usuario` (`usuario`, `contrasena`, `id_vendedor`,`id_perfil`) VALUES ('{$usuario}', '{$sha}', '{$idVendedor}', '{$idperfil}')");
 					if($creaVendedorSql && $CredencialesSql == true){
 						echo'
 						<div class="alert alert-dismissible alert-success">
@@ -167,7 +167,7 @@ $fechaActual = FechaActualRegistroVendedor();
 								<select id="provincia" name="provincia" class="form-control">
 									<option selected="selected">Seleccione una Provincia</option>
 									<?php
-									$provinciaSQL = $db->Conectar()->query("SELECT * FROM `provincia` WHERE id");
+									$provinciaSQL = $db->SQL("SELECT * FROM `provincia` WHERE id");
 									while($provincia = $provinciaSQL->fetch_array()){
 									echo'<option value="'.$provincia['id'].'">'.$provincia['provincia'].'</option>';
 									}

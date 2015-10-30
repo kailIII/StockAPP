@@ -57,7 +57,7 @@ $fecha	= FechaActual();
 							</thead>
 							<tbody>
 								<?php
-								$VendedoresSql = $db->Conectar()->query("SELECT
+								$VendedoresSql = $db->SQL("SELECT
 									`vendedores`.nombre, apellido1, apellido2, establecimiento, canton, distrito
 									, `usuario`.id_perfil, `usuario`.id, `usuario`.usuario, `usuario`.habilitado
 								FROM
@@ -231,7 +231,7 @@ $fecha	= FechaActual();
 									<?php
 									}
 									?>
-									<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#EliminarUsuario<?php echo $Vendedores['id']; ?>" <?php $CantidadVentasSql= $db->Conectar()->query("SELECT COUNT(id) AS CantidadDeVentas FROM `factura` WHERE usuario='{$Vendedores['id']}'");$CantidadVentas = $CantidadVentasSql->fetch_array();if($CantidadVentas['CantidadDeVentas']>0){ echo'disabled';}else{}?>>Eliminar Usuario</button>
+									<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#EliminarUsuario<?php echo $Vendedores['id']; ?>" <?php $CantidadVentasSql= $db->SQL("SELECT COUNT(id) AS CantidadDeVentas FROM `factura` WHERE usuario='{$Vendedores['id']}'");$CantidadVentas = $CantidadVentasSql->fetch_array();if($CantidadVentas['CantidadDeVentas']>0){ echo'disabled';}else{}?>>Eliminar Usuario</button>
 									<!-- Modal -->
 									<div class="modal fade" id="EliminarUsuario<?php echo $Vendedores['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 										<div class="modal-dialog">

@@ -42,6 +42,7 @@ $fechaActual = FechaActual();
 				<?php
 				$sistema->AperturaCaja();
 				$sistema->CierreCaja();
+				$sistema->CajaChica();
 				?>
 				<div class=" col-md-6">
 					<ul class="nav nav-tabs">
@@ -148,7 +149,7 @@ $fechaActual = FechaActual();
 				</div>
 				<div class="col-md-6">
 					<?php
-					$TipoOperacionQuery	= $db->Conectar()->query("SELECT tipo  FROM `cajaregistros` WHERE habilitado='1' ORDER BY id DESC LIMIT 1");
+					$TipoOperacionQuery	= $db->SQL("SELECT tipo  FROM `cajaregistros` WHERE habilitado='1' ORDER BY id DESC LIMIT 1");
 					$TipoOperacion		= $TipoOperacionQuery->fetch_array();
 					?>
 					<table class="table table-bordered">
@@ -235,6 +236,7 @@ $fechaActual = FechaActual();
 			</div>
 			<hr/>
 			<div class="row">
+				<legend>Tipos de Pagos</legend>
 				<div class="col-md-9">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#PagosTarjeta" data-toggle="tab">Pagos con Tarjeta</a></li>
@@ -322,13 +324,13 @@ $fechaActual = FechaActual();
 						</div>
 						<div class="panel-body">
 							<?php
-							$ResumenVentaDiaTotalSql = $db->Conectar()->query("SELECT SUM(total) AS total FROM `factura` WHERE fecha='{$fechaActual}' AND habilitado='1'");
+							$ResumenVentaDiaTotalSql = $db->SQL("SELECT SUM(total) AS total FROM `factura` WHERE fecha='{$fechaActual}' AND habilitado='1'");
 							$ResumenVentaDiaTotal = $ResumenVentaDiaTotalSql->fetch_array();
 							
-							$ResumenVentaDiaEfectivoSql = $db->Conectar()->query("SELECT SUM(total) AS total FROM `factura` WHERE tipo='1' AND fecha='{$fechaActual}' AND habilitado='1'");
+							$ResumenVentaDiaEfectivoSql = $db->SQL("SELECT SUM(total) AS total FROM `factura` WHERE tipo='1' AND fecha='{$fechaActual}' AND habilitado='1'");
 							$ResumenVentaDiaEfectivo = $ResumenVentaDiaEfectivoSql->fetch_array();
 							
-							$ResumenVentaDiaTarjetaSql = $db->Conectar()->query("SELECT SUM(total) AS total FROM `factura` WHERE  tipo='0' AND fecha='{$fechaActual}' AND habilitado='1'");
+							$ResumenVentaDiaTarjetaSql = $db->SQL("SELECT SUM(total) AS total FROM `factura` WHERE  tipo='0' AND fecha='{$fechaActual}' AND habilitado='1'");
 							$ResumenVentaDiaTarjeta = $ResumenVentaDiaTarjetaSql->fetch_array();
 							?>
 							Venta Total: $ <?php echo @$Vendedor->FormatoSaldo($ResumenVentaDiaTotal['total']); ?> | &cent; <?php echo @$Vendedor->FormatoSaldo($ResumenVentaDiaTotal['total']*528); ?><br/>
@@ -343,13 +345,13 @@ $fechaActual = FechaActual();
 			<legend>Caja Chica</legend>
 				<div class=" col-md-6">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#Caja" data-toggle="tab">Caja</a></li>
-						<li><a href="#AperturaRegistro" data-toggle="tab">Apertura de Caja</a></li>
-						<li><a href="#CierreRegistro" data-toggle="tab">Cierre de Caja</a></li>
+						<li class="active"><a href="#CajaChicaGeneral" data-toggle="tab">Caja</a></li>
+						<li><a href="#CajaChicaRegistroEntradaDinero" data-toggle="tab">Entrada de Dinero a Caja Chica</a></li>
+						<li><a href="#CajaChicaRegistroSalidaDinero" data-toggle="tab">Salida de Dinero de la Cierre de Caja</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade active in" id="Caja">
-							<table class="table table-bordered" id="CajaGeneral">
+						<div class="tab-pane fade active in" id="CajaChicaGeneral">
+							<table class="table table-bordered" id="CajaChicaGeneralTabla">
 								<thead>
 									<tr>
 										<td><strong>#</strong></td>
@@ -359,20 +361,20 @@ $fechaActual = FechaActual();
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach($CajaArray as $CajaRow): ?>
+									<?php foreach($CajaChicaArray as $CajaChicaRow): ?>
 									<tr>
-										<th><?php echo $CajaRow['id']; ?></th>
-										<td>&cent; <?php echo $CajaRow['monto']; ?></td>
-										<td><center><?php echo $CajaRow['fecha'].' '.$CajaRow['hora']; ?></center></td>
+										<th><?php echo $CajaChicaRow['id']; ?></th>
+										<td>&cent; <?php echo $CajaChicaRow['monto']; ?></td>
+										<td><center><?php echo $CajaChicaRow['fecha'].' '.$CajaChicaRow['hora']; ?></center></td>
 										<td><button class="btn btn-primary btn-xs">Registro</button></td>
 									</tr>
 									<?php endforeach?>
 								</tbody>
 							</table>
 						</div>
-						<div class="tab-pane fade" id="AperturaRegistro">
+						<div class="tab-pane fade" id="CajaChicaRegistroEntradaDinero">
 							<div class="table-responsive">
-								<table class="table table-bordered table table-hover" id="AperturaRegistroTabla">
+								<table class="table table-bordered table table-hover" id="CajaChicaRegistroEntradaDineroTabla">
 									<thead>
 										<tr>
 											<th>#</th>
@@ -384,15 +386,15 @@ $fechaActual = FechaActual();
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($CajaAperturaRegistroArray as $CajaAperturaRegistroRow): ?>
+										<?php foreach($CajaChicaRegistroEntradaDineroArray as $CajaChicaRegistroEntradaDineroRow): ?>
 										<tr>
-											<th><?php echo $CajaAperturaRegistroRow['id']; ?></th>
-											<td data-title="Price" class="numeric">$ <?php echo $CajaAperturaRegistroRow['monto']; ?></td>
-											<td><?php echo $CajaAperturaRegistroRow['fecha']; ?></td>
-											<td><?php echo $CajaAperturaRegistroRow['hora']; ?></td>
+											<th><?php echo $CajaChicaRegistroEntradaDineroRow['id']; ?></th>
+											<td data-title="Price" class="numeric">$ <?php echo $CajaChicaRegistroEntradaDineroRow['monto']; ?></td>
+											<td><?php echo $CajaChicaRegistroEntradaDineroRow['fecha']; ?></td>
+											<td><?php echo $CajaChicaRegistroEntradaDineroRow['hora']; ?></td>
 											<td>
 											<?php
-											if($CajaAperturaRegistroRow['tipo'] == 1){
+											if($CajaChicaRegistroEntradaDineroRow['habilitado'] == 1){
 												echo'<span class="label label-success">Activo</span>';
 											}else{
 												echo'<span class="label label-danger">Desactivado</span>';
@@ -406,9 +408,9 @@ $fechaActual = FechaActual();
 								</table>
 							</div>
 						</div>
-						<div class="tab-pane fade" id="CierreRegistro">
+						<div class="tab-pane fade" id="CajaChicaRegistroSalidaDinero">
 							<div class="table-responsive">
-								<table class="table table-bordered table table-hover" id="CierreRegistroTabla">
+								<table class="table table-bordered table table-hover" id="CajaChicaRegistroSalidaDineroTabla">
 									<thead>
 										<tr>
 											<th>#</th>
@@ -420,15 +422,15 @@ $fechaActual = FechaActual();
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($CajaCierreRegistroArray as $CajaCierreRegistroRow): ?>
+										<?php foreach($CajaChicaRegistroSalidaDineroArray as $CajaChicaRegistroSalidaDineroRow): ?>
 										<tr>
-											<th><?php echo $CajaCierreRegistroRow['id']; ?></th>
-											<td data-title="Price" class="numeric">$ <?php echo $CajaCierreRegistroRow['monto']; ?></td>
-											<td><?php echo $CajaCierreRegistroRow['fecha']; ?></td>
-											<td><?php echo $CajaCierreRegistroRow['hora']; ?></td>
+											<th><?php echo $CajaChicaRegistroSalidaDineroRow['id']; ?></th>
+											<td data-title="Price" class="numeric">$ <?php echo $CajaChicaRegistroSalidaDineroRow['monto']; ?></td>
+											<td><?php echo $CajaChicaRegistroSalidaDineroRow['fecha']; ?></td>
+											<td><?php echo $CajaChicaRegistroSalidaDineroRow['hora']; ?></td>
 											<td>
 											<?php
-											if($CajaCierreRegistroRow['habilitado'] == 1){
+											if($CajaChicaRegistroSalidaDineroRow['habilitado'] == 1){
 												echo'<span class="label label-success">Activo</span>';
 											}else{
 												echo'<span class="label label-danger">Desactivado</span>';
@@ -445,10 +447,6 @@ $fechaActual = FechaActual();
 					</div>
 				</div>
 				<div class="col-md-6">
-					<?php
-					$TipoOperacionQuery	= $db->Conectar()->query("SELECT tipo  FROM `cajaregistros` WHERE habilitado='1' ORDER BY id DESC LIMIT 1");
-					$TipoOperacion		= $TipoOperacionQuery->fetch_array();
-					?>
 					<table class="table table-bordered">
 						<tbody>
 							<tr class="well">
@@ -463,7 +461,7 @@ $fechaActual = FechaActual();
 												<div class="radio">
 													<label>
 														<input type="radio" name="tipo" value="0" required />
-														Salida de Dinero
+														Entrada de Dinero
 													</label>
 												</div>
 											</div>
@@ -471,7 +469,7 @@ $fechaActual = FechaActual();
 												<div class="radio">
 													<label>
 														<input type="radio" name="tipo" value="1" required />
-														Entrada de Dinero
+														Salida de Dinero
 													</label>
 												</div>
 											</div>
@@ -493,11 +491,12 @@ $fechaActual = FechaActual();
 										</div>
 										<hr/>
 										<div class="form-group">
-											<?php if($TipoOperacion['tipo'] == 1): ?>
-											<button type="submit" name="CierreCaja" class="btn btn-primary">Realizar Cierre de Caja</button>
-											<?php else:?>
-											<button type="submit" name="AperturaCaja" class="btn btn-primary">Realizar Apertura de Caja</button>
-											<?php endif;?>
+											<label>Comentario</label>
+											<textarea type="text" class="form-control" name="comentario" placeholder="Escriba un comentario" autocomplete="off" required ></textarea>
+										</div>
+										<hr/>
+										<div class="form-group">
+											<button type="submit" name="CajaChicaOperacion" class="btn btn-primary">Realizar Operaci&oacute;n</button>
 											<button type="reset" class="btn btn-default">Cancelar</button>
 										</div>
 									</form>
@@ -561,6 +560,27 @@ $fechaActual = FechaActual();
 
 	$(document).ready(function() {
 		$('#PagoEfectivo').dataTable({
+			"scrollY": false,
+			"scrollX": true
+		});
+	});
+
+	$(document).ready(function() {
+		$('#CajaChicaGeneralTabla').dataTable({
+			"scrollY": false,
+			"scrollX": true
+		});
+	});
+
+	$(document).ready(function() {
+		$('#CajaChicaRegistroEntradaDineroTabla').dataTable({
+			"scrollY": false,
+			"scrollX": true
+		});
+	});
+
+	$(document).ready(function() {
+		$('#CajaChicaRegistroSalidaDineroTabla').dataTable({
 			"scrollY": false,
 			"scrollX": true
 		});

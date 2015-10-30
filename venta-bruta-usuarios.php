@@ -50,7 +50,7 @@ $fechaActual = FechaActual();
 					</thead>
 					<tbody>
 						<?php
-						$ResumenVentaDiaSql = $db->Conectar()->query("SELECT
+						$ResumenVentaDiaSql = $db->SQL("SELECT
 						SUM(totalprecio) AS cantidadVendedorDia,
 						COUNT(id) AS cantidadItems,
 						vendedor
@@ -60,7 +60,7 @@ $fechaActual = FechaActual();
 						<tr class="gradeA">
 							<td>
 							<?php
-							$vendedorSql = $db->Conectar()->query("SELECT usuario FROM `usuario` WHERE id='{$ResumenVentaDia['vendedor']}'");
+							$vendedorSql = $db->SQL("SELECT usuario FROM `usuario` WHERE id='{$ResumenVentaDia['vendedor']}'");
 							$vendedor = $vendedorSql->fetch_assoc();
 							echo $vendedor['usuario'];
 							?>
@@ -73,7 +73,7 @@ $fechaActual = FechaActual();
 						?>
 					</tbody>
 					<?php
-					$ResumenVentaDiaSql = $db->Conectar()->query("SELECT COUNT(id) AS cantidadItems, SUM(totalprecio) AS cantidad FROM `ventas` WHERE fecha='{$fechaActual}' AND habilitada='1'");
+					$ResumenVentaDiaSql = $db->SQL("SELECT COUNT(id) AS cantidadItems, SUM(totalprecio) AS cantidad FROM `ventas` WHERE fecha='{$fechaActual}' AND habilitada='1'");
 					while($ResumenVentaDia = $ResumenVentaDiaSql->fetch_array()){
 					?>
 					<tbody>

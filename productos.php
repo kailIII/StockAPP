@@ -56,7 +56,7 @@ $usuario->VerificacionCuenta();
 					</thead>
 					<tbody>
 						<?php foreach($ProductosStockArray as $ProductosStockRow):
-							$TipoDeCambioSql= $db->Conectar()->query("SELECT valor FROM `moneda` WHERE rango='2'");
+							$TipoDeCambioSql= $db->SQL("SELECT valor FROM `moneda` WHERE rango='2'");
 							$TipoDeCambio	= $TipoDeCambioSql->fetch_assoc();
 						?>
 						<tr>
@@ -68,21 +68,21 @@ $usuario->VerificacionCuenta();
 							<td><?php echo $ProductosStockRow['stockMin']; ?></td>
 							<td>
 								<?php
-								$ProveedorSql	= $db->Conectar()->query("SELECT nombre FROM `departamento` WHERE id='{$ProductosStockRow['departamento']}'");
+								$ProveedorSql	= $db->SQL("SELECT nombre FROM `departamento` WHERE id='{$ProductosStockRow['departamento']}'");
 								$Proveedor		= $ProveedorSql->fetch_array();
 								echo $Proveedor['nombre'];
 								?>
 							</td>
 							<td>
 								<?php
-								$ProveedorSql	= $db->Conectar()->query("SELECT nombre FROM `proveedor` WHERE id='{$ProductosStockRow['proveedor']}'");
+								$ProveedorSql	= $db->SQL("SELECT nombre FROM `proveedor` WHERE id='{$ProductosStockRow['proveedor']}'");
 								$Proveedor		= $ProveedorSql->fetch_array();
 								echo $Proveedor['nombre'];
 								?>
 							</td>
 							<td>
 							<button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
-							<button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i></button>
+							<a href="<?php echo URLBASE ?>editar-producto/<?php echo $ProductosStockRow['id']; ?>/<?php echo $enlace->LimpiaCadenaTexto($ProductosStockRow['nombre']); ?>/" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i></a>
 							<button class="btn btn-success btn-xs"  type="button" data-toggle="modal" data-target="#AgrearProducto<?php echo $ProductosStockRow['id']; ?>"><i class="fa fa-plus"></i></button>
 							</td>
 						</tr>

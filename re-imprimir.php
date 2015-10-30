@@ -4,7 +4,7 @@ $usuario->LoginCuentaConsulta();
 $usuario->VerificacionCuenta();
 
 if (isset($_GET['id'])){
-	$imprimirSql = $db->Conectar()->query("SELECT * FROM `ventas` WHERE idfactura='{$_GET['id']}'");
+	$imprimirSql = $db->SQL("SELECT * FROM `ventas` WHERE idfactura='{$_GET['id']}'");
 	$imprimir	 = $imprimirSql->fetch_assoc();
 	if (!$imprimir['id']){ 
 		$error = true;
@@ -13,11 +13,11 @@ if (isset($_GET['id'])){
 	$error = true;
 }
 
-$localSql	= $db->Conectar()->query("SELECT establecimiento, canton, distrito FROM `vendedores` WHERE id='{$usuarioApp['id']}'");
+$localSql	= $db->SQL("SELECT establecimiento, canton, distrito FROM `vendedores` WHERE id='{$usuarioApp['id']}'");
 $local		= $localSql->fetch_array();
-$ventaSql	= $db->Conectar()->query("SELECT * FROM `factura` WHERE id='{$_GET['id']}'");
+$ventaSql	= $db->SQL("SELECT * FROM `factura` WHERE id='{$_GET['id']}'");
 $venta		= $ventaSql->fetch_array();
-$clienteSql	= $db->Conectar()->query("SELECT nombre FROM `cliente` WHERE id='{$venta['cliente']}'");
+$clienteSql	= $db->SQL("SELECT nombre FROM `cliente` WHERE id='{$venta['cliente']}'");
 $cliente	= $clienteSql->fetch_array();
 ?>
 <!DOCTYPE html>
@@ -82,13 +82,13 @@ $cliente	= $clienteSql->fetch_array();
 													<td align="center"><strong>Valor</strong></td>
 												</tr>
 												<?php
-												$cajaSql	= $db->Conectar()->query("SELECT * FROM ventas WHERE idfactura='{$venta['id']}'");
+												$cajaSql	= $db->SQL("SELECT * FROM ventas WHERE idfactura='{$venta['id']}'");
 												while($caja	= $cajaSql->fetch_array()){
 												?>
 												<tr>
 													<td align="center">
 													<?php
-													$ProductoFacturaSql		= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$caja['producto']}'");
+													$ProductoFacturaSql		= $db->SQL("SELECT nombre FROM `producto` WHERE id='{$caja['producto']}'");
 													$ProductoFactura		= $ProductoFacturaSql->fetch_array();
 													echo $ProductoFactura['nombre'];
 													?>
@@ -103,7 +103,7 @@ $cliente	= $clienteSql->fetch_array();
 													<td><div align="center"><strong>Total</strong></div></td>
 													<td></td>
 													<?php
-													$netoSql= $db->Conectar()->query("SELECT SUM(totalprecio) AS deudatotal FROM ventas WHERE idfactura='{$venta['id']}'");
+													$netoSql= $db->SQL("SELECT SUM(totalprecio) AS deudatotal FROM ventas WHERE idfactura='{$venta['id']}'");
 													$neto	= $netoSql->fetch_array();
 													?>
 													<td><div align="center"><strong>$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?></strong></div></td>

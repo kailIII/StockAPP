@@ -1,5 +1,5 @@
 <?php
-$TotalStockBajoQuery= $db->Conectar()->query("SELECT COUNT(id) AS TotalStockBajo FROM `producto` WHERE stock < stockMin");
+$TotalStockBajoQuery= $db->SQL("SELECT COUNT(id) AS TotalStockBajo FROM `producto` WHERE stock < stockMin");
 $TotalStockBajo		= $TotalStockBajoQuery->fetch_array();
 if($TotalStockBajo['TotalStockBajo'] > 0){
 ?>

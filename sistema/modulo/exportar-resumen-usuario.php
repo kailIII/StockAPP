@@ -20,7 +20,7 @@ $objPHPExcel->getProperties()->setCreator("Luis Cortés Juarez")
 							->setDescription("Exporta ventas del dia en excel.")
 							->setKeywords("office 2007 openxml php")
 							->setCategory("Venta de tiempo");
-$result = $db->Conectar()->query("SELECT
+$result = $db->SQL("SELECT
 numero,
 SUM(cantidad) AS cantidad,
 SUM(cantidad)*70 AS cantidadtotal,

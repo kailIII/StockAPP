@@ -29,10 +29,10 @@ $usuario->VerificacionCuenta();
 		<div class="container">
 		<?php
 		if(isset($_POST['RegistrarCompra'])){
-			$TotalNetoSql	= $db->Conectar()->query("SELECT SUM(totalprecio) AS deudatotal FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
+			$TotalNetoSql	= $db->SQL("SELECT SUM(totalprecio) AS deudatotal FROM cajatmp WHERE vendedor='{$usuarioApp['id']}'");
 			$TotalNeto		= $TotalNetoSql->fetch_array();
 			
-			$IdDatosTotalSql= $db->Conectar()->query("SELECT vendedor, cliente FROM `cajatmp` WHERE vendedor='{$usuarioApp['id']}' LIMIT 1");
+			$IdDatosTotalSql= $db->SQL("SELECT vendedor, cliente FROM `cajatmp` WHERE vendedor='{$usuarioApp['id']}' LIMIT 1");
 			$IdDatosTotal	= $IdDatosTotalSql->fetch_array();
 
 			$vendedor		= filter_var($usuarioApp['id'], FILTER_VALIDATE_INT);
@@ -43,16 +43,16 @@ $usuario->VerificacionCuenta();
 			$hora			= HoraActual();
 
 			// Agrego los datos para generar la factura
-			$facturaSql		= $db->Conectar()->query("INSERT INTO `factura` (`total`, `fecha`, `hora`, `usuario`, `cliente`, `tipo`, `habilitado`) VALUES ('{$total}', '{$fecha}',  '{$hora}', '{$vendedor}', '{$cliente}', '{$tipo}', '1')");
+			$facturaSql		= $db->SQL("INSERT INTO `factura` (`total`, `fecha`, `hora`, `usuario`, `cliente`, `tipo`, `habilitado`) VALUES ('{$total}', '{$fecha}',  '{$hora}', '{$vendedor}', '{$cliente}', '{$tipo}', '1')");
 			// Copiando Datos de la caja temporal a la caja principal
-			$registrarSql	= $db->Conectar()->query("INSERT INTO `ventas` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`, `hora`)
+			$registrarSql	= $db->SQL("INSERT INTO `ventas` (`producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`, `hora`)
 			SELECT
 			  `producto`, `cantidad`, `precio`, `totalprecio`, `vendedor`, `cliente`, `fecha`, `hora`
 			FROM   `cajatmp`
 			WHERE  vendedor='{$vendedor}'");
 
 			//Registras Salidas en el kardex
-			$KardexSalidaSql= $db->Conectar()->query("SELECT `producto`, `cantidad`, `stockTmp`, `precio`, `totalprecio`, `fecha`, `hora` FROM `cajatmp` WHERE  vendedor='{$vendedor}'");
+			$KardexSalidaSql= $db->SQL("SELECT `producto`, `cantidad`, `stockTmp`, `precio`, `totalprecio`, `fecha`, `hora` FROM `cajatmp` WHERE  vendedor='{$vendedor}'");
 			while ($row		= $KardexSalidaSql->fetch_array()) {
 				$campo1		= $row['producto'];
 				$campo2		= $row['cantidad'];
@@ -61,24 +61,24 @@ $usuario->VerificacionCuenta();
 				$campo5		= $row['totalprecio'];
 				$campo6		= $row['fecha'];
 				$campo7		= $row['hora'];
-				$KardexQuery= $db->Conectar()->query("INSERT INTO `kardex` (`producto`, `salida`, `stock`, `preciounitario`, `preciototal`, `fecha`, `hora`) VALUES ('{$campo1}', '{$campo2}', '{$campo3}', '{$campo4}', '{$campo5}', '{$campo6}', '{$campo7}')");
+				$KardexQuery= $db->SQL("INSERT INTO `kardex` (`producto`, `salida`, `stock`, `preciounitario`, `preciototal`, `fecha`, `hora`) VALUES ('{$campo1}', '{$campo2}', '{$campo3}', '{$campo4}', '{$campo5}', '{$campo6}', '{$campo7}')");
 			}
 			
 			// Impementando Dinero en Caja
-			$MaxIdCajaQuery		= $db->Conectar()->query("SELECT MAX(id) AS IdCaja FROM `caja`");
+			$MaxIdCajaQuery		= $db->SQL("SELECT MAX(id) AS IdCaja FROM `caja`");
 			$MaxIdCaja			= $MaxIdCajaQuery->fetch_array();
-			$ActualizandoCajaSql= $db->Conectar()->query("UPDATE `caja` SET `monto`=`monto`+'{$total}' WHERE id = '{$MaxIdCaja['IdCaja']}'");
+			$ActualizandoCajaSql= $db->SQL("UPDATE `caja` SET `monto`=`monto`+'{$total}' WHERE id = '{$MaxIdCaja['IdCaja']}'");
 			
 			//Obteniendo Id de la Factura
-			$IdFacturaSql	= $db->Conectar()->query("SELECT MAX(id) AS ultimaid FROM factura WHERE usuario='{$vendedor}'");
+			$IdFacturaSql	= $db->SQL("SELECT MAX(id) AS ultimaid FROM factura WHERE usuario='{$vendedor}'");
 			$IdFactura		= $IdFacturaSql->fetch_array();
-			$ActulizarIdFactura	= $db->Conectar()->query("UPDATE `ventas` SET `idfactura` = '{$IdFactura['ultimaid']}' WHERE `idfactura` IS NULL ");
+			$ActulizarIdFactura	= $db->SQL("UPDATE `ventas` SET `idfactura` = '{$IdFactura['ultimaid']}' WHERE `idfactura` IS NULL ");
 			// Eliminando numeros de caja temporal
-			$EliminarCajaTmp = $db->Conectar()->query("DELETE FROM `cajatmp` WHERE vendedor='{$vendedor}'");
+			$EliminarCajaTmp = $db->SQL("DELETE FROM `cajatmp` WHERE vendedor='{$vendedor}'");
 			echo'<meta http-equiv="Refresh" content="10;url='.URLBASE.'">';
-			$localSql	= $db->Conectar()->query("SELECT `establecimiento`, `canton`, `distrito` FROM `vendedores` WHERE id='{$vendedor}'");
+			$localSql	= $db->SQL("SELECT `establecimiento`, `canton`, `distrito` FROM `vendedores` WHERE id='{$vendedor}'");
 			$local		= $localSql->fetch_array();
-			$ventaSql	= $db->Conectar()->query("SELECT `total`, `fecha`, `hora`, `cliente` FROM `factura` WHERE id='{$IdFactura['ultimaid']}'");
+			$ventaSql	= $db->SQL("SELECT `total`, `fecha`, `hora`, `cliente` FROM `factura` WHERE id='{$IdFactura['ultimaid']}'");
 			$venta		= $ventaSql->fetch_array();
 			?>
 			<div class="page-header" id="banner">
@@ -119,13 +119,13 @@ $usuario->VerificacionCuenta();
 													<td align="center"><strong>Valor</strong></td>
 												</tr>
 												<?php
-												$cajaSql	= $db->Conectar()->query("SELECT * FROM ventas WHERE idfactura='{$IdFactura['ultimaid']}'");
+												$cajaSql	= $db->SQL("SELECT * FROM ventas WHERE idfactura='{$IdFactura['ultimaid']}'");
 												while($caja	= $cajaSql->fetch_array()){
 												?>
 												<tr>
 													<td align="center">
 													<?php
-													$ProductoFacturaSql		= $db->Conectar()->query("SELECT nombre FROM `producto` WHERE id='{$caja['producto']}'");
+													$ProductoFacturaSql		= $db->SQL("SELECT nombre FROM `producto` WHERE id='{$caja['producto']}'");
 													$ProductoFactura		= $ProductoFacturaSql->fetch_array();
 													echo $ProductoFactura['nombre'];
 													?>
@@ -140,7 +140,7 @@ $usuario->VerificacionCuenta();
 													<td><div align="center"><strong>Total</strong></div></td>
 													<td></td>
 													<?php
-													$netoSql= $db->Conectar()->query("SELECT SUM(totalprecio) AS deudatotal FROM ventas WHERE idfactura='{$IdFactura['ultimaid']}'");
+													$netoSql= $db->SQL("SELECT SUM(totalprecio) AS deudatotal FROM ventas WHERE idfactura='{$IdFactura['ultimaid']}'");
 													$neto	= $netoSql->fetch_array();
 													?>
 													<td><div align="center"><strong>$ <?php echo $Vendedor->Formato($neto['deudatotal']); ?></strong></div></td>
