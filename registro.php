@@ -21,7 +21,7 @@ if($producto == null or $producto == ''){
 	$StockProductoSql	= $db->SQL("SELECT nombre, stock FROM `producto` WHERE id='{$producto}'");
 	$StockProducto		= $StockProductoSql->fetch_array();
 	$StockTmp			= $StockProducto['stock']-$cantidad;
-	if($StockTmp <= 0):
+	if($StockTmp < 0):
 		echo'
 		<div class="alert alert-dismissible alert-danger">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -96,14 +96,14 @@ $usuario->VerificacionCuenta();
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
-<?php if($ComprobarCierreCaja['tipo']==2): ?>
-<button type="button" class="btn btn-primary btn-block" data-container="body" data-toggle="popover" data-placement="top" data-content="No a realizado la apertura de caja, haz la apertura para poder facturar." data-original-title="Apertura de Caja" title="Apertura de Caja" aria-describedby="Pr&eacute;stamo Cancelado">
-Agregar Producto
-</button>
-<?php else:?>
-	<button type="submit" name="Submit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
-<?php endif;?>
-										</div>
+										<?php if($ComprobarCierreCaja['tipo']==2): ?>
+										<button type="button" class="btn btn-primary btn-block" data-container="body" data-toggle="popover" data-placement="top" data-content="No a realizado la apertura de caja, haz la apertura para poder facturar." data-original-title="Apertura de Caja" title="Apertura de Caja" aria-describedby="Pr&eacute;stamo Cancelado">
+										Agregar Producto
+										</button>
+										<?php else:?>
+											<button type="submit" name="Submit" value="Grabar" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Agregar Producto</button>
+										<?php endif;?>
+									</div>
 								</div>
 							</div>
 							<br/>
